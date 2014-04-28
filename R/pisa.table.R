@@ -1,19 +1,18 @@
-pisa.table <- 
-function(variable, by, data, export=FALSE, name= "output", folder=getwd()) {
+intsvy.table <- function(variable, by, data, final_weight="W_FSTUWT", brr_weight="W_FSTR") {
   table.input <- function(variable, data) {
     
     if (sum(is.na((data[[variable]])))==length(data[[variable]])) {
       result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
       names(result)[1] <- variable # var label for table, otherwise prints "Var1"
       return(result)
-     }
-          
+    }
+    
     # Replicate weighted %s (sampling error)
     tabrp <- as.matrix(sapply(1:80, function(i) percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
-             weights=  data[[paste("W_FSTR", i , sep="")]], na.rm=TRUE)))     
-
+                                                        weights=  data[[paste(brr_weight, i , sep="")]], na.rm=TRUE)))     
+    
     # Total weighted %                                                                      
-    tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[["W_FSTUWT"]], na.rm = TRUE, total=F)
+    tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[final_weight]], na.rm = TRUE, total=F)
     # Standard error
     if (length(tabtot)!=1) {
       tabse <- (0.05*apply((tabrp-tabtot)^2, 1, sum))^(1/2)
@@ -29,13 +28,20 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd()) {
   if (missing(by)) { 
     output <- table.input(variable=variable, data=data)
   } else {
-  # Convert by variables to characters for ddply application
+    # Convert by variables to characters for ddply application
     for (i in by) {
       data[[c(i)]] <- as.character(data[[c(i)]])
     }
     output <- ddply(data, by, function(x) table.input(data=x, variable=variable))
   }
-  
+  output
+}
+
+
+pisa.table <- 
+function(variable, by, data, export=FALSE, name= "output", folder=getwd()) {
+  output <- intsvy.table(variable, by, data, final_weight="W_FSTUWT", brr_weight="W_FSTR")
+    
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
   }
