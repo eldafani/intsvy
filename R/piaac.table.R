@@ -4,6 +4,9 @@ piaac.table <-
       
       if (export)  {
         write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
+        if (require(xlsx)) {
+          write.xlsx(output, file=file.path(folder, paste(name, ".xlsx", sep="")))
+        }
       }
     
     return(output)
