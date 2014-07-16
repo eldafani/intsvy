@@ -4,6 +4,11 @@ function(pvlabel="BSMMAT", by, weight="TOTWGT", data, export=FALSE, name= "outpu
     # PV variable names
     pvnames <- paste(pvlabel, "0", 1:5, sep="")
     
+    # If there is only one observation print NA
+    if (nrow(data)==1) { 
+      return(data.frame("Freq"= length(data[[weight]]), "Mean"= NA, "s.e."= NA, "SD"=NA, "s.e"=NA))
+    } else {
+
     # Replicate weights
     R.wt <- sapply(1:max(data[["JKZONE"]]), function(x) ifelse(data[["JKZONE"]] == x, 
            2*data[[weight]]*data[["JKREP"]], data[[weight]]))
@@ -26,11 +31,13 @@ function(pvlabel="BSMMAT", by, weight="TOTWGT", data, export=FALSE, name= "outpu
     mean.se <-  (v.meanw+v.meanb)^(1/2); sd.se <- (v.sdw+v.sdb)^(1/2)
     
 
+
     result <- data.frame("Freq"= length(data[[weight]]), "Mean"= mean(R.mean), "s.e."= mean.se, 
                          "SD"=mean(R.sd), "s.e"=sd.se)
-    
     return(round(result, 2))
+    }
   }
+  
   # If by no supplied, calculate for the complete sample    
   if (missing(by)) { 
     output <- pv.input(pvlabel=pvlabel, weight=weight, data=data)
