@@ -1,5 +1,4 @@
 pisa.mean.pv <- function(pvlabel, by,  weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd()) {
-  x  = 1
   pv.input <- function(pvlabel, weight, data) {
     # PV variable names
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
