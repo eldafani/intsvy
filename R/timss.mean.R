@@ -8,7 +8,7 @@ function(variable, by, weight="TOTWGT", data, export=FALSE, name= "output", fold
     meantot <- weighted.mean(as.numeric(data[[variable]]), data[[weight]], na.rm = TRUE)
     # Standard error (sampling eror) 
     meanse <- (sum((meanrp-meantot)^2))^(1/2)
-    result <- data.frame("n"=sum(!is.na(data[[variable]])), "Mean"= meantot, "Std.err."= meanse)
+    result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
     return(round(result, 2))
   }
   # If by no supplied, calculate for the complete sample    
