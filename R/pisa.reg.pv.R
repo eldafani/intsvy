@@ -1,18 +1,19 @@
 pisa.reg.pv <- 
-  function(x, pvlabel="READ", by, data, export=FALSE, name= "output", folder=getwd()) {
+  function(x, pvlabel="READ", by, weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd()) {
     
     # PV labels
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
+
+    # List of formulas for each PV
+    regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
     
-    reg.pv.input <- function(x, pvlabel=pvlabel, data) {
+    reg.pv.input <- function(x, pvlabel, weight, data) {
       
       # Print NA if no variability or missing
       if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
         return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
       }
       
-      # List of formulas for each PV
-      regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
       # Replicate weighted coefficients for sampling error (5 PVs)
       Coefrpv <- lapply(regform, function(k) lapply(1:80, function(i) 
         summary(lm(formula=as.formula(k), data=data, 
@@ -23,7 +24,7 @@ pisa.reg.pv <-
         c(Coefrpv[[pv]][[i]]$coefficients[,1], 100*Coefrpv[[pv]][[i]]$r.squared)))
       
       # Total weighted coefficient for each PV for imputation (between) error
-      Regpv <- lapply(regform, function(i) summary(lm(formula=i, data=data, weights=data[["W_FSTUWT"]])))
+      Regpv <- lapply(regform, function(i) summary(lm(formula=as.formula(i), data=data, weights=data[[weight]])))
       
       Stattot <- sapply(1:5, function(pv) c(Regpv[[pv]]$coefficients[, 1], 100*Regpv[[pv]]$r.squared))
       rownames(Stattot)[nrow(Stattot)] <- "R-squared"
@@ -47,9 +48,10 @@ pisa.reg.pv <-
     
     # If by not supplied, calculate for the complete sample    
     if (missing(by)) { 
-      output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data) 
+      output <- reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=data) 
     } else {
-      output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i))
+      output <- lapply(split(data, droplevels(data[by])), function(i) 
+        reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=i))
     }
     
     if (export)  {
