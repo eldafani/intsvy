@@ -1,4 +1,5 @@
 pisa.mean.pv <- function(pvlabel, by,  weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd()) {
+  x  = 1
   pv.input <- function(pvlabel, weight, data) {
     # PV variable names
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
@@ -23,7 +24,7 @@ pisa.mean.pv <- function(pvlabel, by,  weight="W_FSTUWT", data, export=FALSE, na
     MEAN.m <- mean(PV.mean)
     SD.m <- mean(PV.sd)
     
-    # Sampling variance; imputation variance; SEs
+    # Sampling variance; imputation variance; and SEs
     var.mean.w <- mean(sapply(1:5, function(i) 0.05*sum((R.mean[,i]-PV.mean[i])^2)))
     var.mean.b <- (1/(5-1))*sum(sapply(1:5, function(i) (PV.mean[i]-MEAN.m)^2))
     mean.se <-(var.mean.w+(1+1/5)*var.mean.b)^(1/2)
