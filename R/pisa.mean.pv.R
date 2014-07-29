@@ -1,8 +1,13 @@
 pisa.mean.pv <- function(pvlabel, by,  weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd()) {
-  x  = 1
   pv.input <- function(pvlabel, weight, data) {
     # PV variable names
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
+    
+    # If there is only one observation print NA
+    if (nrow(data)==1) { 
+      return(data.frame("Freq"= length(data[[weight]]), "Mean"= NA, "s.e."= NA, "SD"=NA, "s.e"=NA))
+    } else {
+      
     # Replicate weight means and sds of 5 PVs (sampling error)
     achmrp <- sapply(pvnames, function(k) sapply(1:80, function(i) weighted.mean(data[[k]], 
     data[[paste("W_FSTR", i , sep="")]], na.rm = TRUE)))
@@ -36,6 +41,7 @@ pisa.mean.pv <- function(pvlabel, by,  weight="W_FSTUWT", data, export=FALSE, na
     result <- data.frame("Freq"= length(data[[weight]]), "Mean"= mean(MEAN.m), "s.e."= mean.se, 
                          "SD"=mean(SD.m), "s.e"=sd.se)
     return(round(result, 2))
+    }
   }
   # If by no supplied, calculate for the complete sample    
   if (missing(by)) { 
@@ -50,6 +56,5 @@ pisa.mean.pv <- function(pvlabel, by,  weight="W_FSTUWT", data, export=FALSE, na
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
   }
-  
   return(output)
 }
