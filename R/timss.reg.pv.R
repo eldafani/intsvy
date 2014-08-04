@@ -3,6 +3,8 @@ function(x, pvlabel="BSMMAT", weight="TOTWGT", by, data, export=FALSE, name= "ou
   
   # PV labels
   pvnames <- paste(pvlabel, "0", 1:5, sep="")
+  # List of formulas for each PV
+  regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
   
   reg.pv.input <- function(x, pvlabel, weight, data) {
     
@@ -11,8 +13,6 @@ function(x, pvlabel="BSMMAT", weight="TOTWGT", by, data, export=FALSE, name= "ou
       return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
     }
     
-    # List of formulas for each PV
-    regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
     # Replicate weighted coefficients for sampling error (PV1 only)
     Regpv1rp <- lapply(1:max(data[["JKZONE"]]), function(i) summary(lm(formula=as.formula(regform[[1]]), data=data, 
                  weights=ifelse(data[["JKZONE"]] == i, 2*data[[weight]]*data[["JKREP"]], data[[weight]]))))
@@ -22,7 +22,7 @@ function(x, pvlabel="BSMMAT", weight="TOTWGT", by, data, export=FALSE, name= "ou
     
     
     # Total weighted coefficient for each PV for imputation (between) error
-    Regpv <- lapply(regform, function(i) summary(lm(formula=i, data=data, weights=data[["TOTWGT"]])))
+    Regpv <- lapply(regform, function(i) summary(lm(formula=as.formula(i), data=data, weights=data[[weight]])))
     
     Stattot <- sapply(1:5, function(pv) c(Regpv[[pv]]$coefficients[, 1], 100*Regpv[[pv]]$r.squared))
     rownames(Stattot)[nrow(Stattot)] <- "R-squared"
