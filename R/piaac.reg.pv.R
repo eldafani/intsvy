@@ -16,17 +16,17 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
     
     # Replicate weighted coefficients for sampling error (5 PVs)
     Coefrpv <- lapply(regform, function(k) lapply(1:80, function(i) 
-    summary(lm(formula=as.formula(k), data=data, 
-    weights=data[[paste("SPFWT", i , sep="")]]))))
+                    summary(lm(formula=as.formula(k), data=data, 
+                            weights=data[[paste("SPFWT", i , sep="")]]))))
     
     # Combining coefficients and R-squared replicates
     Statrp <- lapply(1:10, function(pv) sapply(1:80, function(i) 
-              c(Coefrpv[[pv]][[i]]$coefficients[,1], 100*Coefrpv[[pv]][[i]]$r.squared)))
+                    c(Coefrpv[[pv]][[i]]$coefficients[,1], 100*Coefrpv[[pv]][[i]]$r.squared)))
         
     # Total weighted coefficient for each PV for imputation (between) error
-    Regpv <- lapply(regform, function(i) summary(lm(formula=i, data=data, weights=data[[weight]])))
+    Regpv <- lapply(regform, function(i) lm(formula=as.formula(i), data=data, weights=data[[weight]]))
     
-    Stattot <- sapply(1:10, function(pv) c(Regpv[[pv]]$coefficients[, 1], 100*Regpv[[pv]]$r.squared))
+    Stattot <- sapply(1:10, function(pv) c(summary(Regpv[[pv]])$coefficients[, 1], 100*summary(Regpv[[pv]])$r.squared))
     rownames(Stattot)[nrow(Stattot)] <- "R-squared"
     
     # Mean total coefficients (across PVs)
