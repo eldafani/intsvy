@@ -2,6 +2,8 @@ import(memisc)
 importFrom(foreign, read.spss)
 importFrom(plyr, ddply)
 export(
+plot.intsvy.mean,
+
 pirls.ben.pv,
 pirls.mean.pv,
 pirls.mean,
@@ -12,7 +14,11 @@ pirls.rho,
 pirls.select.merge,
 pirls.table,
 pirls.var.label,
+
 piaac.table,
+piaac.mean.pv,
+piaac.mean,
+
 pisa.ben.pv,
 pisa.mean.pv,
 pisa.mean,
@@ -21,6 +27,7 @@ pisa.reg,
 pisa.select.merge,
 pisa.table,
 pisa.var.label,
+
 timss.ben.pv,
 timss.mean.pv,
 timss.mean,
@@ -29,6 +36,7 @@ timss.reg,
 timss.rho.pv,
 timss.rho,
 timss.table,
+
 timssg4.select.merge,
 timssg4.var.label,
 timssg8.select.merge,
