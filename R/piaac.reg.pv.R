@@ -7,7 +7,7 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
   # List of formulas for each PV
   regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
 
-  reg.pv.input <- function(x, pvlabel=pvlabel, data) {
+  reg.pv.input <- function(x, pvlabel=pvlabel, data, weight = "SPFWT0") {
     
     # Print NA if no variability or missing
     if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
@@ -51,9 +51,9 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
   
   # If by not supplied, calculate for the complete sample    
   if (missing(by)) { 
-    output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data) 
+    output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data, weight=weight) 
   } else {
-    output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i))
+    output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i, data=data, weight=weight))
     class(output) <- "intsvy.reg"
   }
   
