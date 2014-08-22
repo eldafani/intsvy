@@ -1,6 +1,6 @@
 pisa.mean <- 
-function(variable, by, weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd()) {
-  mean.input <- function(variable, weight, data) {
+function(variable, by, data, export=FALSE, name= "output", folder=getwd(), weight="W_FSTUWT") {
+  mean.input <- function(variable, data, weight) {
     # Replicate weight means (sampling error)
     meanrp <-     achmrp <- sapply(1:80, function(i) weighted.mean(as.numeric(data[[variable]]), 
                             data[[paste("W_FSTR", i , sep="")]], na.rm = TRUE))
@@ -25,6 +25,8 @@ function(variable, by, weight="W_FSTUWT", data, export=FALSE, name= "output", fo
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
   }
+  
+  class(output) <- c("intsvy.mean", "data.frame")
   
   return(output)
 }
