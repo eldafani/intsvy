@@ -53,7 +53,7 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
   if (missing(by)) { 
     output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data, weight=weight) 
   } else {
-    output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i, data=data, weight=weight))
+    output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i, weight=weight))
     class(output) <- "intsvy.reg"
   }
   
