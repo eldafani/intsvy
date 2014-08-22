@@ -1,6 +1,11 @@
 intsvy.mean.pv.input <- function(pvnames = paste("PV", 1:5, "READ", sep=""), 
   data, final_weight="W_FSTUWT", brr_weight="W_FSTR", replication = 'pisa') {
   # Replicate weighted sds and means of 5 PVs (sampling error)
+  
+  # If there is only one observation print NA
+  if (nrow(data)==1)  
+    return(data.frame("Freq"= length(data[[final_weight]]), "Mean"= NA, "s.e."= NA, "SD"=NA, "s.e"=NA))
+    
   R.mean <- sapply(pvnames, function(k) 
               sapply(1:80, function(i) 
                 weighted.mean(data[[k]], 
