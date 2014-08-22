@@ -1,5 +1,5 @@
-pisa.reg <-
-function(y, x, by, data, export=FALSE, name= "output", folder=getwd()) { 
+piaac.reg <-
+function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), weight="SPFWT0") { 
   
   regform <- paste(y, "~", paste(x, collapse="+"))
   
@@ -12,17 +12,20 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd()) {
     
     # Replicate weights coefficients for sampling error
     Coefrp <- lapply(1:80, function(i) summary(lm(formula=as.formula(regform), data=data, 
-              weights=data[[paste("W_FSTR", i , sep="")]])))
+              weights=data[[paste("SPFWT", i , sep="")]])))
     # Combining coefficients and R-squared replicates
     Statrp <- sapply(1:80, function(i) c(Coefrp[[i]]$coefficients[,1], 100*Coefrp[[i]]$r.squared))
   
     # Total weighted coefficients and R-squared
-    Reg <- summary(lm(formula=as.formula(regform), data=data, weights=data[["W_FSTUWT"]]))
+    Reg <- summary(lm(formula=as.formula(regform), data=data, weights=data[[weight]]))
     Stattot <- c(Reg$coefficients[,1], 100*Reg$r.squared)
     names(Stattot)[length(Stattot)] <- "R-squared"
     
+    cntName <- as.character(unique(data$CNTRYID))[1]
+    cc <- piaacReplicationScheme[cntName,"c"]
+    if (is.na(cc)) cc <- 1
     # Sampling error
-    StatSE <- (0.05*apply((Statrp-Stattot)^2, 1, sum))^(1/2)
+    StatSE <- (cc*apply((Statrp-Stattot)^2, 1, sum))^(1/2)
     # T-value
     StatT <- Stattot/StatSE
     # Reg Table

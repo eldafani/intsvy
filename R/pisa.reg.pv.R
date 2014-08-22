@@ -3,7 +3,7 @@ pisa.reg.pv <-
     
     # PV labels
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
-
+    
     # List of formulas for each PV
     regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
     
@@ -52,6 +52,7 @@ pisa.reg.pv <-
     } else {
       output <- lapply(split(data, droplevels(data[by])), function(i) 
         reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=i))
+      class(output) <- "intsvy.reg"
     }
     
     if (export)  {

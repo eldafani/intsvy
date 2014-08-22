@@ -4,6 +4,7 @@ importFrom(plyr, ddply)
 export(
 plot.intsvy.mean,
 plot.intsvy.table,
+plot.intsvy.reg,
 
 pirls.ben.pv,
 pirls.mean.pv,
@@ -19,6 +20,8 @@ pirls.var.label,
 piaac.table,
 piaac.mean.pv,
 piaac.mean,
+piaac.reg.pv,
+piaac.reg,
 
 pisa.ben.pv,
 pisa.mean.pv,
