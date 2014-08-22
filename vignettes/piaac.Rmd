@@ -1,0 +1,174 @@
+<!--
+%\VignetteEngine{knitr::docco_linear}
+%\VignetteIndexEntry{The intsvy PIAAC examples}
+-->
+
+# Installation
+
+First you need to download intsvy package from eldafani github repository
+and PIAAC package with piaac data from pbiecek repository.
+
+```{r, message=FALSE}
+library(devtools)
+library(reshape)
+library(ggplot2)
+if (!require(intsvy)) {
+  install_github("eldafani/intsvy")
+#  install_github("pbiecek/intsvy")
+}
+if (!require(PIAAC)) {
+  install_github("pbiecek/PIAAC")
+}
+
+dim(piaac)
+```
+
+# Contingency tables
+
+The piaac.table() function calculates proportions of groups defined by 'variable' in stratus defined by 'by' variables. The 'data' argument should be a data frame with column SPFWT0 (final weights in PIAAC) and SPFWT.. for BRR weights.
+
+```{r}
+
+# age distribution in whole dataset
+(ptable <- piaac.table(variable="AGEG10LFS", data=piaac))
+# age distribution within countries
+head(ptableC <- piaac.table(variable="AGEG10LFS", by="CNTRYID", data=piaac))
+# age distribution within countries and gender segments
+head(ptableCA <- piaac.table(variable="AGEG10LFS", by=c("CNTRYID", "GENDER_R"), data=piaac))
+
+```
+
+The output of piaac.table() function is of the class intsvy.table and plot() is one of overloaded functions for this class. 
+
+```{r}
+# age distribution in whole dataset
+plot(ptable)
+
+# age distribution within countries
+plot(ptableC, stacked=TRUE)
+
+# age distribution within countries and gender segments
+plot(na.omit(ptableCA), stacked=TRUE)
+
+```
+
+# Averages and group averages for plausible values
+
+The piaac.mean.pv() function calculates averages of variable 'pvlabel' in stratus defined by 'by' variables. The 'data' argument should be a data frame with column SPFWT0 (final weights in PIAAC) and SPFWT.. for BRR weights.
+
+Note that 'pvlab' is one of 'LIT' (for literacy), 'NUM' (for numeracy), 'PSL' (for problem solving). In piaac data there are 10 plausible values for each of these dimensions.
+
+```{r}
+#Table A2.2a from SkillsOutlook2013_ENG_Table_Chapter2
+
+# Country averages
+head(pmeansNC <- piaac.mean.pv(pvlabel="NUM", by="CNTRYID", data=piaac, export=FALSE))
+# Country averages for different age groups
+head(pmeansNCA <- piaac.mean.pv(pvlabel="NUM", by=c("CNTRYID", "AGEG10LFS"), data=piaac, export=FALSE))
+# Country averages for different age and gender groups
+head(pmeansNCAG <- piaac.mean.pv(pvlabel="NUM", by=c("CNTRYID", "AGEG10LFS", "GENDER_R"), data=piaac, export=FALSE))
+# Country averages for different age and gender groups (changed order)
+head(pmeansNCGA <- piaac.mean.pv(pvlabel="NUM", by=c("CNTRYID", "GENDER_R", "AGEG10LFS"), data=piaac, export=FALSE))
+
+```
+
+The output of piaac.mean.pv() function is of the class intsvy.mean and plot() is one of overloaded functions for this class. 
+
+```{r}
+#
+# plotting country average NUM performance 
+plot(pmeansNC) + ggtitle("Country performance in NUM")
+# without se bars, not good idea
+plot(pmeansNC, se=FALSE)
+# sorted, thats better
+plot(pmeansNC, sort=TRUE)
+
+#
+# plotting country average within 
+# age groups NUM performance 
+plot(pmeansNCA, sort=TRUE)
+#
+# plotting country average within 
+# age and gender groups NUM performance 
+plot(na.omit(pmeansNCGA), sort=TRUE)
+
+```
+
+# Averages and group averages part 2
+
+The piaac.mean() function calculates averages of 'variable' in groups defined by 'by' variables. The 'data' argument should be a data frame with column SPFWT0 (final weights in PIAAC) and SPFWT.. for BRR weights.
+
+Note that 'variable' should be continuous and should not be any of plausible values (there is a separate function piaac.mean.pv() for them).
+
+```{r}
+# average age in different countries
+head(pmeansAC <- piaac.mean(variable="AGE_R", by="CNTRYID", data=piaac, export=FALSE))
+
+# average age in different countries and for differet genders
+head(pmeansACG <- piaac.mean(variable="AGE_R", by=c("CNTRYID","GENDER_R"), data=piaac, export=FALSE))
+
+```
+
+As for piaac.mean.pv() also for piaac.mean() the output is of the class intsvy.mean and plot() is overloaded for it. 
+
+```{r}
+plot(na.omit(pmeansAC), sort=TRUE)
+plot(na.omit(pmeansACG), sort=TRUE)
+```
+
+
+# Regression models with plausible values
+
+The piaac.reg.pv() function runes linear regression model with 'pvlabel' as an dependent variable and variables 'x' as independent variables. Regression models are calculated in stratus defined by 'by' variables. The 'data' argument should be a data frame with column SPFWT0 (final weights in PIAAC) and SPFWT.. for BRR weights.
+
+Note that 'pvlab' is one of 'LIT' (for literacy), 'NUM' (for numeracy), 'PSL' (for problem solving). In piaac data there are 10 plausible values for each of these dimensions.
+
+
+```{r}
+#
+# LITeracy explained by GENDER in different countries
+rmodelLG <- piaac.reg.pv(pvlabel="LIT", x="GENDER_R", by = "CNTRYID", data=piaac, export=FALSE) 
+rmodelLG[1:3]
+#
+# LITeracy explained by GENDER and level of trust in different countries
+rmodelLGI <- piaac.reg.pv(pvlabel="LIT", x=c("GENDER_R", "I_Q06A"), by = "CNTRYID", data=piaac, export=FALSE) 
+rmodelLGI[1:3]
+
+```
+
+The piaac.mean.pv() function outputs an object of intsvy.reg class with overloaded plot() function. 
+
+```{r}
+# add se intervals
+plot(rmodelLG, se=TRUE)
+# sorted along R square
+plot(rmodelLG, se=TRUE, sort=TRUE)
+```
+
+```{r, fig.height=15}
+plot(rmodelLGI, se=TRUE)
+```
+
+
+# Regression models part 2
+
+The piaac.reg() function fits regression models with 'y' as dependent variable and 'x' as independent variables and groups defined by 'by' variables. The 'data' argument should be a data frame with column SPFWT0 (final weights in PIAAC) and SPFWT.. for BRR weights.
+
+Note that 'variable' should be continuous and should not be any of plausible values (there is a separate function piaac.reg.pv() for them).
+
+
+```{r}
+#
+# regression GENDER on AGE per country
+rmodelAGC <- piaac.reg(y="AGE_R", x="GENDER_R", by="CNTRYID", data=piaac, export=FALSE) 
+
+```
+
+As for piaac.reg.pv() also for piaac.reg() the output is of the class intsvy.reg and plot() is overloaded for it. 
+
+```{r}
+plot(rmodelAGC, se=TRUE)
+# sorted along R square
+plot(rmodelAGC, se=TRUE, sort=TRUE)
+```
+
