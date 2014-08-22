@@ -1,5 +1,5 @@
 pisa.reg.pv <- 
-  function(x, pvlabel="READ", by, weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd()) {
+  function(x, pvlabel="READ", by, data, export=FALSE, name= "output", folder=getwd(), weight="W_FSTUWT") {
     
     # PV labels
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
