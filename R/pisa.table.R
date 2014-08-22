@@ -34,6 +34,7 @@ intsvy.table <- function(variable, by, data, final_weight="W_FSTUWT", brr_weight
     }
     output <- ddply(data, by, function(x) table.input(data=x, variable=variable, final_weight=final_weight, brr_weight=brr_weight))
   }
+  class(output) <- c("intsvy.table", "data.frame")
   output
 }
 

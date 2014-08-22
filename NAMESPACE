@@ -3,6 +3,7 @@ importFrom(foreign, read.spss)
 importFrom(plyr, ddply)
 export(
 plot.intsvy.mean,
+plot.intsvy.table,
 
 pirls.ben.pv,
 pirls.mean.pv,
