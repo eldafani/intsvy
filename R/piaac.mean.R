@@ -13,7 +13,7 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd()) {
     if (is.na(cc)) cc <- 1
     
     meanse <- (cc*sum((meanrp-meantot)^2))^(1/2)
-    result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "Std.err."= meanse)
+    result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
     return(round(result, 2))
   }
   # If by no supplied, calculate for the complete sample    
