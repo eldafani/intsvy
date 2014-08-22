@@ -1,7 +1,6 @@
 plot.intsvy.mean <- function(imeans, se=TRUE, sort=FALSE) {
   # it is assumed that last three columns are:  "Freq"       "Mean" "Std.err."  
-  vars <- setdiff(colnames(imeans), c("Freq", "Mean", "Std.err."))
-  colnames(imeans)[ncol(imeans)] = "se"
+  vars <- setdiff(colnames(imeans), c("Freq", "Mean", "s.e.", "SD", "s.e"))
   nvar <- length(vars)
   pl <- NA
   if (isTRUE(sort)) {
@@ -28,7 +27,7 @@ plot.intsvy.mean <- function(imeans, se=TRUE, sort=FALSE) {
   }
   
   if (se) {
-    pl <- pl + geom_errorbar(aes(ymin=Mean-se, ymax=Mean+se), width=.5) 
+    pl <- pl + geom_errorbar(aes(ymin=Mean-s.e., ymax=Mean+s.e.), width=.5) 
   } 
   pl
 }
