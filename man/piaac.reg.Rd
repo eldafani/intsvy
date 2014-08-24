@@ -5,7 +5,7 @@
 piaac.reg performs linear regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
 }
 \usage{
-piaac.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd())
+piaac.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd(), weight="SPFWT0")
 }
 
 \arguments{
@@ -29,6 +29,9 @@ The name of the exported file.
 }
   \item{folder}{
 The folder where the exported file is located.
+}
+  \item{weight}{
+The variable with final weights.
 }
 }
 

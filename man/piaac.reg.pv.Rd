@@ -6,7 +6,7 @@ piaac.reg.pv performs linear regression analysis (OLS) with plausible values and
 }
 \usage{
 piaac.reg.pv(x, pvlabel = "LIT", by, data, 
-export = FALSE, name = "output", folder = getwd())
+export = FALSE, name = "output", folder = getwd(), weight="SPFWT0")
 }
 
 \arguments{
@@ -30,6 +30,9 @@ The name of the exported file.
 }
   \item{folder}{
 The folder where the exported file is located.
+}
+  \item{weight}{
+The variable with final weights.
 }
 }
 

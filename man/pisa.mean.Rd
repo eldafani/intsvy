@@ -8,7 +8,7 @@ Calculates the mean of an observed variable (NOT one with plausible values) and 
 }
 \usage{
 pisa.mean(variable, by, data, export = FALSE, 
-name = "output", folder = getwd())
+name = "output", folder = getwd(), weight="W_FSTUWT")
 }
 
 \arguments{
@@ -29,6 +29,9 @@ The name of the exported file.
 }
   \item{folder}{
 The folder where the exported file is located.
+}
+  \item{weight}{
+The variable with final weights.
 }
 }
 
