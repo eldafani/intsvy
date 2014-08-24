@@ -2,17 +2,16 @@ Package: intsvy
 Version: 1.4
 Type: Package
 Title: International Assessment Data Manager
-Date: 2014-03-12
-Authors@R: c(
-    person("Daniel", "Caro", role = c("aut", "cre"),
-    email = "daniel.caro@education.ox.ac.uk"),
-    person("Przemyslaw", "Biecek", role = c("aut"),
-    email = "przemyslaw.biecek@gmail.com")
-    )
+Date: 2014-08-22
+Author: Daniel Caro <daniel.caro@education.ox.ac.uk>, Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 Maintainer: Daniel Caro <daniel.caro@education.ox.ac.uk>
 Description: Provides tools for importing, merging, and analysing data from international assessment studies (TIMSS, PIRLS, PISA and PIAAC)
 License: GPL-2
-Depends: memisc, foreign, plyr, ggplot2
+VignetteBuilder: knitr
+URL: https://github.com/eldafani/intsvy
+BugReports: https://github.com/eldafani/intsvy/issues
+Depends: memisc, foreign, plyr, ggplot2, reshape
+Suggests: knitr, xslx, devtools, PIAAC
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
