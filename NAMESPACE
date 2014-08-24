@@ -1,6 +1,6 @@
 import(ggplot2)
-import(reshape)
 import(memisc)
+importFrom(reshape, melt)
 importFrom(foreign, read.spss)
 importFrom(plyr, ddply)
 export(

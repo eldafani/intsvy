@@ -5,7 +5,8 @@
 piaac.reg performs linear regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
 }
 \usage{
-piaac.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd(), weight="SPFWT0")
+piaac.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd(), 
+         weight="SPFWT0")
 }
 
 \arguments{

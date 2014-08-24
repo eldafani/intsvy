@@ -7,7 +7,8 @@ Calculates mean achievement score
 pisa.mean.pv uses five plausible values to calculate the mean achievement score and its standard error
 }
 \usage{
-pisa.mean.pv(pvlabel, by, data, export = FALSE, name = "output", folder = getwd(), weight="W_FSTUWT")
+pisa.mean.pv(pvlabel, by, data, export = FALSE, name = "output", 
+     folder = getwd(), weight="W_FSTUWT")
 }
 
 \arguments{
