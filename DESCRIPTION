@@ -10,7 +10,6 @@ License: GPL-2
 URL: https://github.com/eldafani/intsvy
 BugReports: https://github.com/eldafani/intsvy/issues
 Depends: memisc, foreign, plyr, ggplot2, reshape
-Suggests: knitr, xslx, devtools, PIAAC
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
