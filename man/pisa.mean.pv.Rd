@@ -36,7 +36,7 @@ pisa.mean.pv returns a data frame with the mean values and standard errors.
 }
 
 \seealso{
-timss.mean.pv, pirls.mean.pv
+timss.mean.pv, pirls.mean.pv, piaac.mean.pv
 }
 \examples{
 \dontrun{

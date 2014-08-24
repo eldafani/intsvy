@@ -37,7 +37,7 @@ pisa.mean returns a data frame with means and standard errors.
 }
 
 \seealso{
-timss.mean, pirls.mean
+timss.mean, pirls.mean, piaac.mean
 }
 \examples{
 \dontrun{
