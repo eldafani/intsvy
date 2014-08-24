@@ -34,11 +34,12 @@ The folder where the exported file is located.
 
 \value{
 pisa.reg returns a data frame with coefficients, standard errors and t-values. If "by" is specified, results are reported in a list.
+If the "by" argument is set, then the returning object is of the class "intsvy.reg" with overloaded function plot().
 }
 
 
 \seealso{
-pirls.reg, timss.reg
+pirls.reg, timss.reg, piaac.reg
 }
 \examples{
 \dontrun{
