@@ -20,6 +20,7 @@ pirls.table,
 pirls.var.label,
 
 piaac.table,
+piaac.ben.pv,
 piaac.mean.pv,
 piaac.mean,
 piaac.reg.pv,
