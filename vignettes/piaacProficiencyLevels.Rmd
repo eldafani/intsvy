@@ -1,0 +1,40 @@
+<!--
+%\VignetteEngine{knitr::docco_linear}
+%\VignetteIndexEntry{The intsvy PIAAC examples}
+-->
+
+# Installation
+
+First you need to download intsvy package from eldafani github repository
+and PIAAC package with piaac data from pbiecek repository.
+
+```{r, message=FALSE}
+library(devtools)
+library(reshape)
+library(ggplot2)
+if (!require(intsvy)) {
+  install_github("eldafani/intsvy")
+#  install_github("pbiecek/intsvy")
+}
+if (!require(PIAAC)) {
+  install_github("pbiecek/PIAAC")
+}
+
+dim(piaac)
+```
+
+# Proficiency levels
+
+The piaac.ben.pv() function calculates proportions of groups defined by 'cutoff' over selected PVin stratus defined by 'by' variables. The 'data' argument should be a data frame with column SPFWT0 (final weights in PIAAC) and SPFWT.. for BRR weights.
+
+```{r}
+
+#Table A2.5      											
+#Percentage of adults scoring at each proficiency level in numeracy														
+piaac.ben.pv(pvlabel="NUM", by="CNTRYID", data=piaac)
+
+#Table A2.1
+#Percentage of adults scoring at each proficiency level in literacy  													
+piaac.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac)
+
+```
