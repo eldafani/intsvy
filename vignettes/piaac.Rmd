@@ -42,13 +42,16 @@ The output of piaac.table() function is of the class intsvy.table and plot() is 
 
 ```{r}
 # age distribution in whole dataset
-plot(ptable)
+(tmplp <- plot(ptable))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptable1.pdf", width = 8, height = 4)
 
 # age distribution within countries
-plot(ptableC, stacked=TRUE)
+(tmplp <- plot(ptableC, stacked=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptable2.pdf", width = 8, height = 6)
 
 # age distribution within countries and gender segments
-plot(na.omit(ptableCA), stacked=TRUE)
+(tmplp <- plot(na.omit(ptableCA), stacked=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptable3.pdf", width = 8, height = 6)
 
 ```
 
@@ -77,20 +80,25 @@ The output of piaac.mean.pv() function is of the class intsvy.mean and plot() is
 ```{r}
 #
 # plotting country average NUM performance 
-plot(pmeansNC) + ggtitle("Country performance in NUM")
+(tmplp <- plot(pmeansNC) + ggtitle("Country performance in NUM"))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableB1.pdf", width = 10, height = 7)
 # without se bars, not good idea
-plot(pmeansNC, se=FALSE)
+(tmplp <- plot(pmeansNC, se=FALSE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableB2.pdf", width = 10, height = 7)
 # sorted, thats better
-plot(pmeansNC, sort=TRUE)
+(tmplp <- plot(pmeansNC, sort=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableB3.pdf", width = 10, height = 7)
 
 #
 # plotting country average within 
 # age groups NUM performance 
-plot(pmeansNCA, sort=TRUE)
+(tmplp <- plot(pmeansNCA, sort=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableB4.pdf", width = 10, height = 7)
 #
 # plotting country average within 
 # age and gender groups NUM performance 
-plot(na.omit(pmeansNCGA), sort=TRUE)
+(tmplp <- plot(na.omit(pmeansNCGA), sort=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableB5.pdf", width = 10, height = 7)
 
 ```
 
@@ -140,13 +148,18 @@ The piaac.mean.pv() function outputs an object of intsvy.reg class with overload
 
 ```{r}
 # add se intervals
-plot(rmodelLG, se=TRUE)
+(tmplp <- plot(rmodelLG, se=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableC1.pdf", width = 12, height = 9)
+
 # sorted along R square
-plot(rmodelLG, se=TRUE, sort=TRUE)
+(tmplp <- plot(rmodelLG, se=TRUE, sort=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableC2.pdf", width = 12, height = 9)
+
 ```
 
 ```{r, fig.height=15}
-plot(rmodelLGI, se=TRUE)
+(tmplp <- plot(rmodelLGI, se=TRUE))
+ggsave(tmplp, filename = "Paper/LaTeX format/plots/ptableC3.pdf", width = 12, height = 14)
 ```
 
 
