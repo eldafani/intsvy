@@ -33,3 +33,4 @@ adj.measlev, is.vlabeled
 adj.input(data)
 }
 }
+\keyword{internal}
