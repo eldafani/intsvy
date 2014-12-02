@@ -47,12 +47,11 @@ timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-#Table A2.5    												
-#Percentage of adults scoring at each proficiency level in numeracy														
+#Table A2.5
+#Percentage of adults scoring at each proficiency level in numeracy
 piaac.ben.pv(pvlabel="NUM", by="CNTRYID", data=piaac)
-
 #Table A2.1
-#Percentage of adults scoring at each proficiency level in literacy  													
+#Percentage of adults scoring at each proficiency level in literacy
 piaac.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac)
 }
 }
