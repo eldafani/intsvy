@@ -21,6 +21,9 @@ The label for the grouping variable, usually the countries (i.e., by="CNTRYID"),
   \item{weight}{
 The label for total weight, "SPFWT0", in PIAAC. 	
 }
+  \item{brr_weight}{
+The label for brr_weights in PIAAC. 	
+}
   \item{data}{
 An R object, normally a data frame, containing the data from PIAAC.
 }
