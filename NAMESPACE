@@ -1,5 +1,5 @@
 import(ggplot2)
-importFrom(memisc, percent, spss.system.file)
+importFrom(memisc, percent, spss.system.file, description, measurement)
 importFrom(reshape, melt)
 importFrom(foreign, read.spss)
 importFrom(plyr, ddply)
