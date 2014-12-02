@@ -33,3 +33,4 @@ adj.measlev, is.vlabeled
 is.labeled(myvector)
 }
 }
+\keyword{internal}
