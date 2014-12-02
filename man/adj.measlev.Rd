@@ -35,3 +35,4 @@ adj.input, is.vlabeled
 adj.measlev(mydataset)
 }
 }
+\keyword{internal}
