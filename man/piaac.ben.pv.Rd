@@ -4,7 +4,7 @@
 \description{Calculates percentage of population at each proficiency level defined by PIAAC. Or at proficiency levels provided by the user.
 }
 \usage{
-piaac.ben.pv(pvlabel, cutoff = c(175.5, 255.5, 275.5, 325.5, 375.5), 
+piaac.ben.pv(pvlabel, cutoff = c(175.99, 225.99, 275.99, 325.99, 375.99), 
     by, weight="SPFWT0", brr_weight="SPFWT", data, export=FALSE, 
     name= "output", folder=getwd())
 }
