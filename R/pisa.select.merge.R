@@ -50,7 +50,7 @@ function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countri
   files.all <- files.all[lapply(files.all, length)>0]
   
   # Participating countries (from student file)
-  pisa.student <- spss.system.file(files.all[["Student"]])
+  pisa.student <- spss.system.file(files.all[["Student"]], to.lower=FALSE)
   country <- names(table(pisa.student[,"CNT"]))
   
   # If countries missing, all countries selected
@@ -90,7 +90,7 @@ function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countri
     }
     
     
-    pisa.parent <- spss.system.file(files.all[["Parent"]])
+    pisa.parent <- spss.system.file(files.all[["Parent"]], to.lower=FALSE)
     names(pisa.parent) <- toupper(names(pisa.parent))
     
     parent.data <- pisa.parent[pisa.parent["CNT"] %in% countries, 
@@ -110,7 +110,7 @@ function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countri
     }
     
     
-    pisa.school <- spss.system.file(files.all[["School"]])
+    pisa.school <- spss.system.file(files.all[["School"]], to.lower=FALSE)
     names(pisa.school) <- toupper(names(pisa.school))
     
     school.data <- pisa.school[pisa.school["CNT"] %in% countries, 

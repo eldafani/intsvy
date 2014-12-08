@@ -29,7 +29,7 @@ function(folder=getwd(), name="Variable labels", output=getwd()) {
   rownames(country.list)<-NULL # remove subset rownames
   
   # Variable labels
-  var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]])))
+  var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]], to.lower=FALSE)))
   # Country labels
   var.label[[length(files.all)+1]] <-country.list
   names(var.label)[length(var.label)] <-"Participating countries"
