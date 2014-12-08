@@ -26,10 +26,10 @@ function(folder=getwd(), student.file, parent.file=c(), school.file=c(), name="V
   files.all <- files.all[lapply(files.all, length)>0]
   
   # Retrieve var labels
-  var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]])))  
+  var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]], to.lower=FALSE)))  
   
   # Read student file and participating countries 
-  country <- names(table(spss.system.file(files.all[["Student"]])[,"CNT"]))
+  country <- names(table(spss.system.file(files.all[["Student"]], to.lower=FALSE)[,"CNT"]))
   
   # Participating countries in dataset (must be all)
   country.list <- pisa.country[pisa.country[, "ISO"] %in% country, ]
