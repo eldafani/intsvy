@@ -47,6 +47,7 @@ function(x, pvlabel="ASRREA", weight="TOTWGT", by, data, export=FALSE, name= "ou
     output <- reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=data)
   } else {
     output <- lapply(split(data, factor(data[[by]])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=i))
+    class(output) <- "intsvy.reg"
   }
   
   if (export)  {
