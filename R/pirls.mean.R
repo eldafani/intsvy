@@ -22,5 +22,7 @@ pirls.mean <-
       write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
     }
     
+    class(output) <- c("intsvy.mean", "data.frame")
+    
     return(output)
   }
