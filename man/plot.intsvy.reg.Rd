@@ -52,7 +52,7 @@ plot(rmodelLG, se=TRUE, sort=TRUE)
 # LITeracy explained by GENDER and level of trust in different countries
 rmodelLGI <- piaac.reg.pv(pvlabel="LIT", x=c("GENDER_R", "I_Q06A"), by = "CNTRYID", 
                    data=piaac, export=FALSE) 
-#
+# Plot of level of trust coefficients
 plot(rmodelLGI, vars= c("I_Q06A"), se=TRUE)
 
 }
