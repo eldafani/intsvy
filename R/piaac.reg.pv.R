@@ -57,12 +57,12 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
     output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data, weight=weight) 
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i, weight=weight))
-    class(output) <- "intsvy.reg"
-  }
+    }
   
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
   }
   
+  class(output) <- "intsvy.reg"
   return(output)
 }
