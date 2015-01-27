@@ -1,6 +1,4 @@
 plot.intsvy.reg <- function(x, vars, se=TRUE, sort=FALSE, ...) {
-  x= gen.mod
-
   if (missing(vars)) {
     vars = row.names(x[[1]])
   } 
