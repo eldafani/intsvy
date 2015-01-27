@@ -16,6 +16,9 @@ The function plot.intsvy.reg presents this list of regression models graphically
 An object of the class intsvy.reg returned by  pisa.reg, pisa.reg.pv, piaac.reg 
 and piaac.reg.pv functions.
 }
+  \item{vars}{
+Variable labels of coefficients to be plotted. If none selected all coefficients are plotted including the R-squared 
+}
   \item{se}{
 If TRUE add whiskers for standard errors.
 }
@@ -50,7 +53,7 @@ plot(rmodelLG, se=TRUE, sort=TRUE)
 rmodelLGI <- piaac.reg.pv(pvlabel="LIT", x=c("GENDER_R", "I_Q06A"), by = "CNTRYID", 
                    data=piaac, export=FALSE) 
 #
-plot(rmodelLGI, se=TRUE)
+plot(rmodelLGI, vars= c("I_Q06A"), se=TRUE)
 
 }
 }
