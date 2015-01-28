@@ -3,8 +3,8 @@ plot.intsvy.reg <- function(x, vars, se=TRUE, sort=FALSE) {
     vars = row.names(x[[1]])
   }
   # it is assumed that last three columns are: "Freq" "Mean" "Std.err."
-  coefE <- lapply(gen.mod, function(x) x[row.names(x) %in% vars, "Estimate"])
-  coefS <- lapply(gen.mod, function(x) x[row.names(x) %in% vars, "Std. Error"])
+  coefE <- lapply(x, function(x) x[row.names(x) %in% vars, "Estimate"])
+  coefS <- lapply(x, function(x) x[row.names(x) %in% vars, "Std. Error"])
   inds <- which(!is.na(coefE))
   estimates <- t(simplify2array(coefE[inds]))
   colnames(estimates) <- vars
