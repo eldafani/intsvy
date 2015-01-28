@@ -36,6 +36,7 @@ if (missing(by)) {
   output <- reg.input(y=y, x=x, weight=weight, data=data)
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i) reg.input(y=y, x=x, weight=weight, data=i))
+    class(output) <- "intsvy.reg"
   }
   
   if (export)  {

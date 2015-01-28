@@ -14,10 +14,11 @@ library(reshape)
 library(ggplot2)
 if (!require(intsvy)) {
   install_github("eldafani/intsvy")
-#  install_github("pbiecek/intsvy")
+  library(intsvy)
 }
 if (!require(PIAAC)) {
   install_github("pbiecek/PIAAC")
+  library(PIAAC)
 }
 
 dim(piaac)

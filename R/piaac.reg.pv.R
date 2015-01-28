@@ -35,6 +35,9 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
     cntName <- as.character(unique(data$CNTRYID))[1]
     cc <- piaacReplicationScheme[cntName,"c"]
     if (is.na(cc)) cc <- 1
+    if (length(unique(piaacReplicationScheme[as.character(unique(data$CNTRYID)),"c"])) > 1) {
+      warning(paste("In PIAAC study different replications schemes were applied in different countries. \n In the selected set of countries more than one scheme was used. \n Further estimation is performed with coefficient c =", cc))
+    }
     # Sampling error (variance within)
     Varw <- apply(cc*sapply(lapply(1:10, function(pv) (Statrp[[pv]]-Stattot[,pv])^2), function(e) apply(e, 1, sum)), 1, mean)
     
@@ -54,12 +57,12 @@ function(x, pvlabel="LIT", by, data, export=FALSE, name= "output", folder=getwd(
     output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data, weight=weight) 
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, data=i, weight=weight))
-    class(output) <- "intsvy.reg"
-  }
+    }
   
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
   }
   
+  class(output) <- "intsvy.reg"
   return(output)
 }

@@ -23,6 +23,9 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), weight="S
     
     cntName <- as.character(unique(data$CNTRYID))[1]
     cc <- piaacReplicationScheme[cntName,"c"]
+    if (length(unique(piaacReplicationScheme[as.character(unique(data$CNTRYID)),"c"])) > 1) {
+      warning(paste("In PIAAC study different replications schemes were applied in different countries. \n In the selected set of countries more than one scheme was used. \n Further estimation is performed with coefficient c =", cc))
+    }
     if (is.na(cc)) cc <- 1
     # Sampling error
     StatSE <- (cc*apply((Statrp-Stattot)^2, 1, sum))^(1/2)

@@ -34,6 +34,9 @@ intsvy.mean.pv.input <- function(pvnames = paste("PV", 1:5, "READ", sep=""),
     cntName <- as.character(unique(data$CNTRYID))[1]
     cc <- piaacReplicationScheme[cntName,"c"]
     if (is.na(cc)) cc <- 1
+    if (length(unique(piaacReplicationScheme[as.character(unique(data$CNTRYID)),"c"])) > 1) {
+      warning(paste("In PIAAC study different replications schemes were applied in different countries. \n In the selected set of countries more than one scheme was used. \n Further estimation is performed with coefficient c =", cc))
+    }
   }
   
   # Sampling variance; imputation variance; and SEs
