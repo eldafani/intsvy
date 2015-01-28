@@ -1,8 +1,8 @@
 Package: intsvy
-Version: 1.5
+Version: 1.7
 Type: Package
 Title: International Assessment Data Manager
-Date: 2014-12-02
+Date: 2015-01-28
 Author: Daniel Caro <daniel.caro@education.ox.ac.uk>, Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 Maintainer: Daniel Caro <daniel.caro@education.ox.ac.uk>
 Description: Provides tools for importing, merging, and analysing data from international assessment studies (TIMSS, PIRLS, PISA and PIAAC)
