@@ -8,7 +8,7 @@ Functions pisa.reg, pisa.reg.pv, piaac.reg and piaac.reg.pv produce object of th
 The function plot.intsvy.reg presents this list of regression models graphically.
 }
 \usage{
-\method{plot}{intsvy.reg}(x, se = TRUE, sort = FALSE, ...)
+\method{plot}{intsvy.reg}(x, se = TRUE, sort = FALSE)
 }
 
 \arguments{
@@ -25,14 +25,12 @@ If TRUE add whiskers for standard errors.
   \item{sort}{
 If TRUE groups are sorted along averages.
 }
-  \item{...}{
-Not used. Required for cran-check.
-}
 }
 
 \value{
-Returns object of ggplot class with barplot. 
-Works for one way, two-way and three-way contingency tables.
+Returns object of ggplot class with barplot. As with other ggplot objects the plus sign "+" can be used outside 
+this function to modify graph parameters of the returning ggplot object. Works for one way, two-way and three-way 
+contingency tables. 
 }
 
 \seealso{
