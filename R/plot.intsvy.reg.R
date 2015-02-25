@@ -7,9 +7,9 @@ plot.intsvy.reg <- function(x, vars, se=TRUE, sort=FALSE) {
   coefS <- lapply(x, function(x) x[row.names(x) %in% vars, "Std. Error"])
   inds <- which(!is.na(coefE))
   estimates <- t(simplify2array(coefE[inds]))
-  colnames(estimates) <- vars
+  colnames(estimates) <- row.names(x[[1]][row.names(x[[1]]) %in% vars, ])
   sErrors <- t(simplify2array(coefS[inds]))
-  colnames(sErrors) <- vars
+  colnames(sErrors) <- row.names(x[[1]][row.names(x[[1]]) %in% vars, ])
   if (isTRUE(sort)) {
     ord <- order(estimates[,ncol(estimates)])
     estimates <- estimates[ord,]
