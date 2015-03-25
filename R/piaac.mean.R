@@ -20,8 +20,9 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd()) {
   if (missing(by)) { 
     output <- mean.input(variable=variable, data=data)
   } else {
+    
     for (i in by) {
-      data[[c(i)]] <- as.character(data[[c(i)]])
+      data[[c(i)]] <- as.factor(data[[c(i)]])
     }
     output <- ddply(data, by, function(x) mean.input(data=x, variable=variable))
   }

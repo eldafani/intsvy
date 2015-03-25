@@ -17,7 +17,7 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), weigh
     output <- mean.input(variable=variable, weight=weight, data=data)
   } else {
     for (i in by) {
-      data[[c(i)]] <- as.character(data[[c(i)]])
+      data[[c(i)]] <- as.factor(data[[c(i)]])
     }
     output <- ddply(data, by, function(x) mean.input(data=x, weight=weight, variable=variable))
   }

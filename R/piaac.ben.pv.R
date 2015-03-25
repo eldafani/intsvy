@@ -53,6 +53,11 @@ function(pvlabel, cutoff = c(175.99, 225.99, 275.99, 325.99, 375.99), by, weight
   if (missing(by)) { 
     output <- pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, weight=weight, brr_weight=brr_weight, data=data)
   } else {
+    
+    for (i in by) {
+      data[[c(i)]] <- as.factor(data[[c(i)]])
+    }
+    
     output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, weight=weight, brr_weight=brr_weight, data=x))
   }
   

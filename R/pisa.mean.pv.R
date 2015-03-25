@@ -59,9 +59,10 @@ intsvy.mean.pv <- function(pvnames = paste("PV", 1:5, "READ", sep=""), by,
   if (missing(by)) { 
     output <- intsvy.mean.pv.input(pvnames=pvnames, data=data, final_weight, brr_weight, replication=replication)
   } else {
-    for (i in by) 
-      data[[c(i)]] <- as.character(data[[c(i)]])
-
+    for (i in by) {
+    data[[c(i)]] <- as.factor(data[[c(i)]])
+    }
+    
     output <- ddply(data, by, function(x) intsvy.mean.pv.input(pvnames=pvnames, data=x, 
                                                                final_weight, brr_weight,
                                                                replication=replication))

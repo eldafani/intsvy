@@ -34,6 +34,11 @@ function(pvlabel, cutoff = c(400, 475, 550, 625), by, weight= "TOTWGT", data,
   if (missing(by)) { 
     output <- pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, weight=weight, data=data)
   } else {
+    
+    for (i in by) {
+      data[[c(i)]] <- as.factor(data[[c(i)]])
+    }
+    
     output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, weight=weight, data=x))
   }
   

@@ -42,6 +42,11 @@ function(pvlabel="BSMMAT", by, weight="TOTWGT", data, export=FALSE, name= "outpu
   if (missing(by)) { 
     output <- pv.input(pvlabel=pvlabel, weight=weight, data=data)
   }  else {
+    
+    for (i in by) {
+      data[[c(i)]] <- as.factor(data[[c(i)]])
+    }
+    
   output <- ddply(data, by, function(x) pv.input(data=x, weight=weight, pvlabel=pvlabel))
   }
   
