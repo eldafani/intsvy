@@ -3,6 +3,7 @@ importFrom(memisc, percent, spss.system.file, description, measurement)
 importFrom(reshape, melt)
 importFrom(foreign, read.spss)
 importFrom(plyr, ddply)
+importFrom(Hmisc, wtd.quantile)
 export(
 plot.intsvy.mean,
 plot.intsvy.table,

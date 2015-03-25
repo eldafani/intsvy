@@ -17,8 +17,6 @@ pirls.per.pv <-
               2*data[[weight]]*data[["JKREP"]], data[[weight]]))
       
       # Percentile estimates of PV1 (for sampling error)
-      R.mean1 <- sapply(1:ncol(R.wt), function(x) weighted.mean(data[[pvnames[[1]]]], R.wt[, x], na.rm = TRUE))                                                                  
-      
       R.per1 <- sapply(1:ncol(R.wt), function(i) wtd.quantile(data[[pvnames[[1]]]], 
                 probs=per/100, weights=R.wt[,i], na.rm = TRUE))
       
