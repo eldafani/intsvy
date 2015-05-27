@@ -1,5 +1,5 @@
 pisa.reg.pv <- 
-  function(x, pvlabel="READ", by, data, export=FALSE, name= "output", folder=getwd(), weight="W_FSTUWT") {
+  function(x, pvlabel="READ", by, data, export=FALSE, name= "output", folder=getwd(), weight="W_FSTUWT", std=FALSE) {
     
     # PV labels
     pvnames <- paste("PV", 1:5, pvlabel, sep="")
@@ -13,7 +13,12 @@ pisa.reg.pv <-
       if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
         return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
       }
-      
+    
+    # Standardise IV and DV variables
+      if(std) {
+        data <-  cbind(scale(data[c(pvnames, x)]), data[!names(data) %in% c(pvnames, x)])
+      }
+            
       # Replicate weighted coefficients for sampling error (5 PVs)
       Coefrpv <- lapply(regform, function(k) lapply(1:80, function(i) 
         summary(lm(formula=as.formula(k), data=data, 

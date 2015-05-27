@@ -6,7 +6,7 @@ pisa.reg.pv performs linear regression analysis (OLS) with plausible values and 
 }
 \usage{
 pisa.reg.pv(x, pvlabel = "READ", by, data, 
-export = FALSE, name = "output", folder = getwd(), weight="W_FSTUWT")
+export = FALSE, name = "output", folder = getwd(), weight="W_FSTUWT", std=FALSE)
 }
 
 \arguments{
@@ -33,6 +33,9 @@ The folder where the exported file is located.
 }
   \item{weight}{
 The variable with final weights.
+}
+  \item{std}{
+A logical value. If TRUE standardised regression coefficients are calculated.
 }
 }
 
