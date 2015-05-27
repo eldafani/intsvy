@@ -2,7 +2,7 @@ pisa.mean <-
 function(variable, by, data, export=FALSE, name= "output", folder=getwd(), weight="W_FSTUWT") {
   mean.input <- function(variable, data, weight) {
     # Replicate weight means (sampling error)
-    meanrp <-     achmrp <- sapply(1:80, function(i) weighted.mean(as.numeric(data[[variable]]), 
+    meanrp <- sapply(1:80, function(i) weighted.mean(as.numeric(data[[variable]]), 
                             data[[paste("W_FSTR", i , sep="")]], na.rm = TRUE))
     
     # Total weighted mean                                                                      
