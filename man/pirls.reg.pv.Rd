@@ -6,7 +6,7 @@ pirls.reg.pv performs linear regression analysis (OLS) with plausible values and
 }
 \usage{
 pirls.reg.pv(x, pvlabel = "ASRREA", weight = "TOTWGT", by, 
-data, export = FALSE, name = "output", folder = getwd())
+data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
   \item{x}{
@@ -23,6 +23,9 @@ The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL")
 }
   \item{data}{
 An R object, normally a data frame, containing the data from PIRLS.
+}
+  \item{std}{
+A logical value. If TRUE standardised regression coefficients are calculated.
 }
   \item{export}{
 A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 

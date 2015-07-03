@@ -1,5 +1,5 @@
 pirls.reg.pv <-
-function(x, pvlabel="ASRREA", weight="TOTWGT", by, data, export=FALSE, name= "output", folder=getwd()) {
+function(x, pvlabel="ASRREA", weight="TOTWGT", by, data, std=FALSE, export=FALSE, name= "output", folder=getwd()) {
   
   # PV labels
   pvnames <- paste(pvlabel, "0", 1:5, sep="")
@@ -11,6 +11,11 @@ function(x, pvlabel="ASRREA", weight="TOTWGT", by, data, export=FALSE, name= "ou
     # Print NA if no variability or missing
     if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
       return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
+    }
+    
+    # Standardise IV and DV variables
+    if(std) {
+      data <-  cbind(scale(data[c(pvnames, x)]), data[!names(data) %in% c(pvnames, x)])
     }
     
     # Replicate weighted coefficients for sampling error (PV1 only)
