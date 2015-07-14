@@ -57,7 +57,7 @@ function(x, pvlabel="ASRREA", weight="TOTWGT", by, data, std=FALSE, export=FALSE
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
   }
-  
-  class(output) <- "intsvy.reg"
+
+  class(output) <- append(class(output),"intsvy.reg")
   return(output)
 }
