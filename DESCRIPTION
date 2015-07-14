@@ -7,9 +7,9 @@ Author: Daniel Caro <daniel.caro@education.ox.ac.uk>, Przemyslaw Biecek <przemys
 Maintainer: Daniel Caro <daniel.caro@education.ox.ac.uk>
 Description: Provides tools for importing, merging, and analysing data from international assessment studies (TIMSS, PIRLS, PISA and PIAAC)
 License: GPL-2
-URL: https://github.com/eldafani/intsvy
+URL: http://users.ox.ac.uk/~educ0279, https://github.com/eldafani/intsvy
 BugReports: https://github.com/eldafani/intsvy/issues
-Depends: memisc, foreign, plyr, ggplot2, reshape, Hmisc
+Imports: foreign, ggplot2, Hmisc, memisc, plyr, reshape 
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
