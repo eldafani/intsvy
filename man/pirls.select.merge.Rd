@@ -7,7 +7,7 @@ Select and merge data
 pirls.select.merge selects and merges data from PIRLS. Achievement and weight variabels (all of them) are selected by default.
 }
 \usage{
-pirls.select.merge(folder = getwd(), countries, student = c(), home, school, teacher)
+pirls.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, use.labels=TRUE)
 }
 \arguments{
   \item{folder}{
@@ -27,6 +27,9 @@ The data labels for the selected school variables.
 }
   \item{teacher}{
 The data labels for the selected teacher data.
+}
+  \item{use.labels}{
+logical: convert variables with value labels into R factors with those levels? 
 }
 }
 

@@ -7,7 +7,7 @@ Select and merge data
 timssg4.select.merge selects and merges data from TIMSS G4. Achievement and weight variables (all of them) are selected by default.
 }
 \usage{
-timssg4.select.merge(folder = getwd(), countries, student = c(), home, school, teacher)
+timssg4.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, use.labels=TRUE)
 }
 
 \arguments{
@@ -28,6 +28,9 @@ The data labels for the selected school variables.
 }
   \item{teacher}{
 The data labels for the selected teacher variables.
+}
+  \item{use.labels}{
+logical: convert variables with value labels into R factors with those levels? 
 }
 }
 
