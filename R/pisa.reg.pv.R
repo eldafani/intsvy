@@ -13,56 +13,66 @@ pisa.reg.pv <-
       if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
         return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
       }
-    
-    # Standardise IV and DV variables
+      
+      # Standardise IV and DV variables
       if(std) {
         data <-  cbind(scale(data[c(pvnames, x)]), data[!names(data) %in% c(pvnames, x)])
       }
-            
+      
       # Replicate weighted coefficients for sampling error (5 PVs)
-      Coefrpv <- lapply(regform, function(k) lapply(1:80, function(i) 
-        summary(lm(formula=as.formula(k), data=data, 
-                   weights=data[[paste("W_FSTR", i , sep="")]]))))
+      reg.rep <- lapply(regform, function(pv) lapply(1:80, function(rep) 
+        summary(lm(formula=as.formula(pv), data=data, weights=data[[paste0("W_FSTR", rep)]]))))
+      
       
       # Combining coefficients and R-squared replicates
-      Statrp <- lapply(1:5, function(pv) sapply(1:80, function(i) 
-        c(Coefrpv[[pv]][[i]]$coefficients[,1], 100*Coefrpv[[pv]][[i]]$r.squared)))
+      coe.rep <- lapply(1:5, function(pv) sapply(1:80, function(rep) 
+        c(reg.rep[[pv]][[rep]]$coefficients[,1], "R-squared"= 100*reg.rep[[pv]][[rep]]$r.squared)))
+      
+      resid <- lapply(1:5, function(pv) sapply(1:80, function(rep) reg.rep[[pv]][[rep]]$residuals))
       
       # Total weighted coefficient for each PV for imputation (between) error
-      Regpv <- lapply(regform, function(i) summary(lm(formula=as.formula(i), data=data, weights=data[[weight]])))
+      reg.pv <- lapply(regform, function(pv) summary(lm(formula=as.formula(pv), data=data, weights=data[[weight]])))
       
-      Stattot <- sapply(1:5, function(pv) c(Regpv[[pv]]$coefficients[, 1], 100*Regpv[[pv]]$r.squared))
-      rownames(Stattot)[nrow(Stattot)] <- "R-squared"
+      coe.tot <- sapply(1:5, function(pv) c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = 100*reg.pv[[pv]]$r.squared))
+      
       
       # Mean total coefficients (across PVs)
-      Stattotm <- apply(Stattot, 1, mean)
+      stat.tot <- apply(coe.tot, 1, mean)
       
       # Sampling error (variance within)
-      Varw <- apply(0.05*sapply(lapply(1:5, function(pv) (Statrp[[pv]]-Stattot[,pv])^2), function(e) apply(e, 1, sum)), 1, mean)
+      var.w <- apply(0.05*sapply(lapply(1:5, function(pv) (coe.rep[[pv]]-coe.tot[,pv])^2), function(e) apply(e, 1, sum)), 1, mean)
       
       # Imputation error (variance between)
-      Varb <- (1/4)*apply(sapply(1:5, function(i) (Stattot[, i] - Stattotm)^2), 1, sum)
+      var.b <- (1/4)*apply(sapply(1:5, function(pv) (coe.tot[, pv] - stat.tot)^2), 1, sum)
       
-      StatSE <- (Varw+(1+1/5)*Varb)^(1/2)
-      StatT <- Stattotm/StatSE
+      stat.se <- (var.w +(1+1/5)*var.b)^(1/2)
+      stat.t <- stat.tot/stat.se
       
       # Reg Table
-      RegTab <- round(data.frame("Estimate"=Stattotm, "Std. Error"=StatSE, "t value"=StatT, check.names=F),2)
-      return(RegTab)
+      reg.tab <- data.frame("Estimate"=stat.tot, "Std. Error"=stat.se, "t value"=stat.t, check.names=F)
+      results <- list("replicates"=lapply(coe.rep, t), "residuals"= resid, "var.w"=var.w, "var.b"=var.b, "reg"=reg.tab)
+      class(results) <- "intsvy.reg"
+      return(results)
     }
     
     # If by not supplied, calculate for the complete sample    
     if (missing(by)) { 
-      output <- reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=data) 
+      output <- reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=data)
+      reg <- output$reg
+      
     } else {
       output <- lapply(split(data, droplevels(data[by])), function(i) 
         reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=i))
-      }
-    
-    if (export)  {
-      write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
+      reg <- do.call('rbind', lapply(output, function(by) by$reg))
     }
     
-    class(output) <- append(class(output),"intsvy.reg")
+    if (export)  {
+      write.csv(reg, file=file.path(folder, paste(name, ".csv", sep="")))
+    }
+    
     return(output)
   }
+
+print.intsvy.reg <- function(x) {
+  print(round(x$reg, 2))
+}

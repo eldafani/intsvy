@@ -39,7 +39,7 @@ The folder where the exported file is located.
 }
 
 \value{
-pirls.reg.pv returns a data frame with coefficients, standard errors and t-values. If "by" is specified, results are reported in a list. 
+pirls.reg.pv prints a data.frame with regression results (i.e., coefficients, standard errors, t-values, R-squared) and stores  different regression output including residuals, replicate coefficients, variance within and between, and the regression data.frame in a list object of class "intsvy.reg". 
 }
 
 
@@ -55,5 +55,3 @@ pirls$SEX[pirls$ITSEX=="GIRL"]=0
 pirls.reg.pv(pvlabel="ASRREA", by="IDCNTRYL", x="SEX", data=pirls)
 }
 }
-
-
