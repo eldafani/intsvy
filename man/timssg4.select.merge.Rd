@@ -29,6 +29,9 @@ The data labels for the selected school variables.
   \item{teacher}{
 The data labels for the selected teacher variables.
 }
+  \item{use.labels}{
+logical: convert variables with value labels into R factors with those levels? 
+}
 }
 
 \value{

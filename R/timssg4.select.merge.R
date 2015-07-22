@@ -1,5 +1,5 @@
 timssg4.select.merge <-
-function(folder=getwd(), countries, student=c(), home, school, teacher) {
+function(folder=getwd(), countries, student=c(), home, school, teacher, use.labels=TRUE) {
   
   # Remove leading and trailing whitespaces in var labes  
   
@@ -72,7 +72,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher) {
     
     suppressWarnings(suppressMessages(student.data <- do.call("rbind",       # Merge [[1]] student
     lapply(files.select[['asg']], function(y) 
-    read.spss(y, to.data.frame=T)
+    read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)
     [c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", "JKREP",         # IDs/Weights/PVs
     "JKZONE", "HOUWGT", "SENWGT", "TOTWGT",      
     "ASMMAT01", "ASMMAT02", "ASMMAT03", "ASMMAT04", "ASMMAT05",                               
@@ -89,7 +89,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher) {
     }
     
    suppressWarnings(suppressMessages(home.data <- do.call("rbind",                                      # Merge [[2]] home
-   lapply(files.select[['ash']], function(y) read.spss(y, to.data.frame=TRUE)[, c(                      # Each dataset
+   lapply(files.select[['ash']], function(y) read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, c(                      # Each dataset
    "IDCNTRY", "IDSTUD", home)]))))                                                   # Selected
   }
   
@@ -104,7 +104,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher) {
     }
     
     suppressWarnings(suppressMessages(school.data <- do.call("rbind",                                                 # Merge [[3]] school
-    lapply(files.select[['acg']], function(y) read.spss(y, to.data.frame=TRUE)[,c(              # Each dataset
+    lapply(files.select[['acg']], function(y) read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[,c(              # Each dataset
     "IDCNTRY", "IDSCHOOL", "SCHWGT", school)]))))                                                                     # Selected
   }
   
@@ -118,10 +118,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher) {
     }
     
     suppressWarnings(suppressMessages(teach.l <- do.call("rbind",                              
-    lapply(files.select[['ast']], function(y) read.spss(y, to.data.frame=TRUE)))))
+    lapply(files.select[['ast']], function(y) read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)))))
     
     suppressWarnings(suppressMessages(teach.i <-  do.call("rbind",                              
-    lapply(files.select[['atg']], function(y) read.spss(y, to.data.frame=TRUE)[, c(
+    lapply(files.select[['atg']], function(y) read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, c(
     "IDCNTRY", "IDTEALIN", teacher)]))))
     
     teacher.data <- merge(teach.l, teach.i, by=c("IDCNTRY", "IDTEALIN"))

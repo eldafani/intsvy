@@ -30,6 +30,9 @@ The data labels for the selected math teacher variables.
   \item{science.teacher}{
 The data labels for the selected science teacher variables.
 }
+  \item{use.labels}{
+logical: convert variables with value labels into R factors with those levels? 
+}
 }
 \value{
 timssg8.select.merge returns a data frame with the selected data from TIMSS G8.
