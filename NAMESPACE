@@ -4,12 +4,17 @@ importFrom(reshape, melt)
 importFrom(foreign, read.spss)
 importFrom(plyr, ddply)
 importFrom(Hmisc, wtd.quantile)
+
 export(
 plot.intsvy.mean,
 plot.intsvy.table,
 plot.intsvy.reg,
 
+summary.intsvy.reg,
+
 pirls.ben.pv,
+pirls.log,
+pirls.log.pv,
 pirls.mean.pv,
 pirls.mean,
 pirls.reg.pv,
@@ -28,6 +33,8 @@ piaac.reg.pv,
 piaac.reg,
 
 pisa.ben.pv,
+pisa.log,
+pisa.log.pv,
 pisa.mean.pv,
 pisa.mean,
 pisa.reg.pv,
@@ -37,6 +44,8 @@ pisa.table,
 pisa.var.label,
 
 timss.ben.pv,
+timss.log,
+timss.log.pv,
 timss.mean.pv,
 timss.mean,
 timss.reg.pv,
@@ -49,8 +58,6 @@ timssg4.select.merge,
 timssg4.var.label,
 timssg8.select.merge,
 timssg8.var.label
-
-summary.intsvy.reg
 )
 
 S3method(summary, intsvy.reg)
