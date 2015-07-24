@@ -44,7 +44,7 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), weight="W
   class(output) <- "intsvy.reg"
   
   if (export)  {
-    write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
+    write.csv(summary(output), file=file.path(folder, paste(name, ".csv", sep="")))
   }
   
   return(output)
