@@ -9,7 +9,7 @@ Description: Provides tools for importing, merging, and analysing data from inte
 License: GPL-2
 URL: http://users.ox.ac.uk/~educ0279, https://github.com/eldafani/intsvy
 BugReports: https://github.com/eldafani/intsvy/issues
-Depends: foreign, ggplot2, Hmisc, memisc, plyr, reshape 
+Imports: foreign, ggplot2, Hmisc, memisc, plyr, reshape 
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
