@@ -61,7 +61,7 @@ pirls.reg.pv <-
     class(output) <- "intsvy.reg"
     
     if (export)  {
-      write.csv(reg, file=file.path(folder, paste(name, ".csv", sep="")))
+      write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
     }
     return(output)
   }
