@@ -17,8 +17,7 @@ plot.intsvy.reg <- function(x, vars, se=TRUE, sort=FALSE) {
   colnames(sErrors) <- row.names(x[[1]][row.names(x[[1]]) %in% vars, ])
   
   # Sort argument removed
-  
-  ndf <- droplevels(na.omit(data.frame(melt(estimates), melt(sErrors)[,3])))
+  ndf <- droplevels(na.omit(data.frame(reshape::melt.array(estimates), reshape::melt.array(sErrors)[,3])))
   colnames(ndf) <- c("Group", "Coefficient", "Value", "se")
   ndf$valueL <- ndf$Value - 1.96*ndf$se
   ndf$valueH <- ndf$Value + 1.96*ndf$se
