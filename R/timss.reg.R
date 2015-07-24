@@ -7,37 +7,43 @@ function(y, x, by, weight="TOTWGT", data, export=FALSE, name= "output", folder=g
     
   # If no variability in y or x, or if all missing print NA
   if (sum(sapply(data[c(y, x)], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
-  return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
+    results <- list("replicates"=NA, "residuals"= NA, "reg"=NA)
+    return(results)
   }
     
   # Replicate weights coefficients for sampling error
-  Coefrp <- lapply(1:max(data[["JKZONE"]]), function(i) summary(lm(formula= as.formula(regform), data=data, weights= 
-  ifelse(data[["JKZONE"]] == i, 2*data[[weight]]*data[["JKREP"]], data[[weight]]))))
+  reg.rp <- lapply(1:max(data[["JKZONE"]]), function(i) summary(lm(formula= as.formula(regform), data=data, weights= 
+           ifelse(data[["JKZONE"]] == i, 2*data[[weight]]*data[["JKREP"]], data[[weight]]))))
   
   # Combine coefficients and R-squared
-  Statrp <- sapply(1:max(data[["JKZONE"]]), function(i) c(Coefrp[[i]]$coefficients[,1], 100*Coefrp[[i]]$r.squared))
-    
+  coef.rp <- sapply(1:max(data[["JKZONE"]]), function(i) c(reg.rp[[i]]$coefficients[,1], "R-squared" = reg.rp[[i]]$r.squared))
+  
+  resid <- sapply(1:length(reg.rp), function(rep) reg.rp[[rep]]$residuals)
+  
+  
   # Total weighted coefficients
-  Reg <- summary(lm(formula=as.formula(regform), data=data, weights=data[[weight]]))
-  Stattot <- c(Reg$coefficients[ ,1] , 100*Reg$r.squared)
-  names(Stattot)[length(Stattot)] <- "R-squared"
-                   
+  reg.tot <- summary(lm(formula=as.formula(regform), data=data, weights=data[[weight]]))
+  coef.tot <- c(reg.tot$coefficients[ ,1] , "R-squared" = reg.tot$r.squared)
+  
   # Sampling error
-  StatSE <- apply((Statrp-Stattot)^2, 1, sum)^(1/2)
+  coef.se <- apply((coef.rp-coef.tot)^2, 1, sum)^(1/2)
   # T-value
-  StatT <- Stattot/StatSE
+  coef.t <- coef.tot/coef.se
   # Reg Table
-  RegTab <- round(data.frame("Estimate"=Stattot, "Std. Error"=StatSE, "t value"=StatT, check.names=F),2)
-  return(RegTab)
+  reg.tab <- data.frame("Estimate"=coef.tot, "Std. Error"=coef.se, "t value"=coef.t, check.names=F)
+  
+  results <- list("replicates"=t(coef.rp), "residuals"= resid, "reg"=reg.tab)
+  return(results)
   }
-
+  
   # If by not supplied, calculate for the complete sample    
-if (missing(by)) { 
-  output <- reg.input(y=y, x=x, weight=weight, data=data)
+  if (missing(by)) { 
+    output <- reg.input(y=y, x=x, weight=weight, data=data)
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i) reg.input(y=y, x=x, weight=weight, data=i))
-    class(output) <- "intsvy.reg"
   }
+  
+  class(output) <- "intsvy.reg"
   
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))

@@ -66,16 +66,14 @@ pirls.select.merge <-
       if (!missing(student) & is.null(files.select[['asg']])) {
         stop('cannot locate student data files')
       }
+        
+      suppressWarnings(suppressMessages(junk0 <- lapply(files.select[['asg']], function(y) 
+      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
       
-      suppressWarnings(suppressMessages(student.data <- do.call("rbind",                  # Merge [[1]] student
-      lapply(files.select[['asg']], function(y) read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, c(     # Each dataset 
-      "IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", "JKREP",                                # Variable def sel
-      "JKZONE", "HOUWGT", "SENWGT", "TOTWGT",      
-      "ASRREA01", "ASRREA02", "ASRREA03", "ASRREA04", "ASRREA05",                               
-      "ASRINF01", "ASRINF02", "ASRINF03", "ASRINF04", "ASRINF05",
-      "ASRLIT01", "ASRLIT02", "ASRLIT03", "ASRLIT04", "ASRLIT05", student)]))))        # Selected                                            
+      student.data <- do.call('rbind', lapply(junk0, function(x) x[, c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", 
+      grep("^ASR.*0[0-5]$", names(x), value=TRUE), student, "JKREP","JKZONE", "HOUWGT", "SENWGT", "TOTWGT")]))
       
-    }
+     }
     
     # Home background data
     if (!missing(home)) {

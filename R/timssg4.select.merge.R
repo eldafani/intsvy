@@ -70,13 +70,12 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
       stop('cannot locate student data files')
     }
     
-    suppressWarnings(suppressMessages(student.data <- do.call("rbind",       # Merge [[1]] student
-    lapply(files.select[['asg']], function(y) 
-    read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)
-    [c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", "JKREP",         # IDs/Weights/PVs
-    "JKZONE", "HOUWGT", "SENWGT", "TOTWGT",      
-    "ASMMAT01", "ASMMAT02", "ASMMAT03", "ASMMAT04", "ASMMAT05",                               
-    "ASSSCI01", "ASSSCI02", "ASSSCI03", "ASSSCI04", "ASSSCI05", student)]))))    
+    suppressWarnings(suppressMessages(junk0 <- lapply(files.select[['asg']], function(y) 
+      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
+    
+    student.data <- do.call('rbind', lapply(junk0, function(x) x[, c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", 
+    grep("^AS.*0[0-5]$", names(x), value=TRUE), student, "JKREP","JKZONE", "HOUWGT", "SENWGT", "TOTWGT")]))
+    
   }
   
   

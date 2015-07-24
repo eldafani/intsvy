@@ -10,7 +10,8 @@ pirls.reg.pv <-
       
       # Print NA if no variability or missing
       if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
-        return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
+        results <- list("replicates"=NA, "residuals"= NA, "var.w"=NA, "var.b"=NA, "reg"=NA)
+        return(results)
       }
       
       # Standardise IV and DV variables
@@ -20,17 +21,17 @@ pirls.reg.pv <-
       
       # Replicate weighted coefficients for sampling error (PV1 only)
       reg.rep <- lapply(1:max(data[["JKZONE"]]), function(i) summary(lm(formula=as.formula(regform[[1]]), data=data, 
-                                                                        weights=ifelse(data[["JKZONE"]] == i, 2*data[[weight]]*data[["JKREP"]], data[[weight]]))))
+                 weights=ifelse(data[["JKZONE"]] == i, 2*data[[weight]]*data[["JKREP"]], data[[weight]]))))
       
       # Combining coefficients and R-squared replicates
-      coe.rep <- sapply(1:max(data[["JKZONE"]]), function(i) c(reg.rep[[i]]$coefficients[,1], "R-squared"= 100*reg.rep[[i]]$r.squared))
+      coe.rep <- sapply(1:max(data[["JKZONE"]]), function(i) c(reg.rep[[i]]$coefficients[,1], "R-squared"= reg.rep[[i]]$r.squared))
       
       resid <- sapply(1:length(reg.rep), function(rep) reg.rep[[rep]]$residuals)
       
       
       # Total weighted coefficient for each PV for imputation (between) error
       reg.pv <- lapply(regform, function(i) summary(lm(formula=as.formula(i), data=data, weights=data[[weight]])))
-      coe.tot <- sapply(1:5, function(pv) c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = 100*reg.pv[[pv]]$r.squared))
+      coe.tot <- sapply(1:5, function(pv) c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = reg.pv[[pv]]$r.squared))
       
       # Mean total coefficients (across PVs)
       stat.tot <- apply(coe.tot, 1, mean)
@@ -47,18 +48,17 @@ pirls.reg.pv <-
       reg.tab <- data.frame("Estimate"=stat.tot, "Std. Error"=stat.se, "t value"=stat.t, check.names=F)
       
       results <- list("replicates"=coe.rep, "residuals"= resid, "var.w"=var.w, "var.b"=var.b, "reg"=reg.tab)
-      class(results) <- "intsvy.reg"
       return(results)
     }
     
     # If by not supplied, calculate for the complete sample    
     if (missing(by)) { 
       output <- reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=data)
-      reg <- output$reg
     } else {
       output <- lapply(split(data, factor(data[[by]])), function(i) reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=i))
-      reg <- do.call('rbind', lapply(output, function(by) by$reg))
     }
+
+    class(output) <- "intsvy.reg"
     
     if (export)  {
       write.csv(reg, file=file.path(folder, paste(name, ".csv", sep="")))

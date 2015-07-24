@@ -11,7 +11,8 @@ pisa.reg.pv <-
       
       # Print NA if no variability or missing
       if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
-        return(data.frame("Estimate"=NA, "Std. Error"=NA, "t value"=NA, check.names=F))
+        results <- list("replicates"=NA, "residuals"= NA, "var.w"=NA, "var.b"=NA, "reg"=NA)
+        return(results)
       }
       
       # Standardise IV and DV variables
@@ -26,14 +27,14 @@ pisa.reg.pv <-
       
       # Combining coefficients and R-squared replicates
       coe.rep <- lapply(1:5, function(pv) sapply(1:80, function(rep) 
-        c(reg.rep[[pv]][[rep]]$coefficients[,1], "R-squared"= 100*reg.rep[[pv]][[rep]]$r.squared)))
+        c(reg.rep[[pv]][[rep]]$coefficients[,1], "R-squared"= reg.rep[[pv]][[rep]]$r.squared)))
       
       resid <- lapply(1:5, function(pv) sapply(1:80, function(rep) reg.rep[[pv]][[rep]]$residuals))
       
       # Total weighted coefficient for each PV for imputation (between) error
       reg.pv <- lapply(regform, function(pv) summary(lm(formula=as.formula(pv), data=data, weights=data[[weight]])))
       
-      coe.tot <- sapply(1:5, function(pv) c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = 100*reg.pv[[pv]]$r.squared))
+      coe.tot <- sapply(1:5, function(pv) c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = reg.pv[[pv]]$r.squared))
       
       
       # Mean total coefficients (across PVs)
@@ -51,20 +52,18 @@ pisa.reg.pv <-
       # Reg Table
       reg.tab <- data.frame("Estimate"=stat.tot, "Std. Error"=stat.se, "t value"=stat.t, check.names=F)
       results <- list("replicates"=lapply(coe.rep, t), "residuals"= resid, "var.w"=var.w, "var.b"=var.b, "reg"=reg.tab)
-      class(results) <- "intsvy.reg"
       return(results)
     }
     
     # If by not supplied, calculate for the complete sample    
     if (missing(by)) { 
       output <- reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=data)
-      reg <- output$reg
-      
     } else {
       output <- lapply(split(data, droplevels(data[by])), function(i) 
         reg.pv.input(x=x, pvlabel=pvlabel, weight=weight, data=i))
-      reg <- do.call('rbind', lapply(output, function(by) by$reg))
     }
+    
+    class(output) <- "intsvy.reg"
     
     if (export)  {
       write.csv(reg, file=file.path(folder, paste(name, ".csv", sep="")))
@@ -72,7 +71,3 @@ pisa.reg.pv <-
     
     return(output)
   }
-
-print.intsvy.reg <- function(x) {
-  print(round(x$reg, 2))
-}

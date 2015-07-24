@@ -1,6 +1,6 @@
 \name{pirls.log.pv}
 \alias{pirls.log.pv}
-\title{Regression analysis with plausible values}
+\title{Logistic regression analysis with plausible values}
 \description{
 pirls.log.pv performs logistic regression with plausible values and replicate weights.
 }
@@ -33,12 +33,12 @@ The folder where the exported file is located.
 }
 
  \item{weight}{
-    The label of the total weight, "TOTWGT", in PIRLS.   
+    The label of the total weight, "TOTWGT", in PIRLS. The variable is treated as frequency weights.   
  }
 }
 
 \value{
-pirls.log.pv returns a data frame with coefficients, standard errors and t-values. If "by" is specified, results are reported in a list. 
+pirls.log.pv returns a data frame with coefficients, standard errors, t-values, and odds ratios. If "by" is specified, results are reported in a list. 
 }
 
 \seealso{

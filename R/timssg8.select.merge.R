@@ -68,13 +68,12 @@ function(folder=getwd(), countries, student=c(), school, math.teacher, science.t
       stop('cannot locate student data files')
     }
     
-    suppressWarnings(suppressMessages(student.data <- do.call("rbind",             # Merge [[1]] student
-    lapply(files.select[['bsg']], function(y) 
-    read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)
-    [c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", "JKREP",         # IDs/Weights/PVs
-    "JKZONE", "HOUWGT", "SENWGT", "TOTWGT",      
-    "BSMMAT01", "BSMMAT02", "BSMMAT03", "BSMMAT04", "BSMMAT05",                               
-    "BSSSCI01", "BSSSCI02", "BSSSCI03", "BSSSCI04", "BSSSCI05", student)]))))    
+    suppressWarnings(suppressMessages(junk0 <- lapply(files.select[['bsg']], function(y) 
+      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
+    
+    student.data <- do.call('rbind', lapply(junk0, function(x) x[, c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD", 
+    grep("^BS.*0[0-5]$", names(x), value=TRUE), student, "JKREP","JKZONE", "HOUWGT", "SENWGT", "TOTWGT")]))
+    
   }
   
   

@@ -37,7 +37,7 @@ The folder where the exported file is located.
 }
 
 \value{
-timss.reg returns a data frame with coefficients, standard errors and t-values. If "by" is specified, results are reported in a list.
+timss.reg prints a data.frame with regression results (i.e., coefficients, standard errors, t-values, R-squared) and stores  different regression output including residuals and replicate coefficients in a list object of class "intsvy.reg". 
 }
 
 

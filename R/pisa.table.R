@@ -9,7 +9,7 @@ intsvy.table <- function(variable, by, data, final_weight="W_FSTUWT", brr_weight
     
     # Replicate weighted %s (sampling error)
     tabrp <- as.matrix(sapply(1:80, function(i) percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
-                                                        weights=  data[[paste(brr_weight, i , sep="")]], na.rm=TRUE)))     
+            weights=  data[[paste(brr_weight, i , sep="")]], na.rm=TRUE)))     
     
     # Total weighted %                                                                      
     tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[final_weight]], na.rm = TRUE, total=FALSE)

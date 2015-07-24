@@ -1,6 +1,6 @@
 \name{pisa.log.pv}
 \alias{pisa.log.pv}
-\title{Regression analysis with plausible values}
+\title{Logistic regression analysis with plausible values}
 \description{
 pisa.log.pv performs logistic regression with plausible values and replicate weights.
 }
@@ -35,15 +35,14 @@ The folder where the exported file is located.
   The label of the brr weight prefix, "W_FSTR", PISA. 
   }
  \item{weight}{
-    The label of the total weight, "W_FSTUWT", in PISA.   
+    The label of the total weight, "W_FSTUWT", in PISA. The variable is treated as frequency weights.    
  }
 }
 
 \value{
-pisa.log.pv returns a data frame with coefficients, standard errors and t-values. If "by" is specified, results are reported in a list. 
+pisa.log.pv returns a data frame with coefficients, standard errors, t-values, and odds ratios. If "by" is specified, results are reported in a list. 
 }
 
 \seealso{
 timss.log.pv, pirls.log.pv
 }
-

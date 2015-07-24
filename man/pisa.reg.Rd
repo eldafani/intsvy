@@ -5,7 +5,7 @@
 pisa.reg performs linear regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
 }
 \usage{
-pisa.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd())
+pisa.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd(), weight="W_FSTUWT", brr_weight="W_FSTR")
 }
 
 \arguments{
@@ -30,11 +30,16 @@ The name of the exported file.
   \item{folder}{
 The folder where the exported file is located.
 }
+  \item{weight}{
+The variable with the total weight.
+}
+  \item{brr_weight}{
+The variable label for the replicate weights.
+}
 }
 
 \value{
-pisa.reg returns a data frame with coefficients, standard errors and t-values. If "by" is specified, results are reported in a list.
-If the "by" argument is set, then the returning object is of the class "intsvy.reg" with overloaded function plot().
+pisa.reg prints a data.frame with regression results (i.e., coefficients, standard errors, t-values, R-squared) and stores  different regression output including residuals and replicate coefficients in a list object of class "intsvy.reg". 
 }
 
 
