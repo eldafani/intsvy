@@ -15,7 +15,8 @@ pisa.rho(variables, by, weight="W_FSTUWT", data, export=FALSE, name= "output", f
 Data labels for the variables in the correlation matrix (e.g., variables=c("TCHBEHTD", "TCHBEHSO"))
 }
   \item{by}{
-The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
+The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any 
+other categorical variable. 	
 }
   \item{weight}{
 The total weight, "W_FSTUWT" in the PISA dataset.
@@ -24,7 +25,8 @@ The total weight, "W_FSTUWT" in the PISA dataset.
 An R object, normally a data frame, containing the data from PISA.
 }
   \item{export}{
-A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 
+A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) 
+that can be opened from LibreOffice or Excel. 
 }
   \item{name}{
 The name of the exported file.
