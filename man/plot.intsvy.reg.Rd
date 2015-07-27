@@ -8,7 +8,7 @@ Functions pisa.reg, pisa.reg.pv, piaac.reg and piaac.reg.pv produce object of th
 The function plot.intsvy.reg presents this list of regression models graphically.
 }
 \usage{
-\method{plot}{intsvy.reg}(x, se = TRUE, sort = FALSE)
+\method{plot}{intsvy.reg}(x, vars, se = TRUE, sort = FALSE)
 }
 
 \arguments{
