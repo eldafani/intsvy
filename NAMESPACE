@@ -60,3 +60,6 @@ timssg4.var.label,
 timssg8.select.merge,
 timssg8.var.label
 )
+
+S3method(summary, intsvy.reg)
+S3method(print, intsvy.reg)
