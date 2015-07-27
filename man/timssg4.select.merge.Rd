@@ -4,18 +4,22 @@
 Select and merge data
 }
 \description{
-timssg4.select.merge selects and merges data from TIMSS G4. Achievement and weight variables (all of them) are selected by default.
+timssg4.select.merge selects and merges data from TIMSS G4. Achievement and weight variables 
+(all of them) are selected by default.
 }
 \usage{
-timssg4.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, use.labels=TRUE)
+timssg4.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, 
+use.labels=TRUE)
 }
 
 \arguments{
   \item{folder}{
-Directory path where the data are located. The data could be organized within folders but it should not be duplicated.
+Directory path where the data are located. The data could be organized within folders but it 
+should not be duplicated.
 }
   \item{countries}{
-The selected countries, supplied with the abbreviation (e.g., countries=c("AUT", "BGR") or codes (countries=c(40, 100)). If no countries are selected, all are selected.
+The selected countries, supplied with the abbreviation (e.g., countries=c("AUT", "BGR") or codes 
+(countries=c(40, 100)). If no countries are selected, all are selected.
 }
   \item{student}{
 The data labels for the selected student variables. 
