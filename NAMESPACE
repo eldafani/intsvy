@@ -63,3 +63,6 @@ timssg8.var.label
 
 S3method(summary, intsvy.reg)
 S3method(print, intsvy.reg)
+S3method(plot, intsvy.mean)
+S3method(plot, intsvy.reg)
+S3method(plot, intsvy.table)
