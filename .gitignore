@@ -28,6 +28,7 @@ local.properties
 # PDT-specific
 .buildpath
 
+.Rhistory
 
 #################
 ## Visual Studio
@@ -213,3 +214,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+.Rproj.user
