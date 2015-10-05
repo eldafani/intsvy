@@ -2,20 +2,6 @@
 # Configurations for different studies
 # 
 
-# For TIMMS
-timms_conf <- list(variables = list(pvlabelpref="BSMMAT", 
-                                    pvlabelsuff = "",
-                                    weight="TOTWGT",
-                                    p1 = "JKZONE",
-                                    p2 = "JKREP"),
-                   parameters = list(cutoffs = c(400, 475, 550, 625),
-                                     cutoffs2 = c(550),
-                                     percentiles = c(5, 10, 25, 75, 90, 95),
-                                     PVreps = 5),
-                   input = list(non_student_teacher = filenames=c("asg", "ash", "acg", "atg"),
-                                student_teacher = c("bsg", "bcg", "bst", "btm", "bts"))
-                   )
-
 # For PISA
 pisa_conf <- list(variables = list(pvlabelpref = "PV",
                                   pvlabelsuff = "READ",
@@ -43,12 +29,42 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
                                    replication_scheme = 'piaac')
 )
 
+# For TIMMS
+timms_conf <- list(variables = list(pvlabelpref="BSMMAT", 
+                                    pvlabelsuff = "",
+                                    weight="TOTWGT",
+                                    jackknifeZone = "JKZONE",
+                                    jackknifeRep = "JKREP"),
+                   parameters = list(cutoffs = c(400, 475, 550, 625),
+                                     cutoffs2 = c(550),
+                                     percentiles = c(5, 10, 25, 75, 90, 95),
+                                     PVreps = 5),
+                   input = list(non_student_teacher = filenames=c("asg", "ash", "acg", "atg"),
+                                student_teacher = c("bsg", "bcg", "bst", "btm", "bts"))
+)
+
+# For PIRLS
+pirls_conf <- list(variables = list(pvlabelpref = "ASRREA0",
+                                  pvlabelsuff = "",
+                                  weight="TOTWGT",
+                                  jackknifeZone = "JKZONE",
+                                  jackknifeRep = "JKREP"),
+                 parameters = list(cutoffs = c(400, 475, 550, 625),
+                                   cutoffs2 = c(550),
+                                   percentiles = c(5, 10, 25, 75, 90, 95),
+                                   PVreps = 5),
+                 input = list(non_student_teacher = filenames=c("asg", "ash", "acg", "atg"),
+                              student_teacher = c("bsg", "bcg", "bst", "btm", "bts"))
+)
+
+
+
 
 # skeleton for new configs
 new_conf <- list(variables = list(pvlabelpref = "",
                                   pvlabelsuff = "",
                                   weight=""),
-                 parameters = list(cutoffs5 = c(),
+                 parameters = list(cutoffs = c(),
                                    cutoffs2 = c(),
                                    percentiles = c(),
                                    PVreps = 5)
