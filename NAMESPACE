@@ -11,6 +11,7 @@ plot.intsvy.table,
 plot.intsvy.reg,
 
 intsvy.var.label,
+intsvy.select.merge,
 
 pirls.ben.pv,
 pirls.log,
