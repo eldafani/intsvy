@@ -30,7 +30,7 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
 )
 
 # For TIMMS
-timms_conf <- list(variables = list(pvlabelpref="BSMMAT", 
+timms4_conf <- list(variables = list(pvlabelpref="BSMMAT", 
                                     pvlabelsuff = "",
                                     weight="TOTWGT",
                                     jackknifeZone = "JKZONE",
@@ -39,8 +39,19 @@ timms_conf <- list(variables = list(pvlabelpref="BSMMAT",
                                      cutoffs2 = c(550),
                                      percentiles = c(5, 10, 25, 75, 90, 95),
                                      PVreps = 5),
-                   input = list(non_student_teacher = filenames=c("asg", "ash", "acg", "atg"),
-                                student_teacher = c("bsg", "bcg", "bst", "btm", "bts"))
+                   input = list(prefixes = c("asg", "ash", "acg", "atg"))
+)
+timms8_conf <- list(variables = list(pvlabelpref="BSMMAT", 
+                                     pvlabelsuff = "",
+                                     weight="TOTWGT",
+                                     jackknifeZone = "JKZONE",
+                                     jackknifeRep = "JKREP"),
+                    parameters = list(cutoffs = c(400, 475, 550, 625),
+                                      cutoffs2 = c(550),
+                                      percentiles = c(5, 10, 25, 75, 90, 95),
+                                      PVreps = 5),
+                    input = list(type = "IEA",
+                                 prefixes = c("bsg", "bcg", "bst", "btm", "bts"))
 )
 
 # For PIRLS
@@ -53,8 +64,10 @@ pirls_conf <- list(variables = list(pvlabelpref = "ASRREA0",
                                    cutoffs2 = c(550),
                                    percentiles = c(5, 10, 25, 75, 90, 95),
                                    PVreps = 5),
-                 input = list(non_student_teacher = filenames=c("asg", "ash", "acg", "atg"),
-                              student_teacher = c("bsg", "bcg", "bst", "btm", "bts"))
+                 input = list(type = "IEA",
+                              prefixes = c("asg", "ash", "acg", "atg"),
+                              type_part = c(-11, -9),
+                              cnt_part = c(-8, -6))
 )
 
 
