@@ -16,6 +16,7 @@ pisa_conf <- list(variables = list(pvlabelpref = "PV",
 )
 
 # For PIAAC
+# http://vs-web-fs-1.oecd.org/piaac/puf-data/SPSS/
 piaac_conf <- list(variables = list(pvlabelpref = "PV",
                                   pvlabelsuff = "",
                                   weight    = "SPFWT0",
@@ -26,7 +27,11 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
                                    percentiles = c(5, 10, 25, 75, 90, 95),
                                    PVreps = 10,
                                    BRRreps = 80,
-                                   replication_scheme = 'piaac')
+                                   replication_scheme = 'piaac'),
+                 input = list(type = "OECD",
+                              prefixes = "prg",
+                              type_part = c(-11, -9),
+                              cnt_part = c(-8, -6))
 )
 
 # For TIMMS

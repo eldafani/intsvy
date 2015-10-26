@@ -5,9 +5,10 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
     stop("You should set the configuration object.")
   }
   
-  if (config$input$type == "IEA") {
-    # data from IEA studies, many small files with prefs
-
+  if (config$input$type %in% c("IEA", "OECD")) {
+    # data from IEA studies, many small files, different groups
+    # data from PIAAC  many small files, one group
+  
     # Looks for files (student, home, school, teacher), not student-teacher linkage
     files.all <- lapply(config$input$prefixes, function(x) list.files(folder, 
                    full.names= TRUE, pattern=paste("^", x, ".*.sav$", sep=""), 
