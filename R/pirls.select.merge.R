@@ -42,7 +42,7 @@ pirls.select.merge <-
     country.list <- iea.country[iea.country[["ISO"]] %in% intersect(iea.country[["ISO"]], cntlab), ]
     
     
-    # If no countries are selected: seleect all
+    # If no countries are selected: select all
     if (missing(countries)) { 
       countries=cntlab
     }
