@@ -39,7 +39,10 @@ timms4_conf <- list(variables = list(pvlabelpref="BSMMAT",
                                      cutoffs2 = c(550),
                                      percentiles = c(5, 10, 25, 75, 90, 95),
                                      PVreps = 5),
-                   input = list(prefixes = c("asg", "ash", "acg", "atg"))
+                   input = list(type = "IEA",
+                                prefixes = c("asg", "ash", "acg", "atg"),
+                                type_part = c(-11, -9),
+                                cnt_part = c(-8, -6))
 )
 timms8_conf <- list(variables = list(pvlabelpref="BSMMAT", 
                                      pvlabelsuff = "",
@@ -51,7 +54,9 @@ timms8_conf <- list(variables = list(pvlabelpref="BSMMAT",
                                       percentiles = c(5, 10, 25, 75, 90, 95),
                                       PVreps = 5),
                     input = list(type = "IEA",
-                                 prefixes = c("bsg", "bcg", "bst", "btm", "bts"))
+                                 prefixes = c("bsg", "bcg", "bst", "btm", "bts"),
+                                 type_part = c(-11, -9),
+                                 cnt_part = c(-8, -6))
 )
 
 # For PIRLS
@@ -70,17 +75,19 @@ pirls_conf <- list(variables = list(pvlabelpref = "ASRREA0",
                               cnt_part = c(-8, -6))
 )
 
-
-
-
-# skeleton for new configs
-new_conf <- list(variables = list(pvlabelpref = "",
-                                  pvlabelsuff = "",
-                                  weight=""),
-                 parameters = list(cutoffs = c(),
-                                   cutoffs2 = c(),
-                                   percentiles = c(),
-                                   PVreps = 5)
-                 )
-
+# ICILS
+icils_conf <- list(variables = list(pvlabelpref="BSMMAT", 
+                                     pvlabelsuff = "",
+                                     weight="TOTWGT",
+                                     jackknifeZone = "JKZONE",
+                                     jackknifeRep = "JKREP"),
+                    parameters = list(cutoffs = c(400, 475, 550, 625),
+                                      cutoffs2 = c(550),
+                                      percentiles = c(5, 10, 25, 75, 90, 95),
+                                      PVreps = 5),
+                    input = list(type = "IEA",
+                                 prefixes = c("bsg", "bcg", "bst", "btm", "bts"),
+                                 type_part = c(-11, -9),
+                                 cnt_part = c(-8, -6))
+)
 

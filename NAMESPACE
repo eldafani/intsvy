@@ -10,6 +10,8 @@ plot.intsvy.mean,
 plot.intsvy.table,
 plot.intsvy.reg,
 
+intsvy.var.label,
+
 pirls.ben.pv,
 pirls.log,
 pirls.log.pv,

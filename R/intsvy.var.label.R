@@ -19,7 +19,7 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
     
     # Files char found in the datasets
     abv <- unique(unlist(lapply(files.all, function(x) 
-      substr(x, nchar(x) + conf$input$type_part[1], nchar(x) + conf$input$type_part[2])))) 
+      substr(x, nchar(x) + config$input$type_part[1], nchar(x) + config$input$type_part[2])))) 
     
     
     # Name list for existing datasets, will not print student-teacher linkage if available
@@ -30,7 +30,7 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
     
     # Country abbreviation in datasets
     cntlab <- toupper(unique(unlist(lapply(files.all, function(x) 
-      substr(x, nchar(x) + conf$input$cnt_part[1], nchar(x) + conf$input$cnt_part[2]))))) 
+      substr(x, nchar(x) + config$input$cnt_part[1], nchar(x) + config$input$cnt_part[2]))))) 
     
     # setdiff(cntlab, iea.country$ISO) needs be zero! all elements in data labels are in userguide
     
