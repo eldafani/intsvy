@@ -28,7 +28,7 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
                                    percentiles = c(5, 10, 25, 75, 90, 95),
                                    PVreps = 10,
                                    BRRreps = 80,
-                                   weights = "BRR",
+                                   weights = "mixed_piaac",
                                    replication_scheme = 'piaac'),
                  input = list(type = "OECD",
                               prefixes = "prg",
@@ -36,8 +36,8 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
                               cnt_part = c(-8, -6))
 )
 
-# For TIMMS
-timms4_conf <- list(variables = list(pvlabelpref="BSMMAT", 
+# For TIMSS
+timss4_conf <- list(variables = list(pvlabelpref="BSMMAT", 
                                     pvlabelsuff = "",
                                     weight="TOTWGT",
                                     jackknifeZone = "JKZONE",
@@ -64,7 +64,7 @@ timms4_conf <- list(variables = list(pvlabelpref="BSMMAT",
                                 type_part = c(-11, -9),
                                 cnt_part = c(-8, -6))
 )
-timms8_conf <- list(variables = list(pvlabelpref="BSMMAT", 
+timss8_conf <- list(variables = list(pvlabelpref="BSMMAT", 
                                      pvlabelsuff = "",
                                      weight="TOTWGT",
                                      jackknifeZone = "JKZONE",

@@ -11,30 +11,10 @@ intsvy.table <- function(variable, by, data, config) {
     }
 
     # BRR / JK
-    if (config$parameters$weights == "BRR") {
-      # balanced repeated replication
-      # Replicate weighted %s (sampling error)
-      # in PISA / PIAAC
-      tabrp <- as.matrix(sapply(1:config$parameters$BRRreps, function(i) 
-        percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
-                weights=  data[[paste(config$variables$weightBRR, i , sep="")]], na.rm=TRUE)))     
-      
-      # Total weighted %                                                                      
-      tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[config$variables$weightFinal]], na.rm = TRUE, total=FALSE)
-      # Standard error
-      if (length(tabtot)!=1) {
-        tabse <- sqrt(rowSums((tabrp-tabtot)^2) / 20)
-      } else {
-        tabse <- 0
-      }
-
-    } else {
+    if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-
-      config$variables$weight
-      config$variables$jackknifeZone
-      config$variables$jackknifeRep
+      
       # Replicate weighted %s (sampling error)
       tabrp <- as.matrix(sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
         percent(as.factor(as.numeric(data[[variable]])), 
@@ -53,7 +33,25 @@ intsvy.table <- function(variable, by, data, config) {
         tabse <-0
       }
       
-    }
+    } else {
+      # balanced repeated replication
+      # Replicate weighted %s (sampling error)
+      # in PISA / PIAAC
+      tabrp <- as.matrix(sapply(1:config$parameters$BRRreps, function(i) 
+        percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
+                weights=  data[[paste(config$variables$weightBRR, i , sep="")]], na.rm=TRUE)))     
+      
+      # Total weighted %                                                                      
+      tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[config$variables$weightFinal]], na.rm = TRUE, total=FALSE)
+      # Standard error
+      if (length(tabtot)!=1) {
+        tabse <- sqrt(rowSums((tabrp-tabtot)^2) / 20)
+      } else {
+        tabse <- 0
+      }
+
+    } 
+    
     result <- data.frame(table(data[[variable]][drop=TRUE]), 
                          "Percentage" = round(as.numeric(tabtot), 2), 
                          "Std.err."= round(tabse, 2))

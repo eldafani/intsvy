@@ -6,10 +6,10 @@ function(folder=getwd(), countries, student=c(), school, math.teacher, science.t
   
   if (!missing(math.teacher)) {
     intsvy.select.merge(folder=folder, countries=countries, student=student, school=school, teacher = math.teacher, use.labels=use.labels,
-                        config=timms8_conf)
+                        config=timss8_conf)
   } else {
     intsvy.select.merge(folder=folder, countries=countries, student=student, school=school, teacher = science.teacher, use.labels=use.labels,
-                        config=timms8_conf)
+                        config=timss8_conf)
   }
 
 }
