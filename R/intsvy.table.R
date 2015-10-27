@@ -17,10 +17,10 @@ intsvy.table <- function(variable, by, data, config) {
       # in PISA / PIAAC
       tabrp <- as.matrix(sapply(1:config$parameters$BRRreps, function(i) 
         percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
-                weights=  data[[paste(config$parameters$weightBRR, i , sep="")]], na.rm=TRUE)))     
+                weights=  data[[paste(config$variables$weightBRR, i , sep="")]], na.rm=TRUE)))     
       
       # Total weighted %                                                                      
-      tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[config$parameters$weightFinal]], na.rm = TRUE, total=FALSE)
+      tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[config$variables$weightFinal]], na.rm = TRUE, total=FALSE)
       # Standard error
       if (length(tabtot)!=1) {
         tabse <- sqrt(rowSums((tabrp-tabtot)^2) / 20)

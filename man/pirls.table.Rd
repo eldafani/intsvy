@@ -4,10 +4,10 @@
 Frequency table
 }
 \description{
-pirls.table produces a frequency table for a categorical variable printing percentages and standard errors.
+pirls.table produces a frequency table for a categorical variable printing percentages and standard errors. Information about weight is extracted from \code{intsvy:::pirls_conf}.
 }
 \usage{
-pirls.table(variable, by, data, weight = "TOTWGT", 
+pirls.table(variable, by, data, 
 export = FALSE, name = "output", folder = getwd())
 }
 
@@ -20,9 +20,6 @@ The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL")
 }
   \item{data}{
 An R object, normally a data frame, containing the data from PIRLS.
-}
-  \item{weight}{
-The total weight, "TOTWGT" in the PIRLS dataset.
 }
    \item{export}{
 A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 

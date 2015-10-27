@@ -115,7 +115,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
     suppressWarnings(suppressMessages(teach.i <-  do.call("rbind",                              
     lapply(files.select[[config$input$teacher[2]]], function(y) 
       read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, c(
-      config$input$teacher_colnames, math.teacher)]))))
+      config$input$teacher_colnames, teacher)]))))
   
     teacher.data <- merge(teach.l, teach.i, by=config$input$teacher_colnames)
   }

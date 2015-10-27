@@ -7,7 +7,8 @@ Select and merge data
 intsvy.select.merge selects and merges data from different  International Association for the Evaluation of Educational Achievement (IEA) studies. Achievement and weight variabels (all of them) are selected by default.
 }
 \usage{
-intsvy.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, use.labels=TRUE, config)
+intsvy.select.merge(folder = getwd(), countries, student = c(), home, 
+    school, teacher, use.labels=TRUE, config)
 }
 \arguments{
   \item{folder}{
