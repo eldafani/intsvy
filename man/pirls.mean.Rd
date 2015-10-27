@@ -7,7 +7,7 @@ Calculates mean of variable
 Calculates the mean of an observed variable (NOT one with plausible values) and its standard error.
 }
 \usage{
-pirls.mean(variable, by, weight = "TOTWGT", data, 
+pirls.mean(variable, by, data, 
 export = FALSE, name = "output", folder = getwd())
 }
 
@@ -17,9 +17,6 @@ The label corresponding to the observed variable, for example, "ASDAGE", for the
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
-}
-  \item{weight}{
-The total weight, "TOTWGT" in the PIRLS dataset.
 }
   \item{data}{
 An R object, normally a data frame, containing the data from PIRLS.

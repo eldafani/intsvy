@@ -1,14 +1,14 @@
-\name{piaac.mean}
-\alias{piaac.mean}
+\name{intsvy.mean}
+\alias{intsvy.mean}
 \title{
-Calculates mean of variable in PIAAC data
+Calculates mean of variable in intsvy study
 }
 \description{
 Calculates the mean of an observed variable (NOT one with plausible values) and its standard error.
 }
 \usage{
-piaac.mean(variable, by, data, export = FALSE, 
-name = "output", folder = getwd())
+intsvy.mean(variable, by, data, export = FALSE, 
+name = "output", folder = getwd(), config)
 }
 
 \arguments{
@@ -30,10 +30,13 @@ The name of the exported file.
   \item{folder}{
 The folder where the exported file is located.
 }
+  \item{config}{
+Object with configuration of a given study. Should contain the slot `prefixes` with prefixes of filenames with the student, home, school, and teacher data.
+}
 }
 
 \value{
-piaac.mean returns a data frame with means and standard errors.
+intsvy.mean returns a data frame with means and standard errors.
 }
 
 \seealso{
