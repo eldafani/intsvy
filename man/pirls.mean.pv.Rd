@@ -6,7 +6,7 @@
 pirls.mean.pv uses five plausible values to calculate the mean achievement score and its standard error
 }
 \usage{
-pirls.mean.pv(pvlabel = "ASRREA", by, weight = "TOTWGT", 
+pirls.mean.pv(pvlabel = "ASRREA", by,  
 data, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
@@ -15,9 +15,6 @@ The label corresponding to the achievement variable, for example, "ASRREA", for 
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
-}
-  \item{weight}{
-The total weight, "TOTWGT" in the PIRLS dataset.
 }
   \item{data}{
 An R object, normally a data frame, containing the data from PIRLS.

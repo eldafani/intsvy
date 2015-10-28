@@ -7,7 +7,7 @@ Calculates mean achievement score
 timss.mean.pv uses five plausible values to calculate the mean achievement score and its standard error
 }
 \usage{
-timss.mean.pv(pvlabel = "BSMMAT", by, weight = "TOTWGT", data, 
+timss.mean.pv(pvlabel = "BSMMAT", by, data, 
 export = FALSE, name = "output", folder = getwd())
 }
 
@@ -17,9 +17,6 @@ The label corresponding to the achievement variable, for example, "BSMMAT", for 
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
-}
-  \item{weight}{
-The total weight, "TOTWGT" in the TIMSS dataset.
 }
   \item{data}{
 An R object, normally a data frame, containing the data from TIMSS.
