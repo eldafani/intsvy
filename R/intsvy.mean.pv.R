@@ -4,7 +4,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
   pv.input <- function(pvnames, data, config) {
     # If there is only one observation print NA
     if (nrow(data) <= 1)  
-      return(data.frame("Freq"= length(data[[final_weight]]), "Mean"= NA, "s.e."= NA, "SD"=NA, "s.e"=NA))
+      return(data.frame("Freq"= length(data[[config$variables$weightFinal]]), "Mean"= NA, "s.e."= NA, "SD"=NA, "s.e"=NA))
 
     # BRR / JK
     if (config$parameters$weights %in% c("BRR","mixed_piaac")) {
@@ -55,7 +55,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       var.sd.b <- (1/(length(pvnames)-1))*sum(sapply(seq_along(pvnames), function(i) (PV.sd[i]-SD.m)^2))
       sd.se <-(var.sd.w+(1+1/length(pvnames))*var.sd.b)^(1/2)
       
-      result <- data.frame("Freq"= length(data[[final_weight]]), "Mean"= mean(MEAN.m), "s.e."= mean.se, 
+      result <- data.frame("Freq"= length(data[[config$variables$weightFinal]]), "Mean"= mean(MEAN.m), "s.e."= mean.se, 
                            "SD"=mean(SD.m), "s.e"=sd.se)
 
     } 
@@ -66,7 +66,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
               ifelse(data[[config$variables$jackknifeZone]] == x, 
-                             2*data[[input$variables$weight]]*data[[config$variables$jackknifeRep]], data[[input$variables$weight]]))
+                             2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
       
       # Estimates of PV1 (for sampling error)
       R.mean1 <- sapply(1:ncol(R.wt), function(x) 
@@ -77,10 +77,10 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       
       # Grand mean of 5 PVs (for imputation variance)
       R.mean <- sapply(pvnames, function(x) 
-        weighted.mean(data[[x]], data[[input$variables$weight]], na.rm = TRUE))
+        weighted.mean(data[[x]], data[[config$variables$weight]], na.rm = TRUE))
       
       R.sd <- sapply(1:5, function(x) 
-        (sum(data[[input$variables$weight]]*(data[[pvnames[x]]]-R.mean[x])^2, na.rm=TRUE)/sum(data[[input$variables$weight]], na.rm = TRUE))^(1/2))
+        (sum(data[[config$variables$weight]]*(data[[pvnames[x]]]-R.mean[x])^2, na.rm=TRUE)/sum(data[[config$variables$weight]], na.rm = TRUE))^(1/2))
       
       # Sampling variance (1st PV); imputation variance; SEs
       v.meanw <- sum((R.mean1-R.mean[1])^2);    v.meanb <- (1+1/5)*var(R.mean)

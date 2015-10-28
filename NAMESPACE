@@ -14,6 +14,7 @@ intsvy.var.label,
 intsvy.select.merge,
 intsvy.table,
 intsvy.mean,
+intsvy.mean.pv,
 
 pirls.ben.pv,
 pirls.log,
