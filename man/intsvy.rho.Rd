@@ -1,14 +1,14 @@
-\name{pirls.rho}
-\alias{pirls.rho}
+\name{intsvy.rho}
+\alias{intsvy.rho}
 \title{
 Correlation matrix
 }
 \description{
-pirls.rho produces a correlation matrix for observed variables (NOT for plausible values)
+intsvy.rho produces a correlation matrix for observed variables (NOT for plausible values)
 }
 \usage{
-pirls.rho(variables, by, data, 
-export = FALSE, name = "output", folder = getwd())
+intsvy.rho(variables, by, data, 
+export = FALSE, name = "output", folder = getwd(), config)
 }
 
 \arguments{
@@ -30,10 +30,13 @@ The name of the exported file.
   \item{folder}{
 The folder where the exported file is located.
 }
+  \item{config}{
+Object with configuration of a given study. Should contain the slot `prefixes` with prefixes of filenames with the student, home, school, and teacher data.
+}
 }
 
 \value{
-pirls.rho returns a matrix including correlation and standard error values.
+intsvy.rho returns a matrix including correlation and standard error values.
 }
 
 \seealso{

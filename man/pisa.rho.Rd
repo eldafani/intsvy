@@ -7,7 +7,7 @@ Correlation matrix
 pisa.rho produces a correlation matrix for observed variables (NOT for plausible values)
 }
 \usage{
-pisa.rho(variables, by, weight="W_FSTUWT", data, export=FALSE, name= "output", folder=getwd())
+pisa.rho(variables, by, data, export=FALSE, name= "output", folder=getwd())
 }
 
 \arguments{
@@ -17,9 +17,6 @@ Data labels for the variables in the correlation matrix (e.g., variables=c("TCHB
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any 
 other categorical variable. 	
-}
-  \item{weight}{
-The total weight, "W_FSTUWT" in the PISA dataset.
 }
  \item{data}{
 An R object, normally a data frame, containing the data from PISA.

@@ -7,7 +7,7 @@ Correlation matrix
 timss.rho produces a correlations matrix for observed variables (NOT for plausible values)
 }
 \usage{
-timss.rho(variables, by, weight = "TOTWGT", data, 
+timss.rho(variables, by, data, 
 export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
@@ -16,9 +16,6 @@ Data labels for the variables in the correlation matrix.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
-}
-  \item{weight}{
-The total weight, "TOTWGT" in the TIMSS dataset.
 }
  \item{data}{
 An R object, normally a data frame, containing the data from TIMSS.
