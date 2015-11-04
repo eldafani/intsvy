@@ -3,7 +3,7 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
   rho.pv.input <- function(variable, pvlabels, data, config) {
     # BRR / JK
     if (config$parameters$weights == "BRR") {
-      error("Not implemented yet")
+      stop("Not implemented yet")
     } 
     if (config$parameters$weights == "JK") {
       # jack knife
@@ -60,7 +60,7 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
       
     }
     if (config$parameters$weights == "mixed_piaac") {
-      error("Not implemented yet")
+      stop("Not implemented yet")
     } 
   }
   

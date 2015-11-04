@@ -46,7 +46,7 @@ function(variables, by, data, export=FALSE, name= "output", folder=getwd(), conf
       # mixed design, different for different coutnries
       # PIAAC
       
-      error("Not implemented yet")
+      stop("Not implemented yet")
     } 
   }
   
