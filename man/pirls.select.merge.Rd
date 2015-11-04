@@ -8,7 +8,8 @@ pirls.select.merge selects and merges data from PIRLS. Achievement and weight va
 are selected by default.
 }
 \usage{
-pirls.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, use.labels=TRUE)
+pirls.select.merge(folder = getwd(), countries, student = c(), 
+    home, school, teacher, use.labels=TRUE)
 }
 \arguments{
   \item{folder}{
@@ -46,9 +47,9 @@ timssg4.select.merge, timssg8.select.merge, pisa.select.merge
 \examples{
 \dontrun{
 pirls <- pirls.select.merge(folder= getwd(),
-                            countries= c(36, 40, 31, 957),
-                            student= c("ITSEX", "ASDAGE", "ASBGSMR"),
-                            home= c("ASDHEDUP", "ASDHOCCP", "ASDHELA", "ASBHELA"),
-                            school= c("ACDGDAS", "ACDGCMP", "ACDG03"))
+                countries= c(36, 40, 31, 957),
+                student= c("ITSEX", "ASDAGE", "ASBGSMR"),
+                home= c("ASDHEDUP", "ASDHOCCP", "ASDHELA", "ASBHELA"),
+                school= c("ACDGDAS", "ACDGCMP", "ACDG03"))
 }
 }

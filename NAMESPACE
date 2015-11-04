@@ -17,6 +17,7 @@ intsvy.mean,
 intsvy.mean.pv,
 intsvy.rho,
 intsvy.rho.pv,
+intsvy.reg,
 
 pirls.ben.pv,
 pirls.log,
