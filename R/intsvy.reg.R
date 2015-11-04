@@ -107,10 +107,9 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
   if (missing(by)) { 
     output <- reg.input(y=y, x=x, data=data, config=config)
   } else {
-    for (i in by) {
-      data[[c(i)]] <- as.factor(data[[c(i)]])
-    }
-    output <- ddply(data, by, function(x) reg.input(y=y, x=x, data=x, config=config))
+    output <- lapply(split(data, droplevels(data[by])), 
+                     function(i) reg.input(y=y, x=x, data=i, config=config))
+    
   }
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
