@@ -6,8 +6,7 @@ pisa.reg performs linear regression analysis (OLS) for an observed depedent vari
 (NOT for plausible values)
 }
 \usage{
-pisa.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd(), 
-weight="W_FSTUWT", brr_weight="W_FSTR")
+pisa.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
@@ -33,12 +32,6 @@ The name of the exported file.
 }
   \item{folder}{
 The folder where the exported file is located.
-}
-  \item{weight}{
-The variable with the total weight.
-}
-  \item{brr_weight}{
-The variable label for the replicate weights.
 }
 }
 
