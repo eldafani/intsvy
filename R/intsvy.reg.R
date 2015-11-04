@@ -99,7 +99,9 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       StatT <- Stattot/StatSE
       # Reg Table
       RegTab <- round(data.frame("Estimate"=Stattot, "Std. Error"=StatSE, "t value"=StatT, check.names=F),2)
-      return(RegTab)
+
+      results <- list("replicates"=t(Coefrp), "reg"=RegTab)
+      return(results)
     } 
   }
   
