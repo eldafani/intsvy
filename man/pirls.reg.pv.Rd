@@ -5,7 +5,7 @@
 pirls.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
-pirls.reg.pv(x, pvlabel = "ASRREA", weight = "TOTWGT", by, 
+pirls.reg.pv(x, pvlabel = "ASRREA", by, 
 data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
@@ -14,9 +14,6 @@ Data labels of independent variables (e.g., x = c("ASDHEHLA", "ITSEX") ).
 }
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
-}
-  \item{weight}{
-The total weight, "TOTWGT" in the PIRLS dataset.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	

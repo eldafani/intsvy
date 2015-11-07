@@ -1,12 +1,12 @@
-\name{timss.reg.pv}
-\alias{timss.reg.pv}
+\name{intsvy.reg.pv}
+\alias{intsvy.reg.pv}
 \title{Regression analysis with plausible values}
 \description{
-timss.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
+intsvy.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
-timss.reg.pv(x, pvlabel = "BSMMAT", by, 
-data, std=FALSE, export = FALSE, name = "output", folder = getwd())
+intsvy.reg.pv(x, pvlabel, by, 
+data, std=FALSE, export = FALSE, name = "output", folder = getwd(), config)
 }
 
 \arguments{
@@ -34,10 +34,13 @@ The name of the exported file.
   \item{folder}{
 The folder where the exported file is located.
 }
+  \item{config}{
+Object with configuration of a given study. Should contain the slot `prefixes` with prefixes of filenames with the student, home, school, and teacher data.
+}
 }
 
 \value{
-timss.reg.pv prints a data.frame with regression results (i.e., coefficients, standard errors, t-values, R-squared) and stores  different regression output including residuals, replicate coefficients, variance within and between, and the regression data.frame in a list object of class "intsvy.reg". 
+intsvy.reg.pv prints a data.frame with regression results (i.e., coefficients, standard errors, t-values, R-squared) and stores  different regression output including residuals, replicate coefficients, variance within and between, and the regression data.frame in a list object of class "intsvy.reg". 
 }
 
 \seealso{
@@ -45,9 +48,7 @@ pirls.reg.pv, pisa.reg.pv
 }
 \examples{
 \dontrun{
-# TIMSS G8: Exhibit 2.11, User Guide TIMSS 2011, p.21
-timss8g$SEX[timss8g$ITSEX=="BOY"]=1
-timss8g$SEX[timss8g$ITSEX=="GIRL"]=0
-timss.reg.pv(pvlabel="BSMMAT", by=c("IDCNTRYL"), x="SEX", data=timss8g)
+pisa.reg.pv(pvlabel="MATH", x="ST04Q01", by = "CNT", data=student2012)
+intsvy.reg.pv(pvlabel="MATH", x="ST04Q01", by = "CNT", data=student2012, config=intsvy:::pisa_conf)
 }
 }
