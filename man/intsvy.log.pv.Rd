@@ -1,12 +1,12 @@
-\name{pirls.log.pv}
-\alias{pirls.log.pv}
+\name{intsvy.log.pv}
+\alias{intsvy.log.pv}
 \title{Logistic regression analysis with plausible values}
 \description{
-pirls.log.pv performs logistic regression with plausible values and replicate weights.
+intsvy.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-pirls.log.pv(pvlabel="ASRREA", cutoff= 550, x, by, weight="TOTWGT", 
-           data, export=FALSE, name= "output", folder=getwd())
+intsvy.log.pv(pvlabel="ASRREA", x, by, 
+           data, export=FALSE, name= "output", folder=getwd(), config)
 }
 
 \arguments{
@@ -15,9 +15,6 @@ Data labels of independent variables.
 }
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
-}
-  \item{cutoff}{
-The cut-off point at which the dependent plausible values scores are dichotomised (1 is larger than the cut-off).
 }
   \item{by}{
 The label for the categorical grouping variable (i.e., by="IDCNTRYL") or variables (e.g., x= c("IDCNTRYL", "ITSEX")).   
@@ -34,14 +31,18 @@ The name of the exported file.
   \item{folder}{
 The folder where the exported file is located.
 }
-
- \item{weight}{
-    The label of the total weight, "TOTWGT", in PIRLS. The variable is treated as frequency weights.   
- }
+  \item{config}{
+Object with configuration of a given study. Should contain the slot `prefixes` with prefixes of filenames with the student, home, school, and teacher data.
+}
 }
 
 \value{
-pirls.log.pv returns a data frame with coefficients, standard errors, t-values, and odds ratios. If "by" is specified, results are reported in a list. 
+intsvy.log.pv returns a data frame with coefficients, standard errors, t-values, and odds ratios. If "by" is specified, results are reported in a list. 
+
+Continuous variables are divided into a binary one with the use of cutoff2 that is in defined in the config argument.
+
+Weight, e.g. "TOTWGT" for PIRLS, are defined in the config argument.   
+
 }
 
 \seealso{

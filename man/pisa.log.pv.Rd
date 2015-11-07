@@ -5,8 +5,8 @@
 pisa.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-pisa.log.pv(pvlabel="READ", cutoff= 606.99, x, by, weight="W_FSTUWT", 
-           brr_weight="W_FSTR", data, export=FALSE, name= "output", folder=getwd())
+pisa.log.pv(pvlabel="READ", x, by, 
+      data, export=FALSE, name= "output", folder=getwd())
 }
 
 \arguments{
@@ -15,9 +15,6 @@ Data labels of independent variables.
 }
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "READ", for overall reading performance.
-}
-  \item{cutoff}{
-The cut-off point at which the dependent plausible values scores are dichotomised (1 is larger than the cut-off).
 }
   \item{by}{
 The label for the categorical grouping variable (i.e., by="IDCNTRYL") or variables (e.g., x= c("IDCNTRYL", "ST79Q03")).   
@@ -34,12 +31,6 @@ The name of the exported file.
   \item{folder}{
 The folder where the exported file is located.
 }
- \item{brr_weight}{
-  The label of the brr weight prefix, "W_FSTR", PISA. 
-  }
- \item{weight}{
-    The label of the total weight, "W_FSTUWT", in PISA. The variable is treated as frequency weights.    
- }
 }
 
 \value{
