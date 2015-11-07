@@ -19,9 +19,6 @@ Data labels of independent variables (e.g., x = c("ASDHEHLA", "ITSEX") ).
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be 
 any other categorical variable.   
 }
-  \item{weight}{
-The total weight, "TOTWGT" in the PIRLS dataset.
-}
   \item{data}{
 An R object, normally a data frame, containing the data from PIRLS.
 }
