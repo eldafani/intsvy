@@ -163,7 +163,7 @@ intsvy.reg.pv <-
       # Reg Table
       RegTab <- round(data.frame("Estimate"=Stattotm, "Std. Error"=StatSE, "t value"=StatT, check.names=FALSE),2)
 
-      results <- list("replicates"=t(Coefrp), "reg"=RegTab)
+      results <- list("replicates"=t(Coefrpv), "reg"=RegTab)
       return(results)
     } 
   }
