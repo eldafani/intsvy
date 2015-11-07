@@ -6,7 +6,7 @@ piaac.reg.pv performs linear regression analysis (OLS) with plausible values and
 }
 \usage{
 piaac.reg.pv(x, pvlabel = "LIT", by, data, 
-export = FALSE, name = "output", folder = getwd())
+export = FALSE, name = "output", std=FALSE, folder = getwd())
 }
 
 \arguments{
@@ -27,6 +27,9 @@ A logical value. If TRUE, the output is exported to a file in comma-separated va
 }
   \item{name}{
 The name of the exported file.
+}
+  \item{std}{
+A logical value. If TRUE standardised regression coefficients are calculated.
 }
   \item{folder}{
 The folder where the exported file is located.

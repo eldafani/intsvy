@@ -8,13 +8,16 @@ Functions pisa.reg, pisa.reg.pv, piaac.reg and piaac.reg.pv produce object of th
 The function plot.intsvy.reg presents this list of regression models graphically.
 }
 \usage{
-\method{plot}{intsvy.reg}(x, vars, se = TRUE, sort = FALSE)
+\method{plot}{intsvy.reg}(x, ..., vars, se = TRUE, sort = FALSE)
 }
 
 \arguments{
   \item{x}{
 An object of the class intsvy.reg returned by  pisa.reg, pisa.reg.pv, piaac.reg 
 and piaac.reg.pv functions.
+}
+  \item{...}{
+Other arguments
 }
   \item{vars}{
 Variable labels of coefficients to be plotted. If none selected all coefficients are plotted including the R-squared 
