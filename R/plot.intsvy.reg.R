@@ -1,4 +1,4 @@
-plot.intsvy.reg <- function(x, vars, se=TRUE, sort=FALSE) {
+plot.intsvy.reg <- function(x, ..., vars, se=TRUE, sort=FALSE) {
   x <- summary(x)
   x <- x[!is.na(x)]
   
