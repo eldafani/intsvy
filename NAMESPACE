@@ -21,6 +21,8 @@ intsvy.reg,
 intsvy.reg.pv,
 intsvy.log,
 intsvy.log.pv,
+intsvy.ben.pv,
+intsvy.config,
 
 pirls.ben.pv,
 pirls.log,
