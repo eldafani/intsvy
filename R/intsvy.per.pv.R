@@ -11,7 +11,7 @@ intsvy.per.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folde
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvname <- paste(pvlabel, "0", 1:5, sep='')
+      pvnames <- paste(pvlabel, "0", 1:5, sep='')
 
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
