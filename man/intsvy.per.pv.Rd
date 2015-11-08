@@ -5,8 +5,8 @@
    User-defined percentiles (e.g., c(5, 10, 25, 75, 90, 95)) and with selected weights (e.g. "TOTWGT" in TIMSS) are specified in the config parameter.   
 }
 \usage{
-  intsvy.per.pv(pvlabel="BSMMAT", by, 
-           data, export=FALSE, name= "output", folder=getwd())
+  intsvy.per.pv(pvlabel, by, 
+           data, export=FALSE, name= "output", folder=getwd(), config)
 }
 \arguments{
   \item{pvlabel}{
@@ -41,7 +41,13 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 }
 \examples{
   \dontrun{
-    # Appendix G.2, p. 484, TIMSS 2011 International Results in Mathematics
-    timss.per.pv(pvlabel="BSMMAT", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timssg8)
+    timss.per.pv(pvlabel="BSMMAT", by="IDCNTRYL", data=timss8)
+    intsvy.per.pv(pvlabel="BSMMAT", by="IDCNTRYL", data=timss8, config=intsvy:::timss8_conf)
+    
+    pirls.per.pv(pvlabel="ASRREA", by="IDCNTRYL", data=pirls)
+    intsvy.per.pv(pvlabel="ASRREA", by="IDCNTRYL", data=pirls, config=intsvy:::pirls_conf)
+    
+    pisa.per.pv(pvlabel="MATH", by="CNT", data=student2012)
+    intsvy.per.pv(pvlabel="MATH", by="CNT", data=student2012, config=intsvy:::pisa_conf)
   }
 }
