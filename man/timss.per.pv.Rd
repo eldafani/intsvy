@@ -3,21 +3,15 @@
 \title{TIMSS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  timss.per.pv(pvlabel="BSMMAT", per = c(5, 10, 25, 75, 90, 95), by, weight="TOTWGT",  
+  timss.per.pv(pvlabel="BSMMAT",by,
            data, export=FALSE, name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
     The label corresponding to the achievement variable, for example, "BSMMAT", for overall mathematics performance.
   }
-  \item{per}{
-    User-defined percentiles (e.g., per = c(5, 10, 25, 75, 90, 95)).
-  }
   \item{by}{
     The label of the categorical grouping variable (e.g., by="IDCNTRYL") or variables (e.g., by=c("IDCNTRYL", "ITSEX")).   
-  }
-  \item{weight}{
-    The label of the total weight, "TOTWGT", in TIMSS.   
   }
    \item{data}{
     An R object, normally a data frame, containing the data from TIMSS.
@@ -35,6 +29,9 @@
 
 \value{
   timss.per.pv returns a data frame with percentiles and associated standard errors.
+
+   User-defined percentiles (e.g., c(5, 10, 25, 75, 90, 95)) and with selected weights (e.g. "TOTWGT" in TIMSS) are specified in the config parameter.   
+
 }
 
 \seealso{
