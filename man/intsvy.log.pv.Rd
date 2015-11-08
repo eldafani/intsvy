@@ -5,7 +5,7 @@
 intsvy.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-intsvy.log.pv(pvlabel="ASRREA", x, by, 
+intsvy.log.pv(pvlabel, x, by, 
            data, export=FALSE, name= "output", folder=getwd(), config)
 }
 
