@@ -24,6 +24,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
   # Look for datasets (student, home, school) including student-teacher linkage (.st)
   files.all <- lapply(config$input$prefixes, function(x) list.files(folder, 
   full.names= TRUE, pattern=paste("^", x, ".*.sav$", sep=""), recursive=TRUE))
+
+  # Remove empty elements in list
+  files.all <- files.all[lapply(files.all, length) >0]
+  
   
   # Name list for identification later, rather than using numbers
   names(files.all) <- unique(unlist(lapply(files.all, function(x) 
@@ -37,7 +41,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
   # Countries in the datasets and userguide
   country.list <- iea.country[iea.country[["ISO"]] %in% intersect(iea.country[["ISO"]], cntlab), ]
   
-  # If no countries are selected: seleect all
+  # If no countries are selected: select all
   if (missing(countries)) { 
     countries=cntlab
   }
@@ -53,7 +57,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
   # no blanks, no home instrument, otherwise delete, see 4g function
   
   # Remove cases for no home instruments
-  # only if home is speficied
+  # only if home is specified
   if (!missing(home)) {
     if (!any(is.null(files.select[['ash']]))) {
       files.select[['ash']] <- files.select[['ash']][lapply(files.select[['ash']], length)!=0]
