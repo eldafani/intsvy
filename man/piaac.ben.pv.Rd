@@ -4,25 +4,15 @@
 \description{Calculates percentage of population at each proficiency level defined by PIAAC. Or at proficiency levels provided by the user.
 }
 \usage{
-piaac.ben.pv(pvlabel, cutoff = c(175.99, 225.99, 275.99, 325.99, 375.99), 
-    by, weight="SPFWT0", brr_weight="SPFWT", data, export=FALSE, 
+piaac.ben.pv(pvlabel, by,data, export=FALSE, 
     name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "LIT", for overall reading performance.
 }
-  \item{cutoff}{
-The cut-off points for calculating the percentage of students. The default are the proficiency levels in PIAAC.
-}
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="CNTRYID"), but could be any other categorical variable. 	
-}
-  \item{weight}{
-The label for total weight, "SPFWT0", in PIAAC. 	
-}
-  \item{brr_weight}{
-The label for brr_weights in PIAAC. 	
 }
   \item{data}{
 An R object, normally a data frame, containing the data from PIAAC.
@@ -40,6 +30,9 @@ The folder where the exported file is located.
 
 \value{
 piaac.ben.pv returns a data frame with the percentage of students at each proficiency level and its corresponding standard error.
+
+The total weight, "TOTWGT" and the cut-off points or benchmarks are defined in the config object.
+
 }
 
 \seealso{
