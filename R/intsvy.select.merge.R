@@ -256,5 +256,5 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
   
   # table(student.data$IDCNTRYL, student.data$IDCNTRY) test of equality!
 
-  return(intsvy.all)
+  return(droplevels(intsvy.all))
 }
