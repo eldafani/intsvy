@@ -1,10 +1,10 @@
 \name{intsvy.mean}
 \alias{intsvy.mean}
 \title{
-Calculates mean of variable in intsvy study
+Calculates mean of variable 
 }
 \description{
-Calculates the mean of an observed variable (NOT one with plausible values) and its standard error.
+Calculates mean and standard error of observed variable (NOT one with plausible values).
 }
 \usage{
 intsvy.mean(variable, by, data, export = FALSE, 
@@ -44,7 +44,9 @@ pisa.mean, timss.mean, pirls.mean
 }
 \examples{
 \dontrun{
-# install pbiecek/PIAAC package from github to have access to piaac data
-piaac.mean(variable="AGE_R", by="CNTRYID", data=piaac)
+intsvy.mean(variable="READHOME", by="CNTRYID", data=piaac, config=intsvy:::piaac_conf)
+intsvy.mean(variable="PARED", by="IDCNTRYL", data=pisa, config=intsvy:::pisa_conf)
+intsvy.mean(variable="BSBGSLM", by='IDCNTRYL', data=timss8g, config=intsvy:::timss8_conf)
+intsvy.mean(variable='ASBHELA', by= 'IDCNTRYL', data=pirls,config=intsvy:::pirls_conf)
 }
 }
