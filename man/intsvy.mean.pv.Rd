@@ -16,7 +16,7 @@ intsvy.mean.pv(pvnames, by, data, export=FALSE,
 The names of collumns corresponding to the achievement score, for example, paste0("PV",1:5,"MATH") for PISA.
 }
   \item{by}{
-The label for the grouping variable, usually the countries (i.e., by="CNTRYID"), but could be any other categorical variable. 	
+The label for the grouping variable, usually the countries (e.g., by="CNTRYID"), but could be any other categorical variable. 	
 }
   \item{data}{
 An R object, normally a data frame.
@@ -40,7 +40,7 @@ intsvy.mean.pv returns a data frame with means and standard errors.
 }
 
 \seealso{
-pisa.mean, timss.mean, pirls.mean
+pisa.mean.pv, timss.mean.pv, pirls.mean.pv
 }
 \examples{
 \dontrun{
@@ -49,5 +49,12 @@ intsvy.mean.pv(pvnames = paste0("ASRREA0",1:5), by= "IDCNTRYL",
 
 intsvy.mean.pv(pvnames = paste0("PV",1:5,"MATH"), by="CNT", data=student2012, 
     config=intsvy:::pisa_conf)
+    
+intsvy.mean.pv(pvnames = paste0("BSMMAT0",1:5), by= "IDCNTRYL", data=timss8g, 
+    config=intsvy:::timss8_conf)
+    
+intsvy.mean.pv(pvnames = paste0("PVNUM", 1:10), by="CNTRYID", data=piaac, 
+    config=intsvy:::piaac_conf)    
+
 }
 }

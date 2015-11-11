@@ -4,7 +4,7 @@
 Data labels
 }
 \description{
-\code{intsvy.var.labels} prints and saves variable labels and names of participating countries in a text file. Thus function is called by \code{timssg4.var.label}, \code{timssg8.var.label}, \code{pirls.var.label} and \code{pisa.var.label}.
+\code{intsvy.var.labels} prints and saves variable labels and names of participating countries in a text file. The function is called by \code{timssg4.var.label}, \code{timssg8.var.label}, \code{pirls.var.label} and \code{pisa.var.label}.
 }
 \usage{
 intsvy.var.label(folder = getwd(), name = "Variable labels", output = getwd(),
@@ -13,7 +13,7 @@ intsvy.var.label(folder = getwd(), name = "Variable labels", output = getwd(),
 
 \arguments{
   \item{folder}{
-Directory path where the data files are located. The data could be organized within folders but it should not be duplicated (avoid duplicated filenames). It is assumed that data is in `sav` files. For TIMSS, PIRLS and ICILS studies the data may be downloaded from \code{http://rms.iea-dpc.org/}. 
+Directory path where the data files are located. The data could be organized within folders but duplicated files should be avoided. It is assumed that data is in `sav` files. For TIMSS, PIRLS and ICILS studies the data can be downloaded from \code{http://rms.iea-dpc.org/}. 
 }
    \item{name}{
 Name of the output file.
@@ -34,6 +34,9 @@ timssg4.var.label, timssg8.var.label, pirls.var.label, pisa.var.label
 }
 \examples{
 \dontrun{
-intsvy.var.label(folder = getwd(), prefixes = c("asg", "ash", "acg", "atg"))
+intsvy.var.label(folder= getwd(), config = intsvy:::pirls_conf)
+intsvy.var.label(folder= getwd(), config = intsvy:::timss8_conf)
+intsvy.var.label(folder= getwd(), config = intsvy:::icils_conf)
+intsvy.var.label(folder= getwd(), config = intsvy:::piaac_conf)
 }
 }
