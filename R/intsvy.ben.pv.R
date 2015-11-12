@@ -2,9 +2,13 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
 
   if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
-  }
-  
+
   pv.ben.input <- function(pvlabel, data, cutoff, config) {
+    
+    if (missing(cutoff)) {
+    cutoff = config$parameters$cutoffs
+    }
+
     
     if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
@@ -179,4 +183,3 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
   }
   return(output)
 }
-
