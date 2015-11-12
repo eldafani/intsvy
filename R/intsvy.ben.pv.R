@@ -1,8 +1,16 @@
-intsvy.ben.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folder=getwd(), config) {
-  pv.ben.input <- function(pvlabel, data, config) {
+intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output", folder=getwd(), config) {
+
+  if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
+  }
+  
+  pv.ben.input <- function(pvlabel, data, cutoff, config) {
     
-    #  JK
+    if (missing(cutoff)) {
+    cutoff = config$parameters$cutoffs
+    }
+
+        #  JK
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
@@ -89,10 +97,10 @@ intsvy.ben.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folde
       tabse <-(varw+(1+1/5)*varb)^(1/2)
       
       # Result
-      result <- data.frame("Benchmarks"= c(paste("Below/equal to", cutoff[1]),
-                                           paste(rep("greater than", length(cutoff) -1), cutoff[1:length(cutoff)-1], 
-                                           "to less/equal than", cutoff[2:length(cutoff)]), paste("Above", cutoff[length(cutoff)])),
-                           "Percentage"=round(tabtot, 2), "Std. err."= round(tabse,2), check.names=F)
+      result <- data.frame("Benchmarks"= c(paste0("<= ", cutoff[1]),
+               paste0(rep("(", length(cutoff) -1), cutoff[1:length(cutoff)-1], 
+               ", ", cutoff[2:length(cutoff)], "]"), paste0("> ", cutoff[length(cutoff)])),
+               "Percentage"=round(tabtot, 2), "Std. err."= round(tabse,2), check.names=F)
       return(result)
     } 
     if (config$parameters$weights == "mixed_piaac") {
@@ -159,12 +167,12 @@ intsvy.ben.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folde
   
   # If by not supplied, calculate for complete sample    
   if (missing(by)) { 
-    output <- pv.ben.input(pvlabel=pvlabel, data=data, config=config)
+    output <- pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, data=data, config=config)
   } else {
     for (i in by) {
       data[[c(i)]] <- as.factor(data[[c(i)]])
     }
-    output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, data=x, config=config))
+    output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, data=x, config=config))
   }
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
