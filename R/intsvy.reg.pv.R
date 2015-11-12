@@ -137,7 +137,7 @@ intsvy.reg.pv <-
               lm(formula=as.formula(i), data=data, weights=data[[config$variables$weightFinal]]))
       
       Stattot <- sapply(1:config$parameters$PVreps, function(pv) 
-              c(summary(Regpv[[pv]])$coefficients[, 1], 100*summary(Regpv[[pv]])$r.squared))
+              c(summary(Regpv[[pv]])$coefficients[, 1], summary(Regpv[[pv]])$r.squared))
       rownames(Stattot)[nrow(Stattot)] <- "R-squared"
       
       # Mean total coefficients (across PVs)
