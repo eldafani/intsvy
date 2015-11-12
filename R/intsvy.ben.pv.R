@@ -1,16 +1,11 @@
 intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output", folder=getwd(), config) {
 
-  if (missing(cutoff)) {
-    cutoff = config$parameters$cutoffs
-  }
-  
-  pv.ben.input <- function(pvlabel, data, cutoff, config) {
-    
     if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
     }
-
-        #  JK
+  pv.ben.input <- function(pvlabel, data, cutoff, config) {
+    
+    #  JK
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
@@ -179,4 +174,3 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
   }
   return(output)
 }
-
