@@ -14,10 +14,12 @@ data, std=FALSE, export = FALSE, name = "output", folder = getwd(), config)
 Data labels of independent variables.
 }
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance in Grade 8.
+The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance 
+in TIMSS Grade 8.
 }
   \item{by}{
-The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
+The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other 
+categorical variable. 	
 }
   \item{data}{
 An R object, normally a data frame, containing the data from TIMSS.
@@ -26,7 +28,8 @@ An R object, normally a data frame, containing the data from TIMSS.
 A logical value. If TRUE standardised regression coefficients are calculated.
 }
 \item{export}{
-A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 
+A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that 
+can be opened from LibreOffice or Excel. 
 }
   \item{name}{
 The name of the exported file.
@@ -44,11 +47,13 @@ intsvy.reg.pv prints a data.frame with regression results (i.e., coefficients, s
 }
 
 \seealso{
-pirls.reg.pv, pisa.reg.pv
+piaac.reg.pv, pirls.reg.pv, pisa.reg.pv, timss.reg.pv
 }
 \examples{
 \dontrun{
-pisa.reg.pv(pvlabel="MATH", x="ST04Q01", by = "CNT", data=student2012)
-intsvy.reg.pv(pvlabel="MATH", x="ST04Q01", by = "CNT", data=student2012, config=intsvy:::pisa_conf)
+intsvy.reg.pv(pvlabel="MATH", x="ST04Q01", by = "IDCNTRYL",data=pisa, config=intsvy:::pisa_conf)
+intsvy.reg.pv(pvlabel="LIT", x="GENDER_R", by = "CNTRYID", data=piaac, config=intsvy:::piaac_conf)
+intsvy.reg.pv(pvlabel="BSMMAT", by="IDCNTRYL", x="ITSEX", data=timss8g, config=intsvy:::timss8_conf)
+intsvy.reg.pv(pvlabel="ASRREA", by="IDCNTRYL", x="ITSEX", data=pirls, config=intsvy:::pirls_conf)
 }
 }

@@ -1,6 +1,9 @@
-intsvy.ben.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folder=getwd(), config) {
-  pv.ben.input <- function(pvlabel, data, config) {
+intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output", folder=getwd(), config) {
+  pv.ben.input <- function(pvlabel, data, cutoff, config) {
+    
+    if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
+    }
     
     #  JK
     if (config$parameters$weights == "JK") {
@@ -159,12 +162,12 @@ intsvy.ben.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folde
   
   # If by not supplied, calculate for complete sample    
   if (missing(by)) { 
-    output <- pv.ben.input(pvlabel=pvlabel, data=data, config=config)
+    output <- pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, data=data, config=config)
   } else {
     for (i in by) {
       data[[c(i)]] <- as.factor(data[[c(i)]])
     }
-    output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, data=x, config=config))
+    output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, data=x, config=config))
   }
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
