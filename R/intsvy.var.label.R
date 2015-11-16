@@ -18,6 +18,9 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
       stop(paste("cannot locate the original `sav` files in", folder))
     }
     
+    # Remove empty elements in list
+    files.all <- files.all[lapply(files.all, length) >0]
+    
     # Files char found in the datasets
     abv <- unique(unlist(lapply(files.all, function(x) 
       substr(x, nchar(x) + config$input$type_part[1], nchar(x) + config$input$type_part[2])))) 
