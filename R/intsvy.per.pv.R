@@ -10,8 +10,6 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
       return(data.frame("Percentiles"=per, "Score"=rep(NA,length(per)), "Std. err."= rep(NA,length(per))))
     }
 
-    per = config$parameters$percentiles
-    
     #  JK
     if (config$parameters$weights == "JK") {
       # jack knife

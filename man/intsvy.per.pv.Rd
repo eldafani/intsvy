@@ -1,16 +1,16 @@
 \name{intsvy.per.pv}
 \alias{intsvy.per.pv}
 \title{INTSVY percentiles}
-\description{Calculates percentiles for plausible values.
-   User-defined percentiles (e.g., c(5, 10, 25, 75, 90, 95)) and with selected weights (e.g. "TOTWGT" in TIMSS) are specified in the config parameter.   
-}
+\description{Calculates percentiles for plausible values.}
 \usage{
-  intsvy.per.pv(pvlabel, by, 
-           data, export=FALSE, name= "output", folder=getwd(), config)
+  intsvy.per.pv(pvlabel, per, by, data, export=FALSE, name= "output", folder=getwd(), config)
 }
 \arguments{
   \item{pvlabel}{
-    The label corresponding to the achievement variable, for example, "BSMMAT", for overall mathematics performance.
+  The label corresponding to the achievement variable, for example, "BSMMAT", for overall mathematics performance.
+  }
+  \item{per}{
+  User-defined percentiles (e.g., per = c(5, 10, 25, 75, 90, 95)).
   }
   \item{by}{
     The label of the categorical grouping variable (e.g., by="IDCNTRYL") or variables (e.g., by=c("IDCNTRYL", "ITSEX")).   
@@ -33,7 +33,7 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 }
 
 \value{
-  intsvy.per.pv returns a data frame with percentiles and associated standard errors.
+  intsvy.per.pv returns a data frame with percentiles and associated standard errors. Default weights (e.g. "TOTWGT" in TIMSS) and percentiles are specified in the config parameter.    
 }
 
 \seealso{
@@ -41,13 +41,14 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 }
 \examples{
   \dontrun{
-    timss.per.pv(pvlabel="BSMMAT", by="IDCNTRYL", data=timss8)
-    intsvy.per.pv(pvlabel="BSMMAT", by="IDCNTRYL", data=timss8, config=intsvy:::timss8_conf)
+    timss.per.pv(pvlabel="BSMMAT", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timss8)
+    intsvy.per.pv(pvlabel="BSMMAT",  by="IDCNTRYL", data=timss8, config=intsvy:::timss8_conf)
     
     pirls.per.pv(pvlabel="ASRREA", by="IDCNTRYL", data=pirls)
-    intsvy.per.pv(pvlabel="ASRREA", by="IDCNTRYL", data=pirls, config=intsvy:::pirls_conf)
+    intsvy.per.pv(pvlabel="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
+    config=intsvy:::pirls_conf)
     
-    pisa.per.pv(pvlabel="MATH", by="CNT", data=student2012)
+    pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="CNT", data=student2012)
     intsvy.per.pv(pvlabel="MATH", by="CNT", data=student2012, config=intsvy:::pisa_conf)
   }
 }

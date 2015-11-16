@@ -2,7 +2,7 @@
 \alias{pirls.ben.pv}
 \title{PIRLS international benchmarks}
 \description{
-pirls.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by PIRLS/TIMSS
+pirls.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by PIRLS/TIMSS.
 }
 \usage{
 pirls.ben.pv(pvlabel, by, data, export = FALSE, name = "output", folder = getwd())
@@ -11,6 +11,9 @@ pirls.ben.pv(pvlabel, by, data, export = FALSE, name = "output", folder = getwd(
 \arguments{
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
+}
+  \item{cutoff}{
+The cut-off points for the assessment benchmarks (e.g., cutoff = c(400, 475, 550, 625). 
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	

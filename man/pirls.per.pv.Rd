@@ -3,12 +3,14 @@
 \title{PIRLS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  pirls.per.pv(pvlabel="ASRREA",by, 
-           data, export=FALSE, name= "output", folder=getwd())
+  pirls.per.pv(pvlabel="ASRREA",per, by, data, export=FALSE, name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
     The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
+  }
+   \item{per}{
+  User-defined percentiles (e.g., per = c(5, 10, 25, 75, 90, 95)).
   }
   \item{by}{
     The label of the categorical grouping variable (e.g., by="IDCNTRYL") or variables (e.g., by=c("IDCNTRYL", "ITSEX")).   
@@ -28,8 +30,7 @@
 }
 
 \value{
-  pirls.per.pv returns a data frame with percentiles and associated standard errors.
-   User-defined percentiles (e.g., c(5, 10, 25, 75, 90, 95)) and with selected weights (e.g. "TOTWGT" in TIMSS) are specified in the config parameter.   
+  pirls.per.pv returns a data frame with percentiles and associated standard errors. Default weights (e.g. "TOTWGT" in TIMSS) and percentiles are specified in the config parameter.    
 }
 
 \seealso{

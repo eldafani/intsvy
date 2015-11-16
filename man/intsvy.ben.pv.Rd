@@ -5,7 +5,7 @@
 intsvy.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by official reports.
 }
 \usage{
-intsvy.ben.pv(pvlabel, by, data, export = FALSE, name = "output", 
+intsvy.ben.pv(pvlabel, cutoff, by, data, export = FALSE, name = "output", 
   folder = getwd(), config)
 }
 
@@ -13,6 +13,8 @@ intsvy.ben.pv(pvlabel, by, data, export = FALSE, name = "output",
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
 }
+  \item{cutoff}{
+The cut-off points for the assessment benchmarks (e.g., cutoff= c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30)). }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }
@@ -38,7 +40,7 @@ pirls.ben.pv returns a data frame with the percentage of students at or above th
 }
 
 \seealso{
-timss.ben.pv, pisa.ben.pv
+timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{

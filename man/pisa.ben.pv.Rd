@@ -4,12 +4,14 @@
 \description{Calculates percentage of students at each proficiency level defined by PISA. Or at proficiency levels provided by the useR.
 }
 \usage{
-pisa.ben.pv(pvlabel, by, data, export=FALSE, name= "output", folder=getwd())
+pisa.ben.pv(pvlabel, cutoff, by, data, export=FALSE, name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "READ", for overall reading performance.
 }
+  \item{cutoff}{
+The cut-off points for the assessment benchmarks (e.g., cutoff= c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30)). }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }

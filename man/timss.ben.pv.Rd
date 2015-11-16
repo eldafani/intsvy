@@ -14,6 +14,9 @@ export = FALSE, name = "output", folder = getwd())
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance.
 }
+  \item{cutoff}{
+The cut-off points for the assessment benchmarks (e.g., cutoff = c(400, 475, 550, 625)).
+}
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }
