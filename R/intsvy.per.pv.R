@@ -1,5 +1,10 @@
-intsvy.per.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folder=getwd(), config) {
-  pv.per.input <- function(pvlabel, data, config) {
+intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", folder=getwd(), config) {
+  
+  if (missing(per)) {
+    per = config$parameters$percentiles
+  }
+  
+  pv.per.input <- function(pvlabel, per, data, config) {
     # Not enough data
     if (nrow(data)<=1)  {
       return(data.frame("Percentiles"=per, "Score"=rep(NA,length(per)), "Std. err."= rep(NA,length(per))))
@@ -86,12 +91,12 @@ intsvy.per.pv <- function(pvlabel, by, data, export=FALSE, name= "output", folde
   
   # If by not supplied, calculate for complete sample    
   if (missing(by)) { 
-    output <- pv.per.input(pvlabel=pvlabel, data=data, config=config)
+    output <- pv.per.input(pvlabel=pvlabel, per=per, data=data, config=config)
   } else {
     for (i in by) {
       data[[c(i)]] <- as.factor(data[[c(i)]])
     }
-    output <- ddply(data, by, function(x) pv.per.input(pvlabel=pvlabel, data=x, config=config))
+    output <- ddply(data, by, function(x) pv.per.input(pvlabel=pvlabel, per=per, data=x, config=config))
   }
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
