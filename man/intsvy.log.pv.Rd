@@ -46,3 +46,9 @@ intsvy.log.pv returns a data frame with coefficients, standard errors, t-values,
 \seealso{
 pisa.log.pv, pirls.log.pv, timss.log.pv
 }
+
+\examples{
+\dontrun{
+intsvy.log.pv(pvlabel="MATH", cutoff= 606.99, x="ESCS", by="IDCNTRYL", data=pisa, config=intsvy:::pisa_conf)
+intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", data=timss8g, config=intsvy:::timss8_conf)
+}}

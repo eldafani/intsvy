@@ -40,5 +40,28 @@ Results are stored in a list object of class "intsvy.reg".
 }
 
 \seealso{
-timss.log
+timss.log, pisa.log
 }
+\examples{
+\dontrun{
+# Table IV.5.14, p. 457 International Report 2012
+
+pisa12$SKIP[!(pisa12$ST09Q01 =="None" & pisa12$ST115Q01 == "None")] <- 1
+pisa12$SKIP[pisa12$ST09Q01 =="None" & pisa12$ST115Q01 == "None"] <- 0
+
+pisa12$LATE[!pisa12$ST08Q01=="None"] <- 1
+pisa12$LATE[pisa12$ST08Q01=="None"] <- 0
+
+pisa.log(y="SKIP", x="LATE", by="IDCNTRYL", data = pisa12)
+
+# from PISA2012lite
+
+student2012$SKIP[!(student2012$ST09Q01 =="None  " & student2012$ST115Q01 == 1)] <- 1
+student2012$SKIP[student2012$ST09Q01 =="None  " & student2012$ST115Q01 == 1] <- 0
+
+student2012$LATE[!student2012$ST08Q01=="None  "] <- 1
+student2012$LATE[student2012$ST08Q01=="None  "] <- 0
+
+pisa.log(y="SKIP", x="LATE", by="CNT", data = student2012)
+
+}}
