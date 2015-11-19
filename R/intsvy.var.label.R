@@ -26,8 +26,8 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
       substr(x, nchar(x) + config$input$type_part[1], nchar(x) + config$input$type_part[2])))) 
     
     
-    # Name list for existing datasets, will not print student-teacher linkage if available
-    names(files.all) <- file.names[file.names[["Abv"]] %in% abv, "Instrument"]
+    # Name list for existing datasets, will print student-teacher linkage if available
+    names(files.all) <- file.names[match(abv, file.names[["Abv"]]), "Instrument"]
     
     # Remove null elements (e.g. no teacher datasets)
     files.all<- files.all[lapply(files.all, length)!=0]
