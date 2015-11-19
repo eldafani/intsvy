@@ -16,6 +16,9 @@ Data labels of independent variables.
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
 }
+  \item{cutoff}{
+The cut-off point at which the dependent plausible values scores are dichotomised (1 is larger than the cut-off)
+}
   \item{by}{
 The label for the categorical grouping variable (i.e., by="IDCNTRYL") or variables (e.g., x= c("IDCNTRYL", "ITSEX")).   
 }
@@ -37,14 +40,9 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 }
 
 \value{
-intsvy.log.pv returns a data frame with coefficients, standard errors, t-values, and odds ratios. If "by" is specified, results are reported in a list. 
-
-Continuous variables are divided into a binary one with the use of cutoff2 that is in defined in the config argument.
-
-Weight, e.g. "TOTWGT" for PIRLS, are defined in the config argument.   
-
+intsvy.log.pv returns a data frame with coefficients, standard errors, t-values, and odds ratios. If "by" is specified, results are reported in a list. Weights, e.g. "TOTWGT" for PIRLS, are defined in the config argument.   
 }
 
 \seealso{
-pisa.log.pv, timss.log.pv
+pisa.log.pv, pirls.log.pv, timss.log.pv
 }

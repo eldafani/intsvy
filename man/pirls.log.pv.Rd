@@ -5,16 +5,19 @@
 pirls.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-pirls.log.pv(pvlabel="ASRREA", x, by, 
+pirls.log.pv(pvlabel="ASRREA", x, cutoff, by, 
            data, export=FALSE, name= "output", folder=getwd())
 }
 
 \arguments{
+  \item{pvlabel}{
+The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
+}
   \item{x}{
 Data labels of independent variables.
 }
-  \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
+  \item{cutoff}{
+The cut-off point at which the dependent plausible values scores are dichotomised (1 is larger than the cut-off)
 }
   \item{by}{
 The label for the categorical grouping variable (i.e., by="IDCNTRYL") or variables (e.g., x= c("IDCNTRYL", "ITSEX")).   

@@ -5,16 +5,16 @@
 pisa.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-pisa.log.pv(pvlabel="READ", x, by, 
+pisa.log.pv(pvlabel="READ", cutoff, x, by, 
       data, export=FALSE, name= "output", folder=getwd())
 }
 
 \arguments{
-  \item{x}{
-Data labels of independent variables.
-}
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "READ", for overall reading performance.
+}
+  \item{x}{
+Data labels of independent variables.
 }
   \item{by}{
 The label for the categorical grouping variable (i.e., by="IDCNTRYL") or variables (e.g., x= c("IDCNTRYL", "ST79Q03")).   
