@@ -23,19 +23,19 @@ intsvy.log.pv <-
       # List of formulas for each PV
       regform <- lapply(names(di), function(i) paste(i, "~", paste(x, collapse="+")))
       # Replicate weighted coefficients for sampling error (5 PVs), normalised weights
-      coef.rp <- lapply(regform, function(k) lapply(1:config$parameters$BRRreps, function(i) 
+      coef.rp <- suppressWarnings(lapply(regform, function(k) lapply(1:config$parameters$BRRreps, function(i) 
         summary(glm(formula=as.formula(k), family=quasibinomial("logit"), 
                     weights=nrow(data)*data[[paste0(config$variables$weightBRR, i)]]/sum(data[[paste0(config$variables$weightBRR, i)]]),
-                    data=data))))
+                    data=data)))))
 
       # Retrieving coefficients
       rp.coef <- lapply(1:length(pvnames), function(pv) 
                   sapply(1:config$parameters$BRRreps, function(i) 
                       coef.rp[[pv]][[i]]$coefficients[,1]))
       # Total weighted coefficient for each PV for imputation (between) error
-      reg.pv <- lapply(regform, function(i) 
+      reg.pv <- suppressWarnings(lapply(regform, function(i) 
         summary(glm(formula=as.formula(i), family=quasibinomial("logit"), 
-                    weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data)))
+                    weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data))))
 
       pv.coef <- sapply(1:length(pvnames), function(pv) reg.pv[[pv]]$coefficients[, 1])
       # Mean total coefficients (across PVs)
@@ -86,18 +86,18 @@ intsvy.log.pv <-
       rp.wt.n <- nrow(data)*rp.wt/apply(rp.wt, 2, sum)
       
       # Replicate weighted coefficients for sampling error (PV1 only), normalised weights
-      coef.rp1 <- lapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
+      coef.rp1 <- suppressWarnings(lapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
                       summary(glm(formula=as.formula(regform[[1]]), 
-                           family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data)))
+                           family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data))))
 
       # Retrieving coefficients
       rp.coef <- do.call(cbind, lapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
                     coef.rp1[[rp]]$coefficients[,1]))
       
       # Total weighted coefficient for each PV for imputation (between) error
-      reg.pv <- lapply(regform, function(pv) 
+      reg.pv <- suppressWarnings(lapply(regform, function(pv) 
         summary(glm(formula=as.formula(pv), family=quasibinomial("logit"), 
-                    weights=nrow(data)*data[[config$variables$weight]]/sum(data[[config$variables$weight]]), data=data)))
+        weights=nrow(data)*data[[config$variables$weight]]/sum(data[[config$variables$weight]]), data=data))))
       pv.coef <- sapply(1:length(pvnames), function(pv) reg.pv[[pv]]$coefficients[, 1])
       
       # Mean total coefficients (across PVs)

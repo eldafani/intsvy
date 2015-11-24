@@ -17,16 +17,16 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       # in PISA
       
       # Replicate weighted coefficients, normalised weights
-      coef.rp <- lapply(1:config$parameters$BRRreps, 
+      coef.rp <- suppressWarnings(lapply(1:config$parameters$BRRreps, 
                         function(i) summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
                                     weights=nrow(data)*data[[paste0(config$variables$weightBRR, i)]]/sum(data[[paste0(config$variables$weightBRR, i)]]),
-                                                      data=data)))
+                                                      data=data))))
 
       # Retrieving coefficients
       rp.coef <- sapply(1:config$parameters$BRRreps, function(i) coef.rp[[i]]$coefficients[,1])
       # Total weighted regressions 
-      reg.pv <- summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
-                            weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data))
+      reg.pv <- suppressWarnings(summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
+                            weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data)))
       
       # Total weighted coefficients
       tot.coef <- reg.pv$coefficients[, 1]
@@ -60,16 +60,16 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
                                     data[[config$variables$weight]]))
       rp.wt.n <- nrow(data)*rp.wt/apply(rp.wt, 2, sum)
       # Replicate weights coefficients for sampling error
-      reg.rp <- lapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
+      reg.rp <- suppressWarnings(lapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
                       summary(glm(formula=as.formula(regform), 
-                                 family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data)))
+                                 family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data))))
       
       # Combine coefficients 
       coef.rp <- do.call("cbind", lapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
                         reg.rp[[rp]]$coefficients[,1]))
       # Total weighted coefficient for each PV for imputation (between) error
-      reg.tot <- summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
-                             weights=nrow(data)*data[[config$variables$weight]]/sum(data[[config$variables$weight]]), data=data))
+      reg.tot <- suppressWarnings(summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
+                             weights=nrow(data)*data[[config$variables$weight]]/sum(data[[config$variables$weight]]), data=data)))
       
       # Total weighted coefficients
       coef.tot <- reg.tot$coefficients[, 1]
