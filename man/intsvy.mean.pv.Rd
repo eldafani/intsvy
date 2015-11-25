@@ -1,15 +1,10 @@
 \name{intsvy.mean.pv}
 \alias{intsvy.mean.pv}
-\title{
-Calculates mean achievement score
-}
+\title{Calculates mean achievement score}
 \description{
 The fucntion intsvy.mean.pv uses plausible values to calculate the mean achievement score and its standard error.
 }
-\usage{
-intsvy.mean.pv(pvnames, by, data, export=FALSE, 
-  name= "output", folder=getwd(), config)
-}
+\usage{intsvy.mean.pv(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config)}
 
 \arguments{
   \item{pvnames}{
@@ -55,6 +50,5 @@ intsvy.mean.pv(pvnames = paste0("BSMMAT0",1:5), by= "IDCNTRYL", data=timss8g,
     
 intsvy.mean.pv(pvnames = paste0("PVNUM", 1:10), by="CNTRYID", data=piaac, 
     config=intsvy:::piaac_conf)    
-
 }
 }

@@ -66,5 +66,4 @@ student2012$LATE[!student2012$ST08Q01=="None  "] <- 1
 student2012$LATE[student2012$ST08Q01=="None  "] <- 0
 
 pisa.log(y="SKIP", x="LATE", by="CNT", data = student2012)
-
 }}

@@ -10,12 +10,12 @@ data, std=FALSE, export = FALSE, name = "output", folder = getwd(), config)
 }
 
 \arguments{
-  \item{x}{
-Data labels of independent variables.
-}
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance 
 in TIMSS Grade 8.
+}
+  \item{x}{
+Data labels of independent variables.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other 

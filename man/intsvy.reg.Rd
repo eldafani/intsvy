@@ -1,6 +1,6 @@
 \name{intsvy.reg}
 \alias{intsvy.reg}
-\title{Regression analysis for international studies}
+\title{Regression analysis without plausible values}
 \description{
 intsvy.reg performs linear regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
 }

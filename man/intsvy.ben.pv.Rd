@@ -1,6 +1,6 @@
 \name{intsvy.ben.pv}
 \alias{intsvy.ben.pv}
-\title{intsvy international benchmarks}
+\title{Performance international benchmarks and proficiency levels}
 \description{
 intsvy.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by official reports.
 }
@@ -54,6 +54,3 @@ timss.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4)
 intsvy.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4, config=intsvy:::timss4_conf)
 }
 }
-
-
-

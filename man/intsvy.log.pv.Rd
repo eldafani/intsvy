@@ -5,16 +5,15 @@
 intsvy.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-intsvy.log.pv(pvlabel, x, by, 
-           data, export=FALSE, name= "output", folder=getwd(), config)
+intsvy.log.pv(pvlabel, x, by, data, export=FALSE, name= "output", folder=getwd(), config)
 }
 
 \arguments{
-  \item{x}{
-Data labels of independent variables.
-}
   \item{pvlabel}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
+}
+  \item{x}{
+Data labels of independent variables.
 }
   \item{cutoff}{
 The cut-off point at which the dependent plausible values scores are dichotomised (1 is larger than the cut-off)
