@@ -5,7 +5,7 @@
 intsvy.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by official reports.
 }
 \usage{
-intsvy.ben.pv(pvlabel, cutoff, by, data, export = FALSE, name = "output", 
+intsvy.ben.pv(pvlabel,  by, cutoff, data, export = FALSE, name = "output", 
   folder = getwd(), config)
 }
 
@@ -45,12 +45,12 @@ timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 \examples{
 \dontrun{
 pisa.ben.pv(pvlabel="MATH", by="CNT", data=student2012)
-intsvy.ben.pv(pvlabel="MATH", by="CNT", data=student2012, config=intsvy:::pisa_conf)
+intsvy.ben.pv(pvlabel="MATH", by="CNT", data=student2012, config=pisa_conf)
 
 piaac.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac)
-intsvy.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac, config=intsvy:::piaac_conf)
+intsvy.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac, config=piaac_conf)
 
 timss.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4)
-intsvy.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4, config=intsvy:::timss4_conf)
+intsvy.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4, config=timss4_conf)
 }
 }

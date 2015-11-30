@@ -3,7 +3,8 @@
 \title{PIRLS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  pirls.per.pv(pvlabel="ASRREA",per, by, data, export=FALSE, name= "output", folder=getwd())
+  pirls.per.pv(pvlabel="ASRREA", by, per, data, export=FALSE, 
+  name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{

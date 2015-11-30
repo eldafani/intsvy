@@ -7,7 +7,7 @@ TIMSS international benchmarks
 timss.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by PIRLS/TIMSS
 }
 \usage{
-timss.ben.pv(pvlabel, by,  data,
+timss.ben.pv(pvlabel, by,  cutoff, data,
 export = FALSE, name = "output", folder = getwd())
 }
 \arguments{

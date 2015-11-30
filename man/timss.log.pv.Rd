@@ -5,7 +5,7 @@
 timss.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-timss.log.pv(pvlabel="BSMMAT", x, cutoff, by, 
+timss.log.pv(pvlabel="BSMMAT", x, by, cutoff, 
            data, export=FALSE, name= "output", folder=getwd())
 }
 
@@ -47,5 +47,6 @@ pisa.log.pv, pirls.log.pv
 \examples{
 \dontrun{
 timss.log.pv(pvlabel="BSMMAT", cutoff= 550, x=c("ITSEX", "BSBGSLM"), by="IDCNTRYL", data=timss8g)
-intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", data=timss8g, config=intsvy:::timss8_conf)
+intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", 
+data=timss8g, config=timss8_conf)
 }}

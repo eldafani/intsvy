@@ -9,7 +9,7 @@
 \title{Config files for intsvy studies}
 \format{A list with three components - input, variables and parameters.}
 \usage{
-data(icils_conf)
+pisa_conf
 }
 \description{
 Each config file describes detailed study meta-data. Such meta data defined names of columns with weights, type of weighting, number of plausible values and other study parameters. Most of intsvy functions require such config objects.

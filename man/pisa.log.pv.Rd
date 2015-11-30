@@ -5,7 +5,7 @@
 pisa.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-pisa.log.pv(pvlabel="READ", cutoff, x, by, 
+pisa.log.pv(pvlabel="READ", x, by, cutoff,  
       data, export=FALSE, name= "output", folder=getwd())
 }
 
@@ -15,6 +15,9 @@ The label corresponding to the achievement variable, for example, "READ", for ov
 }
   \item{x}{
 Data labels of independent variables.
+}
+  \item{cutoff}{
+The cut-off point at which the dependent plausible values scores are dichotomised (1 is larger than the cut-off)
 }
   \item{by}{
 The label for the categorical grouping variable (i.e., by="IDCNTRYL") or variables (e.g., x= c("IDCNTRYL", "ST79Q03")).   
@@ -43,5 +46,6 @@ timss.log.pv, pirls.log.pv
 \examples{
 \dontrun{
 timss.log.pv(pvlabel="BSMMAT", cutoff= 550, x=c("ITSEX", "BSBGSLM"), by="IDCNTRYL", data=timss8g)
-intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", data=timss8g, config=intsvy:::timss8_conf)
+intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", 
+data=timss8g, config=timss8_conf)
 }}

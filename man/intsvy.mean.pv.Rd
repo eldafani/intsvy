@@ -40,15 +40,15 @@ pisa.mean.pv, timss.mean.pv, pirls.mean.pv
 \examples{
 \dontrun{
 intsvy.mean.pv(pvnames = paste0("ASRREA0",1:5), by= "IDCNTRYL", 
-    data=pirls, config=intsvy:::pirls_conf)
+    data=pirls, config=pirls_conf)
 
 intsvy.mean.pv(pvnames = paste0("PV",1:5,"MATH"), by="CNT", data=student2012, 
-    config=intsvy:::pisa_conf)
+    config=pisa_conf)
     
 intsvy.mean.pv(pvnames = paste0("BSMMAT0",1:5), by= "IDCNTRYL", data=timss8g, 
-    config=intsvy:::timss8_conf)
+    config=timss8_conf)
     
 intsvy.mean.pv(pvnames = paste0("PVNUM", 1:10), by="CNTRYID", data=piaac, 
-    config=intsvy:::piaac_conf)    
+    config=piaac_conf)    
 }
 }

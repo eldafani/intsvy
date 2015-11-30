@@ -52,25 +52,25 @@ pirls <- intsvy.select.merge(folder= getwd(),
          student= c("ITSEX", "ASDAGE", "ASBGSMR"), 
          home= c("ASDHEDUP", "ASDHOCCP", "ASDHELA", "ASBHELA"),
          school= c("ACDGDAS", "ACDGCMP", "ACDG03"), 
-         config = intsvy:::pirls_conf)
+         config = pirls_conf)
          
 pirls <- intsvy.select.merge(folder= getwd(),
          countries= c(36, 40, 31, 957),
          student= c("ITSEX", "ASDAGE", "ASBGSMR"),
          home= c("ASDHEDUP", "ASDHOCCP", "ASDHELA", "ASBHELA"),
          school= c("ACDGDAS", "ACDGCMP", "ACDG03"),
-         config = intsvy:::pirls_conf)
+         config = pirls_conf)
                             
 timss8g <- intsvy.select.merge(folder= getwd(), 
            countries=c("AUS", "BHR", "ARM", "CHL"), 
            student =c("BSDGEDUP", "ITSEX", "BSDAGE", "BSBGSLM", "BSDGSLM"),
-           school=c("BCBGDAS", "BCDG03"), config = intsvy:::timss8_conf)
+           school=c("BCBGDAS", "BCDG03"), config = timss8_conf)
            
 icils <- intsvy.select.merge(folder= getwd(),
          countries=c("AUS", "POL", "SVK"),
          student =c("S_SEX", "S_TLANG", "S_MISEI"), 
          school =c("IP1G02J", "IP1G03A"),
-         config = intsvy:::icils_conf)
+         config = icils_conf)
          
 pisa <- pisa.select.merge(folder= getwd(),
         school.file="INT_SCQ12_DEC03.sav", 

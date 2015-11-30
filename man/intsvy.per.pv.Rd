@@ -3,7 +3,8 @@
 \title{INTSVY percentiles}
 \description{Calculates percentiles for plausible values.}
 \usage{
-  intsvy.per.pv(pvlabel, per, by, data, export=FALSE, name= "output", folder=getwd(), config)
+  intsvy.per.pv(pvlabel, by, per, data, export=FALSE, name= "output", 
+  folder=getwd(), config)
 }
 \arguments{
   \item{pvlabel}{
@@ -42,13 +43,13 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 \examples{
   \dontrun{
     timss.per.pv(pvlabel="BSMMAT", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timss8)
-    intsvy.per.pv(pvlabel="BSMMAT",  by="IDCNTRYL", data=timss8, config=intsvy:::timss8_conf)
+    intsvy.per.pv(pvlabel="BSMMAT",  by="IDCNTRYL", data=timss8, config=timss8_conf)
     
     pirls.per.pv(pvlabel="ASRREA", by="IDCNTRYL", data=pirls)
     intsvy.per.pv(pvlabel="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
-    config=intsvy:::pirls_conf)
+    config=pirls_conf)
     
     pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="CNT", data=student2012)
-    intsvy.per.pv(pvlabel="MATH", by="CNT", data=student2012, config=intsvy:::pisa_conf)
+    intsvy.per.pv(pvlabel="MATH", by="CNT", data=student2012, config=pisa_conf)
   }
 }

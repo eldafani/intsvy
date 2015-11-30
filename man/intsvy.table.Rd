@@ -36,7 +36,6 @@ timss.table, pirls.table
 \dontrun{
 intsvy.table(variable="ASDGSLM", by="IDCNTRYL", data=timss4, 
   config = intsvy:::timss_conf)
-intsvy.table(variable="ST08Q01", by="CNT", data=pisa, 
-  config=intsvy:::pisa_conf)
+intsvy.table(variable="ST08Q01", by="CNT", data=pisa, config=pisa_conf)
 }
 }

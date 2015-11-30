@@ -44,9 +44,9 @@ pisa.mean, timss.mean, pirls.mean
 }
 \examples{
 \dontrun{
-intsvy.mean(variable="READHOME", by="CNTRYID", data=piaac, config=intsvy:::piaac_conf)
-intsvy.mean(variable="PARED", by="IDCNTRYL", data=pisa, config=intsvy:::pisa_conf)
-intsvy.mean(variable="BSBGSLM", by='IDCNTRYL', data=timss8g, config=intsvy:::timss8_conf)
-intsvy.mean(variable='ASBHELA', by= 'IDCNTRYL', data=pirls,config=intsvy:::pirls_conf)
+intsvy.mean(variable="READHOME", by="CNTRYID", data=piaac, config=piaac_conf)
+intsvy.mean(variable="PARED", by="IDCNTRYL", data=pisa, config=pisa_conf)
+intsvy.mean(variable="BSBGSLM", by='IDCNTRYL', data=timss8g, config=timss8_conf)
+intsvy.mean(variable='ASBHELA', by= 'IDCNTRYL', data=pirls,config=pirls_conf)
 }
 }

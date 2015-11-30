@@ -34,9 +34,9 @@ timssg4.var.label, timssg8.var.label, pirls.var.label, pisa.var.label
 }
 \examples{
 \dontrun{
-intsvy.var.label(folder= getwd(), config = intsvy:::pirls_conf)
-intsvy.var.label(folder= getwd(), config = intsvy:::timss8_conf)
-intsvy.var.label(folder= getwd(), config = intsvy:::icils_conf)
-intsvy.var.label(folder= getwd(), config = intsvy:::piaac_conf)
+intsvy.var.label(folder= getwd(), config = pirls_conf)
+intsvy.var.label(folder= getwd(), config = timss8_conf)
+intsvy.var.label(folder= getwd(), config = icils_conf)
+intsvy.var.label(folder= getwd(), config = piaac_conf)
 }
 }

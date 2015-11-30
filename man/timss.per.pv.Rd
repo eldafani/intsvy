@@ -3,7 +3,8 @@
 \title{TIMSS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  timss.per.pv(pvlabel="BSMMAT", per, by, data, export=FALSE, name= "output", folder=getwd())
+  timss.per.pv(pvlabel="BSMMAT", by, per, data, export=FALSE, name= "output", 
+  folder=getwd())
 }
 \arguments{
   \item{pvlabel}{

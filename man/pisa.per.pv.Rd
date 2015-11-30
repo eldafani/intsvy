@@ -3,7 +3,8 @@
 \title{PISA percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  pisa.per.pv(pvlabel="READ", per, by,  data, export=FALSE, name= "output", folder=getwd())}
+  pisa.per.pv(pvlabel="READ", by, per, data, export=FALSE, name= "output", 
+  folder=getwd())}
 \arguments{
   \item{pvlabel}{
     The label corresponding to the achievement variable, for example, "READ", for overall

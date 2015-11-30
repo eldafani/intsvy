@@ -4,7 +4,7 @@
 \description{Calculates percentage of population at each proficiency level defined by PIAAC. Or at proficiency levels provided by the user.
 }
 \usage{
-piaac.ben.pv(pvlabel, by,data, export=FALSE, 
+piaac.ben.pv(pvlabel, by, data, cutoff, export=FALSE, 
     name= "output", folder=getwd())
 }
 \arguments{
@@ -14,6 +14,8 @@ The label corresponding to the achievement variable, for example, "LIT", for ove
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="CNTRYID"), but could be any other categorical variable. 	
 }
+  \item{cutoff}{
+The cut-off points for the assessment benchmarks (e.g., cutoff= c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30)). }
   \item{data}{
 An R object, normally a data frame, containing the data from PIAAC.
 }
