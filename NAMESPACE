@@ -1,10 +1,13 @@
 import(ggplot2)
-importFrom(memisc, percent, spss.system.file, description, measurement)
-importFrom(reshape, melt)
-importFrom(foreign, read.spss)
-importFrom(plyr, ddply)
-importFrom(Hmisc, wtd.quantile)
-
+importFrom("memisc", "percent", "spss.system.file", "description", "measurement")
+importFrom("reshape", "melt")
+importFrom("foreign", "read.spss")
+importFrom("plyr", "ddply")
+importFrom("Hmisc", "wtd.quantile")
+importFrom("stats", "as.formula", "cov.wt", "glm", "lm", "na.omit",
+             "quasibinomial", "reorder", "sd", "var", "weighted.mean")
+importFrom("utils", "capture.output", "write.csv")
+  
 export(
 plot.intsvy.mean,
 plot.intsvy.table,
