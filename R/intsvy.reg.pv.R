@@ -2,9 +2,9 @@ intsvy.reg.pv <-
   function(x, pvlabel, by, data, std=FALSE, export=FALSE, name= "output", folder=getwd(), config) {
 
   reg.pv.input <- function(x, pvlabel, data, std, config) {
-    if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
-      results <- list("replicates"=NA, "residuals"= NA, "var.w"=NA, "var.b"=NA, "reg"=NA)
-      return(results)
+    if (any(sapply(data[x], function(i) all(duplicated(i))))) {
+    results <- list("replicates"=NA, "residuals"= NA, "var.w"=NA, "var.b"=NA, "reg"=NA)
+    return(results)
     }
 
     # BRR / JK
@@ -30,7 +30,7 @@ intsvy.reg.pv <-
 
       # Combining coefficients and R-squared replicates
       coe.rep <- lapply(1:config$parameters$PVreps, function(pv) sapply(1:config$parameters$BRRreps, function(rep)
-        c(reg.rep[[pv]][[rep]]$coefficients[,1], "R-squared"= 100*reg.rep[[pv]][[rep]]$r.squared)))
+        c(reg.rep[[pv]][[rep]]$coefficients[,1], "R-squared"= reg.rep[[pv]][[rep]]$r.squared)))
 
       resid <- lapply(1:config$parameters$PVreps, function(pv)
                     sapply(1:config$parameters$BRRreps,
@@ -41,7 +41,7 @@ intsvy.reg.pv <-
                     summary(lm(formula=as.formula(pv), data=data, weights=data[[config$variables$weightFinal]])))
 
       coe.tot <- sapply(1:config$parameters$PVreps, function(pv)
-                    c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = 100*reg.pv[[pv]]$r.squared))
+                    c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = reg.pv[[pv]]$r.squared))
 
 
       # Mean total coefficients (across PVs)
@@ -86,7 +86,7 @@ intsvy.reg.pv <-
 
       # Combining coefficients and R-squared replicates
       coe.rep <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(i)
-                    c(reg.rep[[i]]$coefficients[,1], "R-squared"= 100*reg.rep[[i]]$r.squared))
+                    c(reg.rep[[i]]$coefficients[,1], "R-squared"= reg.rep[[i]]$r.squared))
 
       resid <- sapply(1:length(reg.rep), function(rep) reg.rep[[rep]]$residuals)
 
@@ -94,7 +94,7 @@ intsvy.reg.pv <-
       reg.pv <- lapply(regform, function(i)
               summary(lm(formula=as.formula(i), data=data, weights=data[[config$variables$weight]])))
       coe.tot <- sapply(1:config$parameters$PVreps, function(pv)
-              c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = 100*reg.pv[[pv]]$r.squared))
+              c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = reg.pv[[pv]]$r.squared))
 
       # Mean total coefficients (across PVs)
       stat.tot <- apply(coe.tot, 1, mean)
@@ -130,14 +130,14 @@ intsvy.reg.pv <-
 
       # Combining coefficients and R-squared replicates
       Statrp <- lapply(1:config$parameters$PVreps, function(pv) sapply(1:config$parameters$BRRreps, function(i)
-        c(Coefrpv[[pv]][[i]]$coefficients[,1], 100*Coefrpv[[pv]][[i]]$r.squared)))
+        c(Coefrpv[[pv]][[i]]$coefficients[,1], Coefrpv[[pv]][[i]]$r.squared)))
 
       # Total weighted coefficient for each PV for imputation (between) error
       Regpv <- lapply(regform, function(i)
               lm(formula=as.formula(i), data=data, weights=data[[config$variables$weightFinal]]))
 
       Stattot <- sapply(1:config$parameters$PVreps, function(pv)
-              c(summary(Regpv[[pv]])$coefficients[, 1], 100*summary(Regpv[[pv]])$r.squared))
+              c(summary(Regpv[[pv]])$coefficients[, 1], summary(Regpv[[pv]])$r.squared))
       rownames(Stattot)[nrow(Stattot)] <- "R-squared"
 
       # Mean total coefficients (across PVs)

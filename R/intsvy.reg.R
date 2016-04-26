@@ -5,7 +5,7 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
 
   reg.input <- function(y, x, data, config) {
     # If no variability in y or x, or if all missing print NA
-    if (sum(sapply(data[c(y, x)], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
+    if (any(sapply(data[c(y, x)], function(i) all(duplicated(i))))) {
       results <- list("replicates"=NA, "residuals"= NA, "reg"=NA)
       return(results)
     }
@@ -80,11 +80,11 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
                                                     weights=data[[paste(config$variables$weightBRR, i , sep="")]])))
       # Combining coefficients and R-squared replicates
       Statrp <- sapply(1:config$parameters$BRRreps, function(i) 
-                c(Coefrp[[i]]$coefficients[,1], 100*Coefrp[[i]]$r.squared))
+                c(Coefrp[[i]]$coefficients[,1], Coefrp[[i]]$r.squared))
       
       # Total weighted coefficients and R-squared
       Reg <- summary(lm(formula=as.formula(regform), data=data, weights=data[[config$variables$weightFinal]]))
-      Stattot <- c(Reg$coefficients[,1], 100*Reg$r.squared)
+      Stattot <- c(Reg$coefficients[,1], Reg$r.squared)
       names(Stattot)[length(Stattot)] <- "R-squared"
       
       cntName <- as.character(unique(data$CNTRYID))[1]
