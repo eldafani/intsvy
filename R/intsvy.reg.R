@@ -80,11 +80,11 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
                                                     weights=data[[paste(config$variables$weightBRR, i , sep="")]])))
       # Combining coefficients and R-squared replicates
       Statrp <- sapply(1:config$parameters$BRRreps, function(i) 
-                c(Coefrp[[i]]$coefficients[,1], 100*Coefrp[[i]]$r.squared))
+                c(Coefrp[[i]]$coefficients[,1], Coefrp[[i]]$r.squared))
       
       # Total weighted coefficients and R-squared
       Reg <- summary(lm(formula=as.formula(regform), data=data, weights=data[[config$variables$weightFinal]]))
-      Stattot <- c(Reg$coefficients[,1], 100*Reg$r.squared)
+      Stattot <- c(Reg$coefficients[,1], Reg$r.squared)
       names(Stattot)[length(Stattot)] <- "R-squared"
       
       cntName <- as.character(unique(data$CNTRYID))[1]
