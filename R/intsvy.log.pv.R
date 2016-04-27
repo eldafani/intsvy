@@ -2,7 +2,7 @@ intsvy.log.pv <-
   function(pvlabel, x, cutoff, by, data, export=FALSE, name= "output", folder=getwd(), config) {
 
   log.pv.input <- function(pvlabel, x, cutoff, data, config) {
-    if (sum(sapply(data[x], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
+    if (any(sapply(data[x], function(i) all(duplicated(i))))) {
       return(data.frame("Coef."=NA, "Std. Error"=NA, "t value"=NA, "OR"=NA, "CI95low"=NA, 
                         "CI95up"=NA, check.names=F))
     }

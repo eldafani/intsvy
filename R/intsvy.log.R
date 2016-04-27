@@ -5,7 +5,7 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
 
   reg.input <- function(y, x, data, config) {
     # If no variability in y or x, or if all missing print NA
-    if (sum(sapply(data[c(y, x)], function(i) c(sd(i, na.rm=T), sum(!is.na(i)))) == 0, na.rm=T) > 0) {
+    if (any(sapply(data[c(y, x)], function(i) all(duplicated(i))))) {
       results <- list("replicates"=NA, "residuals"= NA, "reg"=NA)
       return(results)
     }
