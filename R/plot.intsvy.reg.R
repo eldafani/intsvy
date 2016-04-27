@@ -36,7 +36,7 @@ plot.intsvy.reg <- function(x, ..., vars, se=TRUE, sort=FALSE) {
     facet_wrap(~Coefficient, scales="free_x") +
     theme(legend.position="top")
   if (se) {
-    pl <- pl + geom_errorbarh(aes_string(xmin="valueL", xmax="valueH"), width=.5)
+    pl <- pl + geom_errorbarh(aes_string(xmin="valueL", xmax="valueH"))
   }
   pl
 }
