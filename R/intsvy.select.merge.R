@@ -80,8 +80,8 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
     
     suppressWarnings(suppressMessages(junk0 <- lapply(files.select[[config$input$student]], function(y) 
       read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
-    student.data <- do.call('rbind', lapply(junk0, function(x) x[, c(config$input$student_colnames1,
-      grep(config$input$student_pattern, names(x), value=TRUE), student, config$input$student_colnames2)]))
+    student.data <- do.call('rbind', lapply(junk0, function(x) x[, unique(c(config$input$student_colnames1,
+      grep(config$input$student_pattern, names(x), value=TRUE), student, config$input$student_colnames2))]))
   }
   
   # Home background data
@@ -92,8 +92,8 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
     
     suppressWarnings(suppressMessages(home.data <- do.call("rbind",                          # Merge [[2]] home
               lapply(files.select[[config$input$home]], function(y) 
-                read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, c(           # Each dataset
-                  config$input$home_colnames, home)]))))                                     # Selected
+                read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, unique(c(           # Each dataset
+                  config$input$home_colnames, home))]))))                                     # Selected
   }
   
   # School data
@@ -104,7 +104,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
 
     suppressWarnings(suppressMessages(school.data <- do.call("rbind",                      # Merge [[2]] school
            lapply(files.select[[config$input$school]], function(y) 
-             read.spss(y, to.data.frame=T)[c(config$input$school_colnames, school)]))))    # Selected
+             read.spss(y, to.data.frame=T)[unique(c(config$input$school_colnames, school))]))))    # Selected
   }
   
   # Teacher data
@@ -118,8 +118,8 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
       read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)))))
     suppressWarnings(suppressMessages(teach.i <-  do.call("rbind",                              
     lapply(files.select[[config$input$teacher[2]]], function(y) 
-      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, c(
-      config$input$teacher_colnames, teacher)]))))
+      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, unique(c(
+      config$input$teacher_colnames, teacher))]))))
   
     teacher.data <- merge(teach.l, teach.i, by=config$input$teacher_colnames)
   }
