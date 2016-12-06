@@ -47,10 +47,10 @@ pisa.select.merge <-
     names(files.all) <- c('Student', 'Parent', 'School')
     
     # Remove null elements in list
-    files.all <- files.all[!sapply(files.all, is.null)]
+    files.all <- files.all[sapply(files.all, length)>0]
     
     # Participating countries (from student file)
-    pisa.student <- spss.system.file(files.all[["Student"]], to.lower=FALSE)
+    suppressWarnings(pisa.student <- spss.system.file(files.all[["Student"]], to.lower=FALSE))
     country <- names(table(pisa.student[,"CNT"]))
     
     # If countries missing, all countries selected
@@ -72,8 +72,8 @@ pisa.select.merge <-
       names(pisa.student) <- toupper(names(pisa.student)) # because stidstd is lowercase sometimes
       
       student.data <- pisa.student[pisa.student["CNT"] %in% countries, 
-                      c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=T)), student)]
-
+                                   c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=T)), student)]
+      
       student.data <- as.data.frame(adj.measlev(student.data))
       
     }
@@ -92,7 +92,7 @@ pisa.select.merge <-
       names(pisa.parent) <- toupper(names(pisa.parent))
       
       parent.data <- pisa.parent[pisa.parent["CNT"] %in% countries, 
-                     c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), parent)]
+                                 c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), parent)]
       
       
       parent.data <- as.data.frame(adj.measlev(parent.data))
@@ -112,9 +112,9 @@ pisa.select.merge <-
       pisa.school <- spss.system.file(files.all[["School"]], to.lower=FALSE)
       names(pisa.school) <- toupper(names(pisa.school))
       
-
+      
       school.data <- pisa.school[pisa.school["CNT"] %in% countries, 
-                     c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), school)]
+                                 c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), school)]
       
       
       
