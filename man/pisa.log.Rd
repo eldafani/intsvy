@@ -1,11 +1,14 @@
 \name{pisa.log}
 \alias{pisa.log}
+\alias{pisa2015.log}
 \title{Logistic regression analysis}
 \description{
 pisa.log performs logistic regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
+Use the pisa2015.log() for data from PISA 2015 study.
 }
 \usage{
 pisa.log(y, x, by, data, export=FALSE, name= "output", folder=getwd())
+pisa2015.log(y, x, by, data, export=FALSE, name= "output", folder=getwd())
 }
 
 \arguments{
