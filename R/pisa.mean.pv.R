@@ -6,3 +6,12 @@ function(pvlabel, by, data, export=FALSE, name= "output", folder=getwd()) {
                  name=name, folder=folder, config=pisa_conf)
   
 }
+
+pisa2015.mean.pv <-  
+  function(pvlabel, by, data, export=FALSE, name= "output", folder=getwd()) {
+    
+    intsvy.mean.pv(pvnames = paste("PV", 1:10, pvlabel, sep=""), 
+                   by=by, data=data, export=export,
+                   name=name, folder=folder, config=pisa2015_conf)
+    
+  }
