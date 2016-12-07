@@ -62,6 +62,8 @@ pisa.select.merge,
 pisa.table,
 pisa.var.label,
 
+pisa2015.table,
+
 timss.ben.pv,
 timss.log,
 timss.log.pv,
