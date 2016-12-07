@@ -51,7 +51,7 @@ pisa.select.merge <-
     
     # Participating countries (from student file)
     pisa.student <- read.spss(files.all[["Student"]], to.data.frame=TRUE)
-    country <- names(table(pisa.student[,"CNT"]))
+    country <- unique(pisa.student[,"CNT"])
     
     # If countries missing, all countries selected
     if (missing(countries)) {
