@@ -1,5 +1,6 @@
 pisa.select.merge <- 
-  function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countries, student=c(), parent, school) {
+  function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countries, student=c(), parent, school, 
+           use.value.labels= TRUE) {
     
     # Remove leading and trailing whitespaces in var labes  
     if(!missing(student) & !is.null(student)) {
@@ -50,7 +51,7 @@ pisa.select.merge <-
     files.all <- files.all[sapply(files.all, length)>0]
     
     # Participating countries (from student file)
-    pisa.student <- read.spss(files.all[["Student"]], to.data.frame=TRUE)
+    pisa.student <- read.spss(files.all[["Student"]], to.data.frame=TRUE, use.value.labels=use.value.labels)
     country <- names(table(pisa.student[, "CNT"])) 
     
     # If countries missing, all countries selected
@@ -87,7 +88,7 @@ pisa.select.merge <-
       }
       
       
-      pisa.parent <- read.spss(files.all[["Parent"]], to.data.frame=TRUE)
+      pisa.parent <- read.spss(files.all[["Parent"]], to.data.frame=TRUE, use.value.labels=use.value.labels)
       names(pisa.parent) <- toupper(names(pisa.parent))
       
       parent.data <- pisa.parent[pisa.parent[["CNT"]] %in% countries, 
@@ -105,7 +106,7 @@ pisa.select.merge <-
       }
       
       
-      pisa.school <- read.spss(files.all[["School"]], to.data.frame=TRUE)
+      pisa.school <- read.spss(files.all[["School"]], to.data.frame=TRUE, use.value.labels=use.value.labels)
       names(pisa.school) <- toupper(names(pisa.school))
       
       
