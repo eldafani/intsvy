@@ -1,13 +1,16 @@
 \name{pisa.table}
 \alias{pisa.table}
+\alias{pisa2015.table}
 \title{
 Frequency table
 }
 \description{
 pisa.table produces a frequency table for a categorical variable printing percentages and standard errors.
+Use the pisa2015.table() for data from PISA 2015 study.
 }
 \usage{
 pisa.table(variable, by, data, export = FALSE, name = "output", folder = getwd())
+pisa2015.table(variable, by, data, export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
