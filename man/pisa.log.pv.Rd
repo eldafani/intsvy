@@ -1,11 +1,15 @@
 \name{pisa.log.pv}
 \alias{pisa.log.pv}
+\alias{pisa2015.log.pv}
 \title{Logistic regression analysis with plausible values}
 \description{
 pisa.log.pv performs logistic regression with plausible values and replicate weights.
+Use the pisa2015.log.pv() for data from PISA 2015 study.
 }
 \usage{
 pisa.log.pv(pvlabel="READ", x, by, cutoff,  
+      data, export=FALSE, name= "output", folder=getwd())
+pisa2015.log.pv(pvlabel="READ", x, by, cutoff,  
       data, export=FALSE, name= "output", folder=getwd())
 }
 
