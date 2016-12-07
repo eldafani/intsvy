@@ -50,7 +50,7 @@ pisa.select.merge <-
     files.all <- files.all[sapply(files.all, length)>0]
     
     # Participating countries (from student file)
-    suppressWarnings(pisa.student <- spss.system.file(files.all[["Student"]], to.lower=FALSE))
+    pisa.student <- read.spss(files.all[["Student"]], to.data.frame=TRUE)
     country <- names(table(pisa.student[,"CNT"]))
     
     # If countries missing, all countries selected
@@ -74,7 +74,6 @@ pisa.select.merge <-
       student.data <- pisa.student[pisa.student["CNT"] %in% countries, 
                                    c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=T)), student)]
       
-      student.data <- as.data.frame(adj.measlev(student.data))
       
     }
     
@@ -88,15 +87,12 @@ pisa.select.merge <-
       }
       
       
-      pisa.parent <- spss.system.file(files.all[["Parent"]], to.lower=FALSE)
+      pisa.parent <- read.spss(files.all[["Parent"]], to.data.frame=TRUE)
       names(pisa.parent) <- toupper(names(pisa.parent))
       
       parent.data <- pisa.parent[pisa.parent["CNT"] %in% countries, 
                                  c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), parent)]
-      
-      
-      parent.data <- as.data.frame(adj.measlev(parent.data))
-      
+    
     }
     
     
@@ -109,17 +105,12 @@ pisa.select.merge <-
       }
       
       
-      pisa.school <- spss.system.file(files.all[["School"]], to.lower=FALSE)
+      pisa.school <- read.spss(files.all[["School"]], to.data.frame=TRUE)
       names(pisa.school) <- toupper(names(pisa.school))
       
       
       school.data <- pisa.school[pisa.school["CNT"] %in% countries, 
                                  c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), school)]
-      
-      
-      
-      school.data <- as.data.frame(adj.measlev(school.data))
-      
     }
     
     
@@ -173,5 +164,5 @@ pisa.select.merge <-
     # Create country label variable (not possible to add labels to numeric factor, see to do list)
     pisa.all$IDCNTRYL <- pisa.country[match(pisa.all$CNT, pisa.country$ISO), "Country"]
     
-    return(pisa.all)
+    return(droplevels(pisa.all))
   }
