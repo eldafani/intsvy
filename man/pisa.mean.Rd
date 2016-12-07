@@ -54,6 +54,6 @@ pisa.mean(variable="BELONG", by="IDCNTRYL", data=pisa)
 pisa.mean(variable="BELONG", by=c("IDCNTRYL", "ST04Q01"), data=pisa)
 
 # PISA 2015
-pisa2015.mean(variable="AGE", by="CNT", data=pisa2015)
+pisa2015.mean(variable="AGE", by="CNT", data=stud2015)
 }
 }
