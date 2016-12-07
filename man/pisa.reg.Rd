@@ -53,5 +53,5 @@ pirls.reg, timss.reg, piaac.reg
 # Table III.2.3d, p. 252 International Report 2012
 pisa.reg(y="BELONG", x="ST04Q01", by="IDCNTRYL", data=pisa)
 # PISA 2015
-pisa.reg(y="AGE", x="ST004D01T", by="CNT", data=stud2015)
+pisa2015.reg(y="AGE", x="OECD", by="ST004D01T", data=stud2015)
 }}
