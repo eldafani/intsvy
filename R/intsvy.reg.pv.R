@@ -1,6 +1,9 @@
 intsvy.reg.pv <-
   function(x, pvlabel, by, data, std=FALSE, export=FALSE, name= "output", folder=getwd(), config) {
 
+  # Remove missing data in IVs
+  data <- data[complete.cases(data[, x]), ]
+    
   reg.pv.input <- function(x, pvlabel, data, std, config) {
     if (any(sapply(data[x], function(i) all(duplicated(i))))) {
     results <- list("replicates"=NA, "residuals"= NA, "var.w"=NA, "var.b"=NA, "reg"=NA)
