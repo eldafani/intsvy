@@ -4,15 +4,28 @@
 
 # For PISA
 pisa_conf <- list(variables = list(pvlabelpref = "PV",
-                                  pvlabelsuff = "READ",
-                                  weightFinal = "W_FSTUWT",
-                                  weightBRR = "W_FSTR"),
-                 parameters = list(cutoffs = c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30),
-                                   percentiles = c(5, 10, 25, 75, 90, 95),
-                                   PVreps = 5,
-                                   BRRreps = 80,
-                                   weights = "BRR",
-                                   replication_scheme = 'pisa')
+                                   pvlabelsuff = "READ",
+                                   weightFinal = "W_FSTUWT",
+                                   weightBRR = "W_FSTR"),
+                  parameters = list(cutoffs = c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30),
+                                    percentiles = c(5, 10, 25, 75, 90, 95),
+                                    PVreps = 5,
+                                    BRRreps = 80,
+                                    weights = "BRR",
+                                    replication_scheme = 'pisa')
+)
+
+# For PISA_2015
+pisa2015_conf <- list(variables = list(pvlabelpref = "PV",
+                                   pvlabelsuff = "READ",
+                                   weightFinal = "W_FSTUWT",
+                                   weightBRR = "W_FSTURWT"),
+                  parameters = list(cutoffs = c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30),
+                                    percentiles = c(5, 10, 25, 75, 90, 95),
+                                    PVreps = 10,
+                                    BRRreps = 80,
+                                    weights = "BRR",
+                                    replication_scheme = 'pisa')
 )
 
 # For PIAAC
