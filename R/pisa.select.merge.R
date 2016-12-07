@@ -163,7 +163,6 @@ pisa.select.merge <-
     }
     
     # Create country label variable (not possible to add labels to numeric factor, see to do list)
-    pisa.all$IDCNTRYL <- pisa.country[match(pisa.all$CNT, pisa.country$ISO), "Country"]
     
     return(droplevels(pisa.all))
   }
