@@ -51,7 +51,7 @@ pisa.select.merge <-
     
     # Participating countries (from student file)
     pisa.student <- read.spss(files.all[["Student"]], to.data.frame=TRUE)
-    country <- unique(pisa.student[,"CNT"])
+    country <- names(table(pisa.student[, "CNT"])) 
     
     # If countries missing, all countries selected
     if (missing(countries)) {
@@ -71,7 +71,7 @@ pisa.select.merge <-
       
       names(pisa.student) <- toupper(names(pisa.student)) # because stidstd is lowercase sometimes
       
-      student.data <- pisa.student[pisa.student["CNT"] %in% countries, 
+      student.data <- pisa.student[pisa.student[["CNT"]] %in% countries, 
                                    c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=T)), student)]
       
       
@@ -90,7 +90,7 @@ pisa.select.merge <-
       pisa.parent <- read.spss(files.all[["Parent"]], to.data.frame=TRUE)
       names(pisa.parent) <- toupper(names(pisa.parent))
       
-      parent.data <- pisa.parent[pisa.parent["CNT"] %in% countries, 
+      parent.data <- pisa.parent[pisa.parent[["CNT"]] %in% countries, 
                                  c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), parent)]
     
     }
@@ -109,7 +109,7 @@ pisa.select.merge <-
       names(pisa.school) <- toupper(names(pisa.school))
       
       
-      school.data <- pisa.school[pisa.school["CNT"] %in% countries, 
+      school.data <- pisa.school[pisa.school[["CNT"]] %in% countries, 
                                  c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), school)]
     }
     
