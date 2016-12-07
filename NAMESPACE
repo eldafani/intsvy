@@ -63,6 +63,7 @@ pisa.table,
 pisa.var.label,
 
 pisa2015.table,
+pisa2015.mean,
 
 timss.ben.pv,
 timss.log,
