@@ -57,7 +57,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
   # no blanks, no home instrument, otherwise delete, see 4g function
            
   # Whenever file.select has countries with not directories, filter them out.
-  files.select <- sapply(files.all, function(x) Filter(function(var) length(var) != 0, x))  
+  files.select <- lapply(files.all, function(x) Filter(function(var) length(var) != 0, x))  
   
   # Remove cases for no home instruments
   # only if home is specified
