@@ -97,8 +97,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
       }
       
       # Read the home data
-      suppressWarnings(suppressMessages(home.data <-                           # Read [[2]] home
-                                          lapply(files.select[[config$input$home]], function(y) 
+      suppressWarnings(suppressMessages(home.data <- lapply(files.select[[config$input$home]], function(y) # Read [[2]] home
                                             read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
       
       # Making sure all variable names are in upper case
@@ -117,9 +116,9 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
         stop('cannot locate school data files')
       }
       
-      suppressWarnings(suppressMessages(school.data <-          # Read [[2]] school
-                      lapply(files.select[[config$input$school]], function(y) 
-                      read.spss(y, to.data.frame=T))))
+      suppressWarnings(suppressMessages(school.data <- lapply(files.select[[config$input$school]],
+                                                              function(y) # Read [[2]] school
+                                                              read.spss(y, to.data.frame=T, use.value.labels = use.labels))))
 
       # Making sure all variable names are in upper case
       school.data <- lapply(school.data, function(data) { 
