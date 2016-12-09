@@ -110,7 +110,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
       })
       
       home.data <- do.call("rbind", lapply(home.data, function(x)             # Merge [[2]] home
-        x[, unique(c(config$input$school_colnames, home))]))
+        x[, unique(c(config$input$home_colnames, home))]))
     }
     
     # School data
