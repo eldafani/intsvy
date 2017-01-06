@@ -116,6 +116,10 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       # Levels in between indicators (1/0) for 10 PVs
       level.int <- lapply(pvnames, function(x) sapply(2:length(cutoff), function(z) 
         ifelse(data[[x]] > cutoff[z-1] & data[[x]] <= cutoff[z], 1, 0)))
+      # special case for one row only - lost direction
+      if (nrow(data)==1) {
+        level.int <- lapply(level.int, matrix, nrow=1)
+      }
       
       # Last level indicator (1/0) for 10 PVs
       levell <- lapply(pvnames, function(x) ifelse(data[[x]] > cutoff[length(cutoff)], 1, 0))
