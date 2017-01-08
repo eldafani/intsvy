@@ -1,10 +1,12 @@
 \name{pisa.select.merge}
 \alias{pisa.select.merge}
+\alias{pisa2012.select.merge}
 \title{
 Select and merge data
 }
 \description{
-pisa.select.merge selects and merges data from PISA. Achievement and weight variables (all of them) are selected by default.
+pisa.select.merge selects and merges data from PISA. Achievement and weight variables (all of them) are selected by default. 
+  Use pisa2012.select.merge for PISA 2012 data.
 }
 \usage{
 pisa.select.merge(folder=getwd(), student.file, parent.file=c(), school.file=c(), 
