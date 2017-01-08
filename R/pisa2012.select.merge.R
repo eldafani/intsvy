@@ -1,4 +1,4 @@
-pisa.select.merge <- 
+pisa2012.select.merge <- 
 function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countries, student=c(), parent, school) {
   
   # Remove leading and trailing whitespaces in var labes  
