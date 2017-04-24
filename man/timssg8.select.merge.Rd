@@ -8,7 +8,7 @@ timssg8.select.merge selects and merges data from TIMSS G8.
 }
 \usage{
 timssg8.select.merge(folder = getwd(), countries, student = c(), school, 
-math.teacher, science.teacher, use.labels=TRUE)
+math.teacher, science.teacher, use.labels=FALSE)
 }
 
 \arguments{
