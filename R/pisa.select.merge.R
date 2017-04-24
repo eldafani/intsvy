@@ -1,6 +1,6 @@
 pisa.select.merge <- 
   function(folder=getwd(), student.file, parent.file=c(), school.file=c(), countries, student=c(), parent, school, 
-           use.value.labels= TRUE) {
+           use.value.labels= FALSE) {
     
     # Remove leading and trailing whitespaces in var labes  
     if(!missing(student) & !is.null(student)) {
