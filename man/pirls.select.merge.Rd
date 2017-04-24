@@ -9,7 +9,7 @@ are selected by default.
 }
 \usage{
 pirls.select.merge(folder = getwd(), countries, student = c(), 
-    home, school, teacher, use.labels=TRUE)
+    home, school, teacher, use.labels=FALSE)
 }
 \arguments{
   \item{folder}{
