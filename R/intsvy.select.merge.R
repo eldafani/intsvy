@@ -1,5 +1,5 @@
 intsvy.select.merge <-
-function(folder=getwd(), countries, student=c(), home, school, teacher, use.labels=TRUE,
+function(folder=getwd(), countries, student=c(), home, school, teacher, use.labels=FALSE,
          config) {
   
   # Remove leading and trailing whitespaces in var labels  
