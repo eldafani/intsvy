@@ -1,5 +1,5 @@
 timssg8.select.merge <-
-function(folder=getwd(), countries, student=c(), school, math.teacher, science.teacher, use.labels=TRUE) {
+function(folder=getwd(), countries, student=c(), school, math.teacher, science.teacher, use.labels=FALSE) {
   
   if (!missing(math.teacher) && !missing(science.teacher)) 
     stop("not possible to merge science and math teacher data")
