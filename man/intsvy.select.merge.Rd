@@ -8,7 +8,7 @@ intsvy.select.merge selects and merges data from different international assessm
 }
 \usage{
 intsvy.select.merge(folder = getwd(), countries, student = c(), home, 
-    school, teacher, use.labels=TRUE, config)
+    school, teacher, use.labels=FALSE, config)
 }
 \arguments{
   \item{folder}{
