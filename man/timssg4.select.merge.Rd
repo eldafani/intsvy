@@ -9,7 +9,7 @@ timssg4.select.merge selects and merges data from TIMSS G4. Achievement and weig
 }
 \usage{
 timssg4.select.merge(folder = getwd(), countries, student = c(), home, school, teacher, 
-use.labels=TRUE)
+use.labels=FALSE)
 }
 
 \arguments{
