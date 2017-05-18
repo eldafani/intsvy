@@ -73,7 +73,7 @@ pisa.select.merge <-
       names(pisa.student) <- toupper(names(pisa.student)) # because stidstd is lowercase sometimes
       
       student.data <- pisa.student[pisa.student[["CNT"]] %in% countries, 
-                                   c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=T)), student)]
+                      c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=T)), unique(student))]
       
       
     }
@@ -92,7 +92,7 @@ pisa.select.merge <-
       names(pisa.parent) <- toupper(names(pisa.parent))
       
       parent.data <- pisa.parent[pisa.parent[["CNT"]] %in% countries, 
-                                 c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), parent)]
+                                 c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), unique(parent))]
     
     }
     
@@ -111,7 +111,7 @@ pisa.select.merge <-
       
       
       school.data <- pisa.school[pisa.school[["CNT"]] %in% countries, 
-                                 c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), school)]
+                                 c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), unique(school))]
     }
     
     
