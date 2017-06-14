@@ -1,8 +1,8 @@
 Package: intsvy
-Version: 1.9
+Version: 2.0
 Type: Package
 Title: International Assessment Data Manager
-Date: 2016-04-26
+Date: 2017-06-14
 Author: Daniel Caro <daniel.caro@education.ox.ac.uk>, Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 Maintainer: Daniel Caro <daniel.caro@education.ox.ac.uk>
 Description: 
@@ -15,3 +15,5 @@ Imports: foreign, ggplot2, Hmisc, memisc, plyr, reshape, stats, utils
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
+VignetteBuilder: utils
+

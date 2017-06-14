@@ -1,6 +1,5 @@
 \name{piaac.mean.pv}
 \alias{piaac.mean.pv}
-\alias{piaac2015.mean.pv}
 \title{
 Calculates mean achievement score for PIAAC data
 }
@@ -9,7 +8,6 @@ piaac.mean.pv uses ten plausible values to calculate the mean achievement score 
 }
 \usage{
 piaac.mean.pv(pvlabel, by, data, export = FALSE, name = "output", folder = getwd())
-piaac2015.mean.pv(pvlabel, by, data, export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
