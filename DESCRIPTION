@@ -15,5 +15,3 @@ Imports: foreign, ggplot2, Hmisc, memisc, plyr, reshape, stats, utils
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
-VignetteBuilder: utils
-
