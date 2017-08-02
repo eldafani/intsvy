@@ -70,46 +70,69 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
     }
   }
   
-  #
-  # PREPARING
-  #
-
-  # Student achievement and background data, 
-  # needed also if school is non-missing
-  if (!missing(student) | !missing(school)) {
-    if (!missing(student) & is.null(files.select[[config$input$student]])) {
-      stop('cannot locate student data files')
+    #
+    # PREPARING
+    #
+    
+    # Student achievement and background data, 
+    # needed also if school is non-missing
+    if (!missing(student) | !missing(school)) {
+      if (!missing(student) & is.null(files.select[[config$input$student]])) {
+        stop('cannot locate student data files')
+      }
+      
+      suppressWarnings(suppressMessages(junk0 <- lapply(files.select[[config$input$student]], function(y) 
+        read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
+      
+      junk0 <- lapply(junk0, function(data) { 
+       names(data) <- toupper(names(data))
+        data
+        })
+      
+      student.data <- do.call('rbind', lapply(junk0, function(x) x[, unique(c(config$input$student_colnames1,
+                      grep(config$input$student_pattern, names(x), value=TRUE), student, config$input$student_colnames2))]))
     }
     
-    suppressWarnings(suppressMessages(junk0 <- lapply(files.select[[config$input$student]], function(y) 
-      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
-    student.data <- do.call('rbind', lapply(junk0, function(x) x[, unique(c(config$input$student_colnames1,
-      grep(config$input$student_pattern, names(x), value=TRUE), student, config$input$student_colnames2))]))
-  }
-  
-  # Home background data
-  if (!missing(home)) {
-    if (is.null(files.select[[config$input$home]])) {
-      stop('cannot locate home background data files')
+    # Home background data
+    if (!missing(home)) {
+      if (is.null(files.select[[config$input$home]])) {
+        stop('cannot locate home background data files')
+      }
+      
+      # Read the home data
+      suppressWarnings(suppressMessages(home.data <- lapply(files.select[[config$input$home]], function(y) # Read [[2]] home
+                                            read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
+      
+      # Making sure all variable names are in upper case
+      home.data <- lapply(home.data, function(data) { 
+        names(data) <- toupper(names(data))
+        data
+      })
+      
+      home.data <- do.call("rbind", lapply(home.data, function(x)             # Merge [[2]] home
+        x[, unique(c(config$input$home_colnames, home))]))
     }
     
-    suppressWarnings(suppressMessages(home.data <- do.call("rbind",                          # Merge [[2]] home
-              lapply(files.select[[config$input$home]], function(y) 
-                read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, unique(c(           # Each dataset
-                  config$input$home_colnames, home))]))))                                     # Selected
-  }
-  
-  # School data
-  if (!missing(school)) {
-    if (is.null(files.select[[config$input$school]])) {
-      stop('cannot locate school data files')
-    }
+    # School data
+    if (!missing(school)) {
+      if (is.null(files.select[[config$input$school]])) {
+        stop('cannot locate school data files')
+      }
+      
+      suppressWarnings(suppressMessages(school.data <- lapply(files.select[[config$input$school]],
+                                                              function(y) # Read [[2]] school
+                                                              read.spss(y, to.data.frame=T, use.value.labels = use.labels))))
 
-    suppressWarnings(suppressMessages(school.data <- do.call("rbind",                      # Merge [[2]] school
-           lapply(files.select[[config$input$school]], function(y) 
-             read.spss(y, to.data.frame=T)[unique(c(config$input$school_colnames, school))]))))    # Selected
-  }
-  
+      # Making sure all variable names are in upper case
+      school.data <- lapply(school.data, function(data) { 
+        names(data) <- toupper(names(data))
+        data
+      })
+      
+      school.data <- do.call("rbind", lapply(school.data, function(x) # Merge [[2]] home
+        x[, unique(c(config$input$school_colnames, school))]))
+    }
+   
   # Teacher data
   if (!missing(teacher)) {
     if (is.null(files.select[[config$input$teacher[1]]]) | is.null(files.select[[config$input$teacher[2]]])) {
