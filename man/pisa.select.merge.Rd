@@ -35,9 +35,6 @@ The data labels for the selected parental variables.
   \item{school}{
 The data labels for the selected school variables.
 }
-  \item{use.value.labels}{
-logical, if FALSE value labels not immported but more efficient.
-}
 }
 
 \value{

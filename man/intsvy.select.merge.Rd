@@ -8,7 +8,7 @@ intsvy.select.merge selects and merges data from different international assessm
 }
 \usage{
 intsvy.select.merge(folder = getwd(), countries, student = c(), home, 
-    school, teacher, use.labels=FALSE, config)
+    school, teacher, config)
 }
 \arguments{
   \item{folder}{
@@ -29,9 +29,6 @@ The data labels for the selected school variables.
 }
   \item{teacher}{
 The data labels for the selected teacher data.
-}
-  \item{use.labels}{
-logical: convert variables with value labels into R factors with those levels? 
 }
   \item{config}{
 Object with configuration of a given study. Should contain the slot `prefixes` with prefixes of filenames with the student, home, school, and teacher data.

@@ -1,6 +1,5 @@
 intsvy.select.merge <-
-function(folder=getwd(), countries, student=c(), home, school, teacher, use.labels=FALSE,
-         config) {
+function(folder=getwd(), countries, student=c(), home, school, teacher, config) {
   
   # Remove leading and trailing whitespaces in var labels  
   if(!missing(student) & !is.null(student)) {
@@ -27,7 +26,6 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
 
   # Remove empty elements in list
   files.all <- files.all[lapply(files.all, length) >0]
-  
   
   # Name list for identification later, rather than using numbers
   names(files.all) <- unique(unlist(lapply(files.all, function(x) 
@@ -80,9 +78,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
     if (!missing(student) & is.null(files.select[[config$input$student]])) {
       stop('cannot locate student data files')
     }
-    
+ 
     suppressWarnings(suppressMessages(junk0 <- lapply(files.select[[config$input$student]], function(y) 
-      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels))))
+      read.spss(y, to.data.frame=TRUE, use.value.labels=FALSE))))
+    
     student.data <- do.call('rbind', lapply(junk0, function(x) x[, unique(c(config$input$student_colnames1,
       grep(config$input$student_pattern, names(x), value=TRUE), student, config$input$student_colnames2))]))
   }
@@ -95,7 +94,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
     
     suppressWarnings(suppressMessages(home.data <- do.call("rbind",                          # Merge [[2]] home
               lapply(files.select[[config$input$home]], function(y) 
-                read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, unique(c(           # Each dataset
+                read.spss(y, to.data.frame=TRUE, use.value.labels=FALSE)[, unique(c(           # Each dataset
                   config$input$home_colnames, home))]))))                                     # Selected
   }
   
@@ -107,9 +106,9 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
 
     suppressWarnings(suppressMessages(school.data <- do.call("rbind",                      # Merge [[2]] school
            lapply(files.select[[config$input$school]], function(y) 
-             read.spss(y, to.data.frame=T)[unique(c(config$input$school_colnames, school))]))))    # Selected
-  }
-  
+             read.spss(y, to.data.frame=TRUE, use.value.labels = FALSE)[unique(c(config$input$school_colnames, school))]))))    # Selected
+}
+
   # Teacher data
   if (!missing(teacher)) {
     if (is.null(files.select[[config$input$teacher[1]]]) | is.null(files.select[[config$input$teacher[2]]])) {
@@ -118,10 +117,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, use.labe
 
     suppressWarnings(suppressMessages(teach.l <- do.call("rbind",                              
     lapply(files.select[[config$input$teacher[1]]], function(y) 
-      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)))))
+      read.spss(y, to.data.frame=TRUE, use.value.labels=FALSE)))))
     suppressWarnings(suppressMessages(teach.i <-  do.call("rbind",                              
     lapply(files.select[[config$input$teacher[2]]], function(y) 
-      read.spss(y, to.data.frame=TRUE, use.value.labels=use.labels)[, unique(c(
+      read.spss(y, to.data.frame=TRUE, use.value.labels=FALSE)[, unique(c(
       config$input$teacher_colnames, teacher))]))))
   
     teacher.data <- merge(teach.l, teach.i, by=config$input$teacher_colnames)

@@ -26,22 +26,15 @@ function(folder=getwd(), student.file, parent.file=c(), school.file=c(), name="V
   files.all <- files.all[lapply(files.all, length)>0]
   
   # Retrieve var labels
-  var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]], to.lower=FALSE)))  
+  suppressWarnings(var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]], to.lower=FALSE))))  
   
   # Read student file and participating countries 
-  country <- names(table(spss.system.file(files.all[["Student"]], to.lower=FALSE)[,"CNT"]))
-  
-  # Participating countries in dataset (must be all)
-  country.list <- pisa.country[pisa.country[, "ISO"] %in% country, ]
-  rownames(country.list) <-NULL
-  
-  # setdiff(country[,1], pisa.country$ISO) must be zero
-  
-  var.label[[length(files.all)+1]] <- country.list
-  names(var.label)[length(var.label)] <-"Participating countries"
+  country <- table(read.spss(files.all[["Student"]], use.value.labels = FALSE, to.data.frame=TRUE)[, "CNT"])
+  var.label[[length(files.all)+1]] <- names(country)
+  names(var.label)[length(var.label)] <-"Country abbreviations"
   
   # Print labels in list and text file
-  capture.output(var.label, file=file.path(output, paste(name, ".txt", sep="")))
+  capture.output(var.label, file=file.path(output, paste0(name, ".txt")))
   cat('The file "', paste(name, ".txt", sep=""), '" in directory "', output, '" contains the variable labels of the complete dataset', sep=' ', "\n")
   return(var.label)
 }
