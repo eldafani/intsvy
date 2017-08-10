@@ -9,16 +9,16 @@ plot.intsvy.table <- function(x, se=FALSE, stacked=FALSE, ...) {
   if (stacked) {
     if (nvar == 1) {
       pl <- ggplot(data=x, aes_string(y = "Percentage", x=vars[1])) + 
-        geom_bar(stat="identity", position="fill") + theme_bw() + scale_y_continuous(labels = scales::percent) + 
+        geom_bar(stat="identity", position="fill") + theme_bw() +
         coord_flip() + theme(legend.position="top")
     } else {
       if (nvar == 2) {
         pl <- ggplot(data=x, aes_string(y = "Percentage", x=vars[1], fill=vars[2])) + 
-          geom_bar(stat="identity", position="fill") + scale_y_continuous(labels = scales::percent) + 
+          geom_bar(stat="identity", position="fill") + 
           theme_bw() + coord_flip() + theme(legend.position="top")
       } else {
         pl <- ggplot(data=x, aes_string(y = "Percentage", x=vars[1], fill=vars[3])) + 
-          geom_bar(stat="identity", position="stack") + scale_y_continuous(labels = scales::percent) + 
+          geom_bar(stat="identity", position="stack") +  
           theme_bw() + coord_flip() + 
           facet_wrap(as.formula(paste0("~", vars[2])))+ 
           theme(legend.position="top")
@@ -28,21 +28,18 @@ plot.intsvy.table <- function(x, se=FALSE, stacked=FALSE, ...) {
     if (nvar == 1) {
       pl <- ggplot(data=x, aes_string(y = "Percentage", x=vars[1])) + 
         geom_bar(stat="identity", position=position_dodge(width = 0.9)) + 
-        scale_y_continuous(labels = scales::percent) + 
         theme_bw() + coord_flip() + 
         theme(legend.position="top")
     } else {
       if (nvar == 2) {
         pl <- ggplot(data=x, aes_string(y = "Percentage", x=vars[1], fill=vars[2])) + 
           geom_bar(stat="identity", position=position_dodge(width = 0.9)) + 
-          scale_y_continuous(labels = scales::percent) + 
           theme_bw() + coord_flip() + 
           facet_wrap(as.formula(paste0("~", vars[2])))+ 
           theme(legend.position="top")
       } else {
         pl <- ggplot(data=x, aes_string(y = "Percentage", x=vars[1], fill=vars[2], col= vars[2])) + 
           geom_bar(stat="identity", position=position_dodge(width = 0.9)) + 
-          scale_y_continuous(labels = scales::percent) +
           theme_bw() + coord_flip() + 
           facet_wrap(as.formula(paste0("~", vars[3])))+ 
           theme(legend.position="top")
