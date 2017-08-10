@@ -2,8 +2,8 @@ plot.intsvy.mean <- function(x, se=TRUE, sort=FALSE, ...) {
   # it is assumed that last three columns are:  "Freq"       "Mean" "Std.err."  
   vars <- setdiff(colnames(x), c("Freq", "Mean", "s.e.", "SD", "s.e"))
   nvar <- length(vars)
-  x$MeanL <- x$Mean - x$s.e.
-  x$MeanH <- x$Mean + x$s.e.
+  x$MeanL <- x$Mean - 1.96*x$s.e.
+  x$MeanH <- x$Mean + 1.96*x$s.e.
   pl <- NA
   if (isTRUE(sort)) {
     x[,1] <- reorder(factor(x[,1]), x[,"Mean"], mean, na.rm=TRUE)
