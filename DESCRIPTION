@@ -1,8 +1,8 @@
 Package: intsvy
-Version: 2.0
+Version: 2.1
 Type: Package
 Title: International Assessment Data Manager
-Date: 2017-06-14
+Date: 2017-08-10
 Author: Daniel Caro <daniel.caro@education.ox.ac.uk>, Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 Maintainer: Daniel Caro <daniel.caro@education.ox.ac.uk>
 Description: 
