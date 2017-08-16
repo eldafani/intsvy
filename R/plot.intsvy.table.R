@@ -23,7 +23,7 @@ plot.intsvy.table <- function(x, se=FALSE, stacked = FALSE, centered = FALSE, mi
     if (midpoint %% 1 == 0) {
       # even number of levels
       x$CumSumPercentage <- unlist(tapply(x$Percentage, tmp, function(y) {
-        cumsum(y) - sum(y[(0:round(midpoint-0.5))[-1]]) - y[round(midpoint+0.5)]/2
+        cumsum(y) - sum(y[(1:midpoint)-1]) - y[midpoint]/2
       }))
     } else {
       # odd number of levels
