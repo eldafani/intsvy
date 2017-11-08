@@ -1,0 +1,18 @@
+bibentry(bibtype = "Article",
+  title        = "{intsvy}: An {R} Package for Analyzing International Large-Scale Assessment Data",
+  author       = c(person(given = c("Daniel", "H."),
+                          family = "Caro",
+                          email = "daniel.caro@education.ox.ac.uk"),
+                   person(given = "Przemys\\l{}aw",
+                          family = "Biecek",
+                          email = "Przemyslaw.Biecek@gmail.com")),
+  journal      = "Journal of Statistical Software",
+  year         = "2017",
+  volume       = "81",
+  number       = "7",
+  pages        = "1--44",
+  doi          = "10.18637/jss.v081.i07",
+
+  header       = "To cite intsvy in publications use:",
+)
+
