@@ -67,7 +67,10 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
               ifelse(data[[config$variables$jackknifeZone]] == x, 
                              2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
-      
+      # IEA < 2015, PV1 for sampling error
+
+      if (isTRUE(config$parameters$varpv1)) {
+        
       # Estimates of PV1 (for sampling error)
       R.mean1 <- sapply(1:ncol(R.wt), function(x) 
         weighted.mean(data[[pvnames[[1]]]], R.wt[, x], na.rm = TRUE))                                                                  
@@ -79,13 +82,37 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       R.mean <- sapply(pvnames, function(x) 
         weighted.mean(data[[x]], data[[config$variables$weight]], na.rm = TRUE))
       
-      R.sd <- sapply(1:5, function(x) 
+      R.sd <- sapply(1:length(pvnames), function(x) 
         (sum(data[[config$variables$weight]]*(data[[pvnames[x]]]-R.mean[x])^2, na.rm=TRUE)/sum(data[[config$variables$weight]], na.rm = TRUE))^(1/2))
       
       # Sampling variance (1st PV); imputation variance; SEs
-      v.meanw <- sum((R.mean1-R.mean[1])^2);    v.meanb <- (1+1/5)*var(R.mean)
-      v.sdw <- sum((R.sd1 - R.sd[1])^2);  v.sdb <- (1+1/5)*var(R.sd)
+      v.meanw <- sum((R.mean1-R.mean[1])^2);    v.meanb <- (1+1/length(pvnames))*var(R.mean)
+      v.sdw <- sum((R.sd1 - R.sd[1])^2);  v.sdb <- (1+1/length(pvnames))*var(R.sd)
       mean.se <-  (v.meanw+v.meanb)^(1/2); sd.se <- (v.sdw+v.sdb)^(1/2)
+      
+      } else {
+      
+      # Estimates of PV1-5 (for sampling error)
+      R.mean1 <- sapply(pvnames, function(k) sapply(1:ncol(R.wt), function(x) 
+        weighted.mean(data[[k]], R.wt[, x], na.rm = TRUE)))                                                                  
+      
+      R.sd1 <- sapply(pvnames, function(k) sapply(1:ncol(R.wt), function (x) 
+        (sum(R.wt[, x]*(data[[k]]-R.mean1[x])^2, na.rm = TRUE)/sum(R.wt[, x], na.rm = TRUE))^(1/2)))
+      
+      # Grand mean of 5 PVs (for imputation variance)
+      R.mean <- sapply(pvnames, function(x) 
+        weighted.mean(data[[x]], data[[config$variables$weight]], na.rm = TRUE))
+      
+      R.sd <- sapply(1:length(pvnames), function(x) 
+        (sum(data[[config$variables$weight]]*(data[[pvnames[x]]]-R.mean[x])^2, na.rm=TRUE)/sum(data[[config$variables$weight]], na.rm = TRUE))^(1/2))
+      
+      # Sampling variance; imputation variance; SEs
+      v.meanw <- mean(sapply(1:length(pvnames), function(m) sum((R.mean1[,m]-R.mean[m])^2)))
+      v.meanb <- (1+1/length(pvnames))*var(R.mean)
+      v.sdw <- mean(sapply(1:length(pvnames), function(m) sum((R.sd1[,m] - R.sd[m])^2)))
+      v.sdb <- (1+1/length(pvnames))*var(R.sd)
+      mean.se <-  (v.meanw+v.meanb)^(1/2); sd.se <- (v.sdw+v.sdb)^(1/2)
+      }
       
       result <- data.frame("Freq"= length(data[[config$variables$weight]]), "Mean"= mean(R.mean), "s.e."= mean.se, 
                            "SD"=mean(R.sd), "s.e"=sd.se)

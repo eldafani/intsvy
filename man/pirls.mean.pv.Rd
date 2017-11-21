@@ -1,5 +1,6 @@
 \name{pirls.mean.pv}
 \alias{pirls.mean.pv}
+\alias{pirls2015.mean.pv}
 \title{Calculates mean achievement score
 }
 \description{
@@ -7,6 +8,8 @@ pirls.mean.pv uses five plausible values to calculate the mean achievement score
 }
 \usage{
 pirls.mean.pv(pvlabel = "ASRREA", by,  
+data, export = FALSE, name = "output", folder = getwd())
+pirls2015.mean.pv(pvlabel = "ASRREA", by,  
 data, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{

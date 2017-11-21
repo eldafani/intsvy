@@ -1,5 +1,6 @@
 \name{timss.mean.pv}
 \alias{timss.mean.pv}
+\alias{timss2015.mean.pv}
 \title{
 Calculates mean achievement score
 }
@@ -8,6 +9,8 @@ timss.mean.pv uses five plausible values to calculate the mean achievement score
 }
 \usage{
 timss.mean.pv(pvlabel = "BSMMAT", by, data, 
+export = FALSE, name = "output", folder = getwd())
+timss2015.mean.pv(pvlabel = "BSMMAT", by, data, 
 export = FALSE, name = "output", folder = getwd())
 }
 
