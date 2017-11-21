@@ -1,11 +1,14 @@
 \name{timss.reg.pv}
 \alias{timss.reg.pv}
+\alias{timss2015.reg.pv}
 \title{Regression analysis with plausible values}
 \description{
 timss.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
 timss.reg.pv(x, pvlabel = "BSMMAT", by, 
+data, std=FALSE, export = FALSE, name = "output", folder = getwd())
+timss2015.reg.pv(x, pvlabel = "BSMMAT", by, 
 data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 }
 
