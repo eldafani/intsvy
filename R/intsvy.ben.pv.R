@@ -19,14 +19,16 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       }
       
       # Replicate weighted percentages PV1 (sampling error)
-      tabpv1 <- sapply(1:length(cutoff), function(z) 
-                  sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
-                      100*weighted.mean(data[[pvname[1]]]>=cutoff[z], 
-                          w = ifelse(data[[config$variables$jackknifeZone]] == x, 
-                                2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], 
-                                data[[config$variables$weight]]), na.rm = TRUE)))
       
-      # Total weighted %s PV1-5 
+      R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+        ifelse(data[[config$variables$jackknifeZone]] == x, 
+               2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+      
+      if (isTRUE(config$parameters$varpv1)) {
+      tabpv1 <- sapply(1:length(cutoff), function(z) sapply(1:ncol(R.wt), function(x) 
+        100*weighted.mean(data[[pvname[1]]]>=cutoff[z], w = R.wt[,x])))
+            
+         # Total weighted %s PV1-5 
       tabpv <- sapply(1:length(cutoff), function(z) sapply(pvname, function(x) 
         100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
       
@@ -44,6 +46,39 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
                            "Percentage"=tabtot, "Std. err."= tabse, check.names=F)
       return(result)
       
+      } else {
+      
+        R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+        R.wt <- cbind(R.wt, R.wt2)  
+        
+        tabpv1 <-  lapply(1:config$parameters$PV, function(m) sapply(1:length(cutoff), function(z) 
+          sapply(1:ncol(R.wt), function(x)
+          100*weighted.mean(data[[pvname[m]]]>=cutoff[z], w = R.wt[,x]))))
+
+        # Total weighted %s PV1-5 
+        tabpv <- sapply(1:length(cutoff), function(z) sapply(pvname, function(x) 
+          100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
+        
+        # Sampling error within (PV1), between PV error, and total (se)
+          tabpvw <- apply(do.call(rbind, lapply(1:config$parameters$PV, function(m) 
+          sapply(1:length(cutoff), function(y) 
+          sum(sapply(1:ncol(R.wt), function(x) (tabpv1[[m]][x,y]-tabpv[m,y])^2))))), 2, mean)
+        
+        tabpvb <- (1+1/5)*apply(tabpv, 2, var)
+        tabse <- round((tabpvw+tabpvb)^(1/2), 2)
+        
+        # Total %
+        tabtot <- round(apply(tabpv, 2, mean), 2)
+        
+        # Result
+        result <- data.frame("Benchmark"=paste(rep("At or above", length(cutoff)), cutoff), 
+                             "Percentage"=tabtot, "Std. err."= tabse, check.names=F)
+        return(result)
+        
+      }
     }
     # BRR 
     if (config$parameters$weights == "BRR") {

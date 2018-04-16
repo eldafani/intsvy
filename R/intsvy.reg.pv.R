@@ -79,16 +79,18 @@ intsvy.reg.pv <-
       if(std) {
         data <-  cbind(scale(data[c(pvnames, x)]), data[!names(data) %in% c(pvnames, x)])
       }
+      
+      R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+        ifelse(data[[config$variables$jackknifeZone]] == x, 
+               2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+      
 
       if (isTRUE(config$parameters$varpv1)) {
         
       # Replicate weighted coefficients for sampling error (PV1 only)
-      reg.rep <- lapply(1:max(data[[config$variables$jackknifeZone]]),
-                        function(i) summary(lm(formula=as.formula(regform[[1]]), data=data,
-                                    weights=ifelse(data[[config$variables$jackknifeZone]] == i,
-                                                   2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]],
-                                                   data[[config$variables$weight]]))))
-
+      reg.rep <- lapply(1:ncol(R.wt), function(i) 
+      summary(lm(formula=as.formula(regform[[1]]), data=data, weights=R.wt[, i])))
+        
       # Combining coefficients and R-squared replicates
       coe.rep <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(i)
                     c(reg.rep[[i]]$coefficients[,1], "R-squared"= reg.rep[[i]]$r.squared))
@@ -113,22 +115,25 @@ intsvy.reg.pv <-
       stat.t <- stat.tot/stat.se
       
       } else {
+        
+        R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+        R.wt <- cbind(R.wt, R.wt2)
+        
       
         # Replicate weighted coefficients for sampling error
-        reg.rep <- lapply(1:config$parameters$PVreps, function(m)
-          lapply(1:max(data[[config$variables$jackknifeZone]]),
-          function(i) summary(lm(formula=as.formula(regform[[m]]), data=data,
-          weights=ifelse(data[[config$variables$jackknifeZone]] == i,
-          2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]],
-          data[[config$variables$weight]])))))
+        reg.rep <- lapply(1:config$parameters$PVreps, function(m) lapply(1:ncol(R.wt), function(i) 
+          summary(lm(formula=as.formula(regform[[m]]), data=data, weights=R.wt[, i]))))
         
-        # Combining coefficients and R-squared replicates
+       # Combining coefficients and R-squared replicates
         coe.rep <- lapply(1:config$parameters$PVreps, function(m)
-          sapply(1:max(data[[config$variables$jackknifeZone]]), function(i)
+          sapply(1:ncol(R.wt), function(i)
           c(reg.rep[[m]][[i]]$coefficients[,1], "R-squared"= reg.rep[[m]][[i]]$r.squared)))
         
         resid <- lapply(1:config$parameters$PVreps, function(m) 
-          sapply(1:length(reg.rep), function(rep) reg.rep[[m]][[rep]]$residuals))
+          sapply(1:ncol(R.wt), function(rep) reg.rep[[m]][[rep]]$residuals))
         
         # Total weighted coefficient for each PV for imputation (between) error
         reg.pv <- lapply(regform, function(i)

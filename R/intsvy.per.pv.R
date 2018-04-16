@@ -21,6 +21,8 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
                   ifelse(data[[config$variables$jackknifeZone]] == x, 
                            2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
       
+      if (isTRUE(config$parameters$varpv1)) {
+      
       # Percentile estimates of PV1 (for sampling error)
       R.per1 <- sapply(1:ncol(R.wt), function(i) 
                   wtd.quantile(data[[pvnames[[1]]]], 
@@ -44,6 +46,40 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
       row.names(result) <- NULL
       return(result)
       
+      } else {
+      
+        R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+        R.wt <- cbind(R.wt, R.wt2)
+        
+        # Percentile estimates of PV1 (for sampling error)
+        R.per1 <- sapply(1:ncol(R.wt), function(i) 
+          wtd.quantile(data[[pvnames[[1]]]], 
+                       probs=per/100, weights=R.wt[,i], na.rm = TRUE))
+        
+        # Grand mean of 5 PVs (imputation variance)
+        PV.per <- sapply(pvnames, function(x) 
+          wtd.quantile(data[[x]], probs=per/100, weights=data[[config$variables$weight]], na.rm = TRUE))
+        
+        MEAN.per <- apply(PV.per, 1, mean, na.rm=TRUE)
+        
+        # Sampling variance; imputation variance; and SEs
+        var.per.w = apply(sapply(1:ncol(R.wt), function(r) 
+          (R.per1[,r]-PV.per[, pvnames[1]])^2), 1, sum, na.rm=TRUE)
+        
+        var.per.b <- (1+1/length(pvnames))*apply(PV.per, 1, var, na.rm=TRUE)
+        per.se <-(var.per.w+ var.per.b)^(1/2)
+        
+        # Result
+        result <- data.frame("Percentiles"= per, "Score"=round(MEAN.per, 2), "Std. err."= round(per.se,2), check.names=F)
+        row.names(result) <- NULL
+        return(result)  
+        
+      }
+        
+        
     }
     # BRR 
     if (config$parameters$weights == "BRR") {

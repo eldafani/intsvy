@@ -21,10 +21,15 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
     # Remove empty elements in list
     files.all <- files.all[lapply(files.all, length)>0]
     
-    
     # Files char found in the datasets
-    abv <- unique(unlist(lapply(files.all, function(x) 
-      substr(x, nchar(x) + config$input$type_part[1], nchar(x) + config$input$type_part[2])))) 
+    myabv <- lapply(files.all, function(x)  
+      substr(x, nchar(x) + config$input$type_part[1], nchar(x) + config$input$type_part[2]))
+    
+    # include only file names with expected abvs (remove test, for example)
+    files.all <- lapply(seq_along(files.all), function(y) files.all[[y]][myabv[[y]] 
+                  %in% toupper(config$input$prefixes)])
+    
+    abv <- unique(unlist(lapply(myabv, function(x) x[x  %in% toupper(config$input$prefixes)])))
     
     # Name list for existing datasets, will print student-teacher linkage if available
     names(files.all) <- file.names[match(toupper(abv), toupper(file.names[["Abv"]])), "Instrument"]

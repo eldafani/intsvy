@@ -66,7 +66,9 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
               ifelse(data[[config$variables$jackknifeZone]] == x, 
-                             2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+              2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+
+   
       # IEA < 2015, PV1 for sampling error
 
       if (isTRUE(config$parameters$varpv1)) {
@@ -92,6 +94,13 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       
       } else {
       
+      R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+      R.wt <- cbind(R.wt, R.wt2)
+        
+        
       # Estimates of PV1-5 (for sampling error)
       R.mean1 <- sapply(pvnames, function(k) sapply(1:ncol(R.wt), function(x) 
         weighted.mean(data[[k]], R.wt[, x], na.rm = TRUE)))                                                                  

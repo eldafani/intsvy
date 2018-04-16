@@ -33,11 +33,18 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-
+      
+      R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+        ifelse(data[[config$variables$jackknifeZone]] == x, 
+               2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+      
+      if (isTRUE(config$parameters$varpv1)) {
       # Replicate weight means (sampling error)
-      meanrp <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
-        weighted.mean(as.numeric(data[[variable]]), ifelse(data[[config$variables$jackknifeZone]] == x, 
-                         2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]), na.rm = TRUE))
+      
+      meanrp <- sapply(1:ncol(R.wt), function(x) 
+        weighted.mean(data[[variable]], R.wt[, x], na.rm = TRUE))                                                                  
+      
+      
       # Total weighted mean                                                                      
       meantot <- weighted.mean(as.numeric(data[[variable]]), data[[config$variables$weight]], na.rm = TRUE)
       # Standard error (sampling eror) 
@@ -45,7 +52,28 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
       result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
       return(round(result, 2))
       
+    } else {
+      
+      R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+        ifelse(data[[config$variables$jackknifeZone]] == x, 
+               2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+      
+      R.wt <- cbind(R.wt, R.wt2)
+
+        meanrp <- sapply(1:ncol(R.wt), function(x) 
+          weighted.mean(data[[variable]], R.wt[, x], na.rm = TRUE))                                                                  
+        
+        
+        # Total weighted mean                                                                      
+        meantot <- weighted.mean(as.numeric(data[[variable]]), data[[config$variables$weight]], na.rm = TRUE)
+        # Standard error (sampling eror) 
+        meanse <- (sum((meanrp-meantot)^2))^(1/2)
+        result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
+        return(round(result, 2))
+        
     }
+    }
+      
     if (config$parameters$weights == "mixed_piaac") {
       # mixed design, different for different coutnries
       # PIAAC
