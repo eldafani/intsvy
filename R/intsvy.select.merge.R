@@ -22,14 +22,14 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
   
   # Look for datasets (student, home, school) including student-teacher linkage (.st)
   files.all <- lapply(config$input$prefixes, function(x) list.files(folder, 
-  full.names= TRUE, pattern=paste("^", x, ".*.sav$", sep=""), recursive=TRUE))
+  full.names= TRUE, pattern=paste("^", x,"|", toupper(x), ".*.sav$", sep=""), recursive=TRUE))
 
   # Remove empty elements in list
   files.all <- files.all[lapply(files.all, length) >0]
   
   # Name list for identification later, rather than using numbers
-  names(files.all) <- unique(unlist(lapply(files.all, function(x) 
-    substr(x, nchar(x)+config$input$type_part[1], nchar(x)+config$input$type_part[2]))))
+  names(files.all) <- tolower(unique(unlist(lapply(files.all, function(x) 
+    substr(x, nchar(x)+config$input$type_part[1], nchar(x)+config$input$type_part[2])))))
     
   # Country abbrevation labels from existing file names (datasets)
   cntlab <- toupper(unique(unlist(lapply(files.all, function(x) 
@@ -50,8 +50,8 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
   }
   
   # Selected files for selected countries (1st/last time countries argument used)
-  files.select <- lapply(files.all, function(y) sapply(countries, function(x) y[substr(y, 
-  nchar(y)+config$input$cnt_part[1], nchar(y)+config$input$cnt_part[2])==tolower(x)])) 
+  files.select <- lapply(files.all, function(y) sapply(countries, function(x) y[toupper(substr(y, 
+  nchar(y)+config$input$cnt_part[1], nchar(y)+config$input$cnt_part[2]))==x])) 
   # no blanks, no home instrument, otherwise delete, see 4g function
 
   # Filter directories which have length 0
