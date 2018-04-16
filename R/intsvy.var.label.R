@@ -11,7 +11,7 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
   
     # Looks for files (student, home, school, teacher), not student-teacher linkage
     files.all <- lapply(config$input$prefixes, function(x) list.files(folder, 
-                   full.names= TRUE, pattern=paste0("^", x, ".*.sav$"), 
+                   full.names= TRUE, pattern=paste0("^", x,"|", toupper(x), ".*.sav$"), 
                    recursive=TRUE))
     
     if (all(sapply(files.all, length)==0)){
@@ -27,7 +27,7 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
       substr(x, nchar(x) + config$input$type_part[1], nchar(x) + config$input$type_part[2])))) 
     
     # Name list for existing datasets, will print student-teacher linkage if available
-    names(files.all) <- file.names[match(abv, file.names[["Abv"]]), "Instrument"]
+    names(files.all) <- file.names[match(toupper(abv), toupper(file.names[["Abv"]])), "Instrument"]
     
     # Remove null elements (e.g. no teacher datasets)
     #files.all <- files.all[!is.na(names(files.all))]
