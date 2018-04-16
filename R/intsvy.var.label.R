@@ -11,7 +11,7 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
   
     # Looks for files (student, home, school, teacher), not student-teacher linkage
     files.all <- lapply(config$input$prefixes, function(x) list.files(folder, 
-                   full.names= TRUE, pattern=paste0("^", x, ".*.sav$"), 
+                   full.names= TRUE, pattern=paste0("^", x,"|", toupper(x), ".*.sav$"), 
                    recursive=TRUE))
     
     if (all(sapply(files.all, length)==0)){
