@@ -8,6 +8,7 @@ intsvy.config <- function(  variables.pvlabelpref,
            parameters.percentiles,
            parameters.weights,
            parameters.PVreps,
+           parameters.varpv1,
            input.type,
            input.prefixes,
            input.student,
@@ -37,6 +38,7 @@ intsvy.config <- function(  variables.pvlabelpref,
   if (!missing(parameters.percentiles	)) config$parameters$percentiles	 =parameters.percentiles
   if (!missing(parameters.weights	)) config$parameters$weights	 =parameters.weights
   if (!missing(parameters.PVreps	)) config$parameters$PVreps	 =parameters.PVreps
+  if (!missing(parameters.varpv1	)) config$parameters$varpv1	 =parameters.varpv1
   
   if (!missing(input.type	)) config$input$type	 =input.type
   if (!missing(input.prefixes	)) config$input$prefixes	 =input.prefixes
