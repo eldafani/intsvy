@@ -45,13 +45,19 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       # jack knife
       # in PIRLS / TIMSS
       
+      R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+        ifelse(data[[config$variables$jackknifeZone]] == x, 
+               2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+      
+      if (isTRUE(config$parameters$varpv1)) {
+        
       # Replicate weights coefficients for sampling error
-      reg.rp <- lapply(1:max(data[[config$variables$jackknifeZone]]), function(i) summary(lm(formula= as.formula(regform), data=data, 
-                     weights=ifelse(data[[config$variables$jackknifeZone]] == i, 
-                                    2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))))
+
+      reg.rp <- lapply(1:ncol(R.wt), function(i) summary(lm(formula= as.formula(regform), 
+                data=data, weights=R.wt[, i])))
       
       # Combine coefficients and R-squared
-      coef.rp <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(i) 
+      coef.rp <- sapply(1:ncol(R.wt), function(i) 
         c(reg.rp[[i]]$coefficients[,1], "R-squared" = reg.rp[[i]]$r.squared))
       
       resid <- sapply(1:length(reg.rp), function(rep) reg.rp[[rep]]$residuals)
@@ -70,6 +76,40 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       
       results <- list("replicates"=t(coef.rp), "residuals"= resid, "reg"=reg.tab)
       return(results)
+      } else {
+      
+        R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+        R.wt <- cbind(R.wt, R.wt2)
+        
+        reg.rp <- lapply(1:ncol(R.wt), function(i) summary(lm(formula= as.formula(regform), 
+                                                              data=data, weights=R.wt[, i])))
+        
+        # Combine coefficients and R-squared
+        coef.rp <- sapply(1:ncol(R.wt), function(i) 
+          c(reg.rp[[i]]$coefficients[,1], "R-squared" = reg.rp[[i]]$r.squared))
+        
+        resid <- sapply(1:length(reg.rp), function(rep) reg.rp[[rep]]$residuals)
+        
+        
+        # Total weighted coefficients
+        reg.tot <- summary(lm(formula=as.formula(regform), data=data, weights=data[[config$variables$weight]]))
+        coef.tot <- c(reg.tot$coefficients[ ,1] , "R-squared" = reg.tot$r.squared)
+        
+        # Sampling error
+        coef.se <- apply((coef.rp-coef.tot)^2, 1, sum)^(1/2)
+        # T-value
+        coef.t <- coef.tot/coef.se
+        # Reg Table
+        reg.tab <- data.frame("Estimate"=coef.tot, "Std. Error"=coef.se, "t value"=coef.t, check.names=FALSE)
+        
+        results <- list("replicates"=t(coef.rp), "residuals"= resid, "reg"=reg.tab)
+        return(results)
+        
+      }
+      
     }
     if (config$parameters$weights == "mixed_piaac") {
       # mixed design, different for different coutnries

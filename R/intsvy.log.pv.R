@@ -83,6 +83,9 @@ intsvy.log.pv <-
       rp.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(rp) 
                     ifelse(data[[config$variables$jackknifeZone]] == rp, 
                                2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+      
+      if (isTRUE(config$parameters$varpv1)) {
+      
       rp.wt.n <- nrow(data)*rp.wt/apply(rp.wt, 2, sum)
       
       # Replicate weighted coefficients for sampling error (PV1 only), normalised weights
@@ -125,6 +128,61 @@ intsvy.log.pv <-
       
       return(log.tab)
 
+      } else {
+      
+        rp.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+        rp.wt <- cbind(rp.wt2, rp.wt)
+        
+
+        rp.wt.n <- nrow(data)*rp.wt/apply(rp.wt, 2, sum)
+        
+        # Replicate weighted coefficients for sampling error (PV1 only), normalised weights
+        
+        coef.rp1 <- suppressWarnings(lapply(1:config$parameters$PVreps, function(m)
+          lapply(1:ncol(rp.wt), function(rp)  summary(glm(formula=as.formula(regform[[m]]), 
+                      family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data)))))
+        
+        # Retrieving coefficients
+        rp.coef <- lapply(1:config$parameters$PVreps, function(m) sapply(1:ncol(rp.wt), 
+        function(rp) coef.rp1[[m]][[rp]]$coefficients[,1]))
+        
+        # Total weighted coefficient for each PV for imputation (between) error
+        reg.pv <- suppressWarnings(lapply(regform, function(pv) 
+          summary(glm(formula=as.formula(pv), family=quasibinomial("logit"), 
+                      weights=nrow(data)*data[[config$variables$weight]]/sum(data[[config$variables$weight]]), data=data))))
+      
+        pv.coef <- sapply(1:length(pvnames), function(pv) reg.pv[[pv]]$coefficients[, 1])
+        
+        # Mean total coefficients (across PVs)
+        mean.coef <- apply(pv.coef, 1, mean)
+        
+        # Sampling error (variance within)
+        var.w <- apply(sapply(1:config$parameters$PVreps, function(m) 
+        apply((rp.coef[[m]] - pv.coef[,1])^2, 1, sum)), 1, mean)
+        
+        
+        # Imputation error (variance between)
+        var.b <- (1+1/length(pvnames))*apply(pv.coef, 1, var, na.rm=TRUE)
+        
+        coef.se <- (var.w+(1+1/length(pvnames))*var.b)^(1/2)
+        t.stat <- mean.coef/coef.se
+        
+        # Odds ratios and confidence intervals
+        OR<- exp(mean.coef)
+        
+        # OR confidence intervals 
+        CI95low <- exp(mean.coef - 1.96*coef.se)
+        CI95up <- exp(mean.coef + 1.96*coef.se)
+        
+        # Table with estimates
+        log.tab <- round(data.frame("Coef."=mean.coef, "Std. Error"=coef.se, "t value"=t.stat, 
+                                    as.data.frame(cbind(OR, CI95low, CI95up)), check.names=F),2)
+        
+        return(log.tab)        
+      }
     }
     if (config$parameters$weights == "mixed_piaac") {
       # mixed design, different for different coutnries

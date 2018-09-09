@@ -16,12 +16,16 @@ intsvy.table <- function(variable, by, data, config) {
       # in PIRLS / TIMSS
       
       # Replicate weighted %s (sampling error)
-      tabrp <- as.matrix(sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
-        percent(as.factor(as.numeric(data[[variable]])), 
-                total=FALSE, 
-                weights= ifelse(data[[config$variables$jackknifeZone]] == x, 
-                                2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], 
-                                data[[config$variables$weight]]), na.rm = TRUE)))
+      
+      R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+        ifelse(data[[config$variables$jackknifeZone]] == x, 
+               2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))
+      
+      if (isTRUE(config$parameters$varpv1)) {
+        
+      tabrp <- as.matrix(sapply(1:ncol(R.wt), function(x) 
+        percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
+                weights= R.wt[,x])))
       
       # Total weighted %                                                                      
       tabtot <- percent(as.factor(as.numeric(data[[variable]])), 
@@ -31,9 +35,33 @@ intsvy.table <- function(variable, by, data, config) {
         tabse <- apply((tabrp-tabtot)^2, 1, sum)^(1/2)
       } else {
         tabse <-0
+      }} 
+      else {
+      
+        R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
+          ifelse(data[[config$variables$jackknifeZone]] == x, 
+                 2*data[[config$variables$weight]]*ifelse(data[[config$variables$jackknifeRep]]==1,0,1), data[[config$variables$weight]]))
+        
+        R.wt <- cbind(R.wt, R.wt2)
+        
+        tabrp <- as.matrix(sapply(1:ncol(R.wt), function(x) 
+          percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
+                  weights= R.wt[,x])))
+        
+        # Total weighted %                                                                      
+        tabtot <- percent(as.factor(as.numeric(data[[variable]])), 
+                          weights= data[[config$variables$weight]], na.rm = TRUE, total=FALSE)
+        # Standard error
+        if (length(tabtot)!=1) {
+          tabse <- apply((tabrp-tabtot)^2, 1, sum)^(1/2)
+        } else {
+          tabse <-0
+        } 
+        
+       }
       }
       
-    } else {
+      if (config$parameters$weights == "BRR") {
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
