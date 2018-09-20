@@ -55,10 +55,10 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
         R.wt <- cbind(R.wt, R.wt2)
         
         # Percentile estimates of PV1 (for sampling error)
-        R.per1 <- sapply(1:ncol(R.wt), function(i) 
-          wtd.quantile(data[[pvnames[[1]]]], 
-                       probs=per/100, weights=R.wt[,i], na.rm = TRUE))
-        
+        R.per <- lapply(1:config$parameters$PVreps, function(m) sapply(1:ncol(R.wt), function(i) 
+          wtd.quantile(data[[pvnames[[m]]]], probs=per/100, weights=R.wt[,i], na.rm = TRUE)))
+          
+               
         # Grand mean of 5 PVs (imputation variance)
         PV.per <- sapply(pvnames, function(x) 
           wtd.quantile(data[[x]], probs=per/100, weights=data[[config$variables$weight]], na.rm = TRUE))
@@ -66,8 +66,9 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
         MEAN.per <- apply(PV.per, 1, mean, na.rm=TRUE)
         
         # Sampling variance; imputation variance; and SEs
-        var.per.w = apply(sapply(1:ncol(R.wt), function(r) 
-          (R.per1[,r]-PV.per[, pvnames[1]])^2), 1, sum, na.rm=TRUE)
+        
+        var.per.w = apply(sapply(1:config$parameters$PVreps, function(m)  
+          apply((R.per[[m]]-PV.per[, pvnames[m]])^2, 1, sum, na.rm=TRUE)/2), 1, mean)
         
         var.per.b <- (1+1/length(pvnames))*apply(PV.per, 1, var, na.rm=TRUE)
         per.se <-(var.per.w+ var.per.b)^(1/2)
