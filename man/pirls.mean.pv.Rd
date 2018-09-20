@@ -9,7 +9,7 @@ pirls.mean.pv uses five plausible values to calculate the mean achievement score
 \usage{
 pirls.mean.pv(pvlabel = "ASRREA", by,  
 data, export = FALSE, name = "output", folder = getwd())
-pirls2015.mean.pv(pvlabel = "ASRREA", by,  
+pirls2016.mean.pv(pvlabel = "ASRREA", by,  
 data, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{

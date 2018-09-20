@@ -1,5 +1,6 @@
 \name{timss.per.pv}
 \alias{timss.per.pv}
+\alias{timss2015.per.pv}
 \title{TIMSS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{

@@ -3,9 +3,11 @@
 \alias{icils_conf}
 \alias{piaac_conf}
 \alias{pirls_conf}
+\alias{pirls2016_conf}
 \alias{pisa_conf}
 \alias{timss4_conf}
 \alias{timss8_conf}
+\alias{timss2015_conf}
 \title{Config files for intsvy studies}
 \format{A list with three components - input, variables and parameters.}
 \usage{

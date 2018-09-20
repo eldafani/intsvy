@@ -15,6 +15,7 @@ intsvy.config(variables.pvlabelpref,
            parameters.percentiles,
            parameters.weights,
            parameters.PVreps,
+           parameters.varpv1,
            input.type,
            input.prefixes,
            input.student,
@@ -42,6 +43,9 @@ Cut offs for plausible values, either for benchmar or for logistic regression.
 }
   \item{parameters.percentiles, parameters.PVreps}{
 Other parameters for weighting schemes, like number of PVs. 	
+}
+  \item{parameters.varpv1}{
+Logical value, TRUE if only 1 plausible value for within variance estimation.
 }
   \item{variables.pvlabelpref, variables.pvlabelsuff, variables.weight, 
            variables.jackknifeZone, variables.jackknifeRep}{

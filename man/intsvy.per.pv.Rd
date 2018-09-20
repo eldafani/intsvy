@@ -1,7 +1,7 @@
 \name{intsvy.per.pv}
 \alias{intsvy.per.pv}
-\title{INTSVY percentiles}
-\description{Calculates percentiles for plausible values.}
+\title{Calculates percentiles}
+\description{Calculates percentiles for plausible values}
 \usage{
   intsvy.per.pv(pvlabel, by, per, data, export=FALSE, name= "output", 
   folder=getwd(), config)
