@@ -1,0 +1,119 @@
+import(ggplot2)
+importFrom("stats", "complete.cases")
+importFrom("memisc", "percent", "spss.system.file", "description", "measurement")
+importFrom("reshape", "melt")
+importFrom("foreign", "read.spss")
+importFrom("plyr", "ddply")
+importFrom("Hmisc", "wtd.quantile")
+importFrom("stats", "as.formula", "cov.wt", "glm", "lm", "na.omit",
+             "quasibinomial", "reorder", "sd", "var", "weighted.mean")
+importFrom("utils", "capture.output", "write.csv")
+  
+export(
+plot.intsvy.mean,
+plot.intsvy.table,
+plot.intsvy.reg,
+
+intsvy.var.label,
+intsvy.select.merge,
+intsvy.table,
+intsvy.mean,
+intsvy.mean.pv,
+intsvy.rho,
+intsvy.rho.pv,
+intsvy.reg,
+intsvy.reg.pv,
+intsvy.log,
+intsvy.log.pv,
+intsvy.ben.pv,
+intsvy.per.pv,
+intsvy.config,
+
+pirls.ben.pv,
+pirls.log,
+pirls.log.pv,
+pirls.mean.pv,
+pirls.mean,
+pirls.per.pv,
+pirls.reg.pv,
+pirls.reg,
+pirls.rho.pv,
+pirls.rho,
+pirls.select.merge,
+pirls.table,
+pirls.var.label,
+
+piaac.table,
+piaac.ben.pv,
+piaac.mean.pv,
+piaac.mean,
+piaac.reg.pv,
+piaac.reg,
+
+pisa.ben.pv,
+pisa.log,
+pisa.log.pv,
+pisa.mean.pv,
+pisa.mean,
+pisa.per.pv,
+pisa.reg.pv,
+pisa.reg,
+pisa.rho,
+pisa.select.merge,
+pisa.table,
+pisa.var.label,
+
+pisa2015.table,
+pisa2015.mean,
+pisa2015.reg,
+pisa2015.rho,
+pisa2015.log,
+pisa2015.mean.pv,
+pisa2015.reg.pv,
+pisa2015.log.pv,
+pisa2015.per.pv,
+pisa2015.ben.pv,
+
+timss.ben.pv,
+timss.log,
+timss.log.pv,
+timss.mean.pv,
+timss.mean,
+timss.per.pv,
+timss.reg.pv,
+timss.reg,
+timss.rho.pv,
+timss.rho,
+timss.table,
+
+timss2015.log.pv, 
+timss2015.log, 
+timss2015.mean.pv, 
+timss2015.mean,
+timss2015.reg.pv,
+timss2015.ben.pv,
+timss2015.reg.pv,
+timss2015.reg,
+timss2015.per.pv,
+
+pirls2016.log.pv, 
+pirls2016.log, 
+pirls2016.mean.pv, 
+pirls2016.mean,
+pirls2016.reg.pv,
+pirls2016.ben.pv,
+pirls2016.reg.pv,
+pirls2016.reg,
+pirls2016.per.pv,
+
+timssg4.select.merge,
+timssg4.var.label,
+timssg8.select.merge,
+timssg8.var.label
+)
+
+S3method(summary, intsvy.reg)
+S3method(print, intsvy.reg)
+S3method(plot, intsvy.mean)
+S3method(plot, intsvy.reg)
+S3method(plot, intsvy.table)
