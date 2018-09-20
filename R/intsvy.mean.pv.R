@@ -116,9 +116,9 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
         (sum(data[[config$variables$weight]]*(data[[pvnames[x]]]-R.mean[x])^2, na.rm=TRUE)/sum(data[[config$variables$weight]], na.rm = TRUE))^(1/2))
       
       # Sampling variance; imputation variance; SEs
-      v.meanw <- mean(sapply(1:length(pvnames), function(m) sum((R.mean1[,m]-R.mean[m])^2)))
+      v.meanw <- mean(sapply(1:length(pvnames), function(m) sum((R.mean1[,m]-R.mean[m])^2)/2))
       v.meanb <- (1+1/length(pvnames))*var(R.mean)
-      v.sdw <- mean(sapply(1:length(pvnames), function(m) sum((R.sd1[,m] - R.sd[m])^2)))
+      v.sdw <- mean(sapply(1:length(pvnames), function(m) sum((R.sd1[,m] - R.sd[m])^2)/2))
       v.sdb <- (1+1/length(pvnames))*var(R.sd)
       mean.se <-  (v.meanw+v.meanb)^(1/2); sd.se <- (v.sdw+v.sdb)^(1/2)
       }

@@ -99,7 +99,7 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
         coef.tot <- c(reg.tot$coefficients[ ,1] , "R-squared" = reg.tot$r.squared)
         
         # Sampling error
-        coef.se <- apply((coef.rp-coef.tot)^2, 1, sum)^(1/2)
+        coef.se <- (apply((coef.rp-coef.tot)^2, 1, sum)/2)^(1/2)
         # T-value
         coef.t <- coef.tot/coef.se
         # Reg Table

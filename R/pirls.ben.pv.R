@@ -5,3 +5,11 @@ function(pvlabel, by, cutoff=cutoff, data, export=FALSE, name= "output", folder=
                 config=pirls_conf)
   
 }
+
+pirls2016.ben.pv <-
+  function(pvlabel, by, cutoff=cutoff, data, export=FALSE, name= "output", folder=getwd()) {
+    
+    intsvy.ben.pv(pvlabel=pvlabel, by=by, cutoff=cutoff, data=data, export=export, name= name, folder=folder,
+                  config=pirls2016_conf)
+    
+  }

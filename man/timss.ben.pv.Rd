@@ -1,5 +1,6 @@
 \name{timss.ben.pv}
 \alias{timss.ben.pv}
+\alias{timss2015.ben.pv}
 \title{
 TIMSS international benchmarks
 }

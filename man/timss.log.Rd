@@ -1,5 +1,6 @@
 \name{timss.log}
 \alias{timss.log}
+\alias{timss2015.log}
 \title{Logistic regression analysis}
 \description{timss.log performs logistic regression analysis for an observed depedent variable (NOT for plausible values)
 }

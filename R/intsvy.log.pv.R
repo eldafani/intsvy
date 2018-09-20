@@ -107,7 +107,7 @@ intsvy.log.pv <-
       mean.coef <- apply(pv.coef, 1, mean)
 
       # Sampling error (variance within)
-      var.w <- apply((rp.coef - pv.coef[,1])^2, 1, sum)
+      var.w <- apply((rp.coef - pv.coef[,1])^2, 1, sum)/2
       
       # Imputation error (variance between)
       var.b <- (1+1/length(pvnames))*apply(pv.coef, 1, var, na.rm=TRUE)

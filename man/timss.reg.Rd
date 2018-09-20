@@ -1,5 +1,6 @@
 \name{timss.reg}
 \alias{timss.reg}
+\alias{timss2015.reg}
 \title{Regression analysis}
 \description{
 timss.reg performs linear regression analysis (OLS) for an observed depedent variable (NOT for plausible values)

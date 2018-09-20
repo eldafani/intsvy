@@ -65,7 +65,7 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
         # Sampling error within (PV1), between PV error, and total (se)
           tabpvw <- apply(do.call(rbind, lapply(1:config$parameters$PV, function(m) 
           sapply(1:length(cutoff), function(y) 
-          sum(sapply(1:ncol(R.wt), function(x) (tabpv1[[m]][x,y]-tabpv[m,y])^2))))), 2, mean)
+          sum(sapply(1:ncol(R.wt), function(x) (tabpv1[[m]][x,y]-tabpv[m,y])^2))/2))), 2, mean)
         
         tabpvb <- (1+1/5)*apply(tabpv, 2, var)
         tabse <- round((tabpvw+tabpvb)^(1/2), 2)

@@ -1,5 +1,6 @@
 \name{timss.log.pv}
 \alias{timss.log.pv}
+\alias{timss2015.log.pv}
 \title{Logistic regression analysis with plausible values}
 \description{
 timss.log.pv performs logistic regression with plausible values and replicate weights.

@@ -1,5 +1,6 @@
 \name{pirls.log.pv}
 \alias{pirls.log.pv}
+\alias{pirls2016.log.pv}
 \title{Logistic regression analysis with plausible values}
 \description{
 pirls.log.pv performs logistic regression with plausible values and replicate weights.

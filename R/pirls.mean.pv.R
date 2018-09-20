@@ -7,11 +7,11 @@ pirls.mean.pv <-
     
 }
 
-pirls2015.mean.pv <-
+pirls2016.mean.pv <-
   function(pvlabel="ASRREA", by, data, export=FALSE, name= "output", folder=getwd()) {
     
     intsvy.mean.pv(pvnames = paste(pvlabel, "0", 1:5, sep=""), 
                    by=by, data=data, export=export,
-                   name=name, folder=folder, config=pirls2015_conf)
+                   name=name, folder=folder, config=pirls2016_conf)
     
 }

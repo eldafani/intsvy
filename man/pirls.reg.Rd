@@ -1,5 +1,6 @@
 \name{pirls.reg}
 \alias{pirls.reg}
+\alias{pirls2016.reg}
 \title{Regression analysis}
 \description{pirls.reg performs linear regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
 }

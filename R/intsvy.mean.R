@@ -67,7 +67,7 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
         # Total weighted mean                                                                      
         meantot <- weighted.mean(as.numeric(data[[variable]]), data[[config$variables$weight]], na.rm = TRUE)
         # Standard error (sampling eror) 
-        meanse <- (sum((meanrp-meantot)^2))^(1/2)
+        meanse <- (sum((meanrp-meantot)^2)/2)^(1/2)
         result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
         return(round(result, 2))
         

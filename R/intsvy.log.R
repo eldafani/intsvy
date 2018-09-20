@@ -77,7 +77,7 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       # Total weighted coefficients
       coef.tot <- reg.tot$coefficients[, 1]
       # Sampling error 
-      coef.se <- (0.05*apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
+      coef.se <- mean(apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
       t.stat <- coef.tot/coef.se
       # Odds ratios and confidence intervals
       OR <- exp(coef.tot)
@@ -119,7 +119,7 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
         # Total weighted coefficients
         coef.tot <- reg.tot$coefficients[, 1]
         # Sampling error 
-        coef.se <- (0.05*apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
+        coef.se <- mean(apply((coef.rp-coef.tot)^2, 1, sum)/2)^(1/2)
         t.stat <- coef.tot/coef.se
         # Odds ratios and confidence intervals
         OR <- exp(coef.tot)

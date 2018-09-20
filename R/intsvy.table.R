@@ -53,7 +53,7 @@ intsvy.table <- function(variable, by, data, config) {
                           weights= data[[config$variables$weight]], na.rm = TRUE, total=FALSE)
         # Standard error
         if (length(tabtot)!=1) {
-          tabse <- apply((tabrp-tabtot)^2, 1, sum)^(1/2)
+          tabse <- (apply((tabrp-tabtot)^2, 1, sum)/2)^(1/2)
         } else {
           tabse <-0
         } 

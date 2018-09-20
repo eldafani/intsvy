@@ -1,5 +1,6 @@
 \name{pirls.per.pv}
 \alias{pirls.per.pv}
+\alias{pirls2016.per.pv}
 \title{PIRLS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{

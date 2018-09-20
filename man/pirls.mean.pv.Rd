@@ -1,6 +1,6 @@
 \name{pirls.mean.pv}
 \alias{pirls.mean.pv}
-\alias{pirls2015.mean.pv}
+\alias{pirls2016.mean.pv}
 \title{Calculates mean achievement score
 }
 \description{

@@ -1,5 +1,6 @@
 \name{timss.table}
 \alias{timss.table}
+\alias{timss2015.table}
 \title{
 Frequency table
 }

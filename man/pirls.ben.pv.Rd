@@ -1,5 +1,6 @@
 \name{pirls.ben.pv}
 \alias{pirls.ben.pv}
+\alias{pirls2016.ben.pv}
 \title{PIRLS international benchmarks}
 \description{
 pirls.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by PIRLS/TIMSS.
