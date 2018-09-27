@@ -32,10 +32,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
   
   # include only file names with expected abvs (remove test, for example)
   files.all <- lapply(seq_along(files.all), function(y) files.all[[y]][myabv[[y]] 
-                %in% toupper(config$input$prefixes)])
+                %in% c(config$input$prefixes, toupper(config$input$prefixes))])
   
   
-  abv <- unique(unlist(lapply(myabv, function(x) x[x  %in% toupper(config$input$prefixes)])))
+  abv <- unique(unlist(lapply(myabv, function(x) x[x  %in% c(config$input$prefixes, toupper(config$input$prefixes))])))
   
   # Name list for identification later, rather than using numbers
   names(files.all) <- tolower(abv)
