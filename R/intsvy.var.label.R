@@ -27,9 +27,9 @@ function(folder=getwd(), name="Variable labels", output=getwd(),
     
     # include only file names with expected abvs (remove test, for example)
     files.all <- lapply(seq_along(files.all), function(y) files.all[[y]][myabv[[y]] 
-                  %in% toupper(config$input$prefixes)])
+                  %in% c(config$input$prefixes, toupper(config$input$prefixes))])
     
-    abv <- unique(unlist(lapply(myabv, function(x) x[x  %in% toupper(config$input$prefixes)])))
+    abv <- unique(unlist(lapply(myabv, function(x) x[x  %in% c(config$input$prefixes, toupper(config$input$prefixes))])))
     
     # Name list for existing datasets, will print student-teacher linkage if available
     names(files.all) <- file.names[match(toupper(abv), toupper(file.names[["Abv"]])), "Instrument"]
