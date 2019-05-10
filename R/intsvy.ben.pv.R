@@ -85,7 +85,7 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
-      pvnames <- paste("PV", 1:5, pvlabel, sep="")
+      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
       
       # data is empty
       if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
@@ -105,16 +105,16 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       levell <- lapply(pvnames, function(x) ifelse(data[[x]] > cutoff[length(cutoff)], 1, 0))
       
       # Recoded data for standard analysis
-      level.data <- lapply(1:5, function(x) cbind(level1[[x]], level.int[[x]], levell[[x]]))
+      level.data <- lapply(1:length(pvnames), function(x) cbind(level1[[x]], level.int[[x]], levell[[x]]))
       
       # Percentages for replicates and pvs
-      tabpvrp <- lapply(1:5, function(x) 
+      tabpvrp <- lapply(1:length(pvnames), function(x) 
                     sapply(1:config$parameters$BRRreps, function(i) 
                         100*apply(level.data[[x]], 2, weighted.mean, 
                             w = data[[paste(config$variables$weightBRR, i , sep="")]], na.rm= TRUE)))
       
       # Total percentages for pvs
-      tabpvt <- sapply(1:5, function(x) 
+      tabpvt <- sapply(1:length(pvnames), function(x) 
                     100*apply(level.data[[x]], 2, weighted.mean, 
                             w= data[[config$variables$weightFinal]], na.rm= TRUE))
       
@@ -122,9 +122,9 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       tabtot <- apply(tabpvt, 1, mean)
       
       # Sampling error, between PV error, and total (se)
-      varw <- apply(sapply(1:5, function(x) 0.05*apply(sapply(1:config$parameters$BRRreps, function(i) (tabpvrp[[x]][, i] - tabpvt[ , x])^2), 1, sum)), 1, mean)
-      varb <- (1/(5-1))*apply(sapply(1:5, function(x) (tabpvt[, x]-tabtot)^2), 1, sum)
-      tabse <-(varw+(1+1/5)*varb)^(1/2)
+      varw <- apply(sapply(1:length(pvnames), function(x) 0.05*apply(sapply(1:config$parameters$BRRreps, function(i) (tabpvrp[[x]][, i] - tabpvt[ , x])^2), 1, sum)), 1, mean)
+      varb <- (1/(length(pvnames)-1))*apply(sapply(1:length(pvnames), function(x) (tabpvt[, x]-tabtot)^2), 1, sum)
+      tabse <-(varw+(1+1/length(pvnames))*varb)^(1/2)
       
       # Result
       result <- data.frame("Benchmarks"= c(paste0("<= ", cutoff[1]),
