@@ -9,7 +9,7 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvname <- paste(pvlabel, "0", 1:5, sep='')
+      pvname <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep='')
 
       # data is empty
       if (sum(is.na((data[[pvname[1]]])))==length(data[[pvname[1]]])) {
@@ -54,7 +54,7 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
         
         R.wt <- cbind(R.wt, R.wt2)  
         
-        tabpv1 <-  lapply(1:config$parameters$PV, function(m) sapply(1:length(cutoff), function(z) 
+        tabpv1 <-  lapply(1:config$parameters$PVreps, function(m) sapply(1:length(cutoff), function(z) 
           sapply(1:ncol(R.wt), function(x)
           100*weighted.mean(data[[pvname[m]]]>=cutoff[z], w = R.wt[,x]))))
 
@@ -63,7 +63,7 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
           100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
         
         # Sampling error within (PV1), between PV error, and total (se)
-          tabpvw <- apply(do.call(rbind, lapply(1:config$parameters$PV, function(m) 
+          tabpvw <- apply(do.call(rbind, lapply(1:config$parameters$PVreps, function(m) 
           sapply(1:length(cutoff), function(y) 
           sum(sapply(1:ncol(R.wt), function(x) (tabpv1[[m]][x,y]-tabpv[m,y])^2))/2))), 2, mean)
         
