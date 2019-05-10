@@ -13,11 +13,11 @@ intsvy.log.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
       
-      pvnames <- paste("PV", 1:5, pvlabel, sep="")
+      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
 
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))
-      names(di) <- paste("DI", 1:5, sep="")
+      names(di) <- paste("DI", 1:config$parameters$PVreps, sep="")
       data <- cbind(data, di)
       
       # List of formulas for each PV
@@ -69,7 +69,7 @@ intsvy.log.pv <-
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvnames <- paste(pvlabel, "0", 1:5, sep="")
+      pvnames <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep="")
       
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))
