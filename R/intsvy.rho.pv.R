@@ -11,18 +11,18 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
       
       if (length(pvlabels)==2 & missing(variable)) {
         # PV names
-        pvnames <- lapply(pvlabels, function(x) paste(x, "0", 1:5, sep=""))
+        pvnames <- lapply(pvlabels, function(x) paste(x, "0", 1:config$parameters$PVreps, sep=""))
         # Complete dataset (listwise deletion)
         data <- na.omit(data[c(unlist(pvnames), config$variables$weight, config$variables$jackknifeRep, config$variables$jackknifeZone)])
         # Replicate weighted correlations for PV1 (sampling error)
         rhopvrp <- lapply(1:max(data[[config$variables$jackknifeZone]]), function(i) cov.wt(x=data[c(pvnames[[1]][1], pvnames[[2]][1])], cor=T, 
                   wt=ifelse(data[[config$variables$jackknifeZone]] == i, 2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))[[5]])
         # Total weighted correlation for imputation variance
-        rhopvtot <- lapply(1:5, function(i) cov.wt(x=data[c(pvnames[[1]][i],pvnames[[2]][i])], cor=T, 
+        rhopvtot <- lapply(1:config$parameters$PVreps, function(i) cov.wt(x=data[c(pvnames[[1]][i],pvnames[[2]][i])], cor=T, 
                  wt= data[[config$variables$weight]])[[5]])
         # Sampling variance, imputation variance, and SEs
         varw <- Reduce("+", lapply(rhopvrp, function(x) (x - rhopvtot[[1]])^2))
-        varb <- (1+1/5)* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
+        varb <- (1+1/config$parameters$PVreps)* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
         rhose <- (varw+varb)^(1/2)
         # Mean total weighted correlation
         rhotot <- Reduce("+", rhopvtot)/length(rhopvtot)
@@ -36,7 +36,7 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
         
         # Correlation of no PV with PV
         # PV names
-        pvnames <- paste(pvlabels, "0", 1:5, sep="")
+        pvnames <- paste(pvlabels, "0", 1:config$parameters$PVreps, sep="")
         # Complete dataset (listwise deletion)
         data <- na.omit(data[c(variable, pvnames, config$variables$weight, config$variables$jackknifeRep, config$variables$jackknifeZone)])
         # Replicate weighted correlations for PV1 (sampling error)
@@ -46,7 +46,7 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
         rhopvtot <- lapply(pvnames, function(i) cov.wt(x=data[c(variable,i)], cor=TRUE, wt= data[[config$variables$weight]])[[5]])
         # Sampling variance, imputation variance, and SEs
         varw <- Reduce("+", lapply(rhopvrp, function(x) (x - rhopvtot[[1]])^2))
-        varb <- (1+1/5)* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
+        varb <- (1+1/config$parameters$PVreps)* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
         rhose <- (varw+varb)^(1/2)
         # Mean total weighted correlation
         rhotot <- Reduce("+", rhopvtot)/length(rhopvtot)
