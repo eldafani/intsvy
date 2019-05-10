@@ -55,7 +55,7 @@ intsvy.reg.pv <-
                     (coe.rep[[pv]]-coe.tot[,pv])^2), function(e) apply(e, 1, sum)), 1, mean)
 
       # Imputation error (variance between)
-      var.b <- (1/4)*apply(sapply(1:config$parameters$PVreps, function(pv)
+      var.b <- (1/(config$parameters$PVreps-1))*apply(sapply(1:config$parameters$PVreps, function(pv)
                     (coe.tot[, pv] - stat.tot)^2), 1, sum)
 
       stat.se <- (var.w +(1+1/config$parameters$PVreps)*var.b)^(1/2)
@@ -71,7 +71,7 @@ intsvy.reg.pv <-
       # jack knife
       # in PIRLS / TIMSS
 
-      pvnames <- paste(pvlabel, "0", 1:5, sep="")
+      pvnames <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep="")
       # List of formulas for each PV
       regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
 
