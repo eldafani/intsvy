@@ -14,7 +14,7 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvnames <- paste(pvlabel, "0", 1:5, sep='')
+      pvnames <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep='')
 
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
@@ -87,7 +87,7 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA 
-      pvnames <- paste("PV", 1:5, pvlabel, sep="")
+      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
   
       # Replicate percentiles
       R.per <- lapply(pvnames, function(k) sapply(1:config$parameters$BRRreps, function(i) 
