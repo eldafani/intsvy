@@ -1,10 +1,9 @@
-intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", folder=getwd(), config) {
-  
+intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", folder=getwd(), config) {  
   if (missing(per)) {
     per = config$parameters$percentiles
   }
   
-  pv.per.input <- function(pvlabel, per, data, config) {
+  pv.per.input <- function(pvnames, per, data, config) {
     # Not enough data
     if (nrow(data)<=1)  {
       return(data.frame("Percentiles"=per, "Score"=rep(NA,length(per)), "Std. err."= rep(NA,length(per))))
@@ -14,8 +13,6 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvnames <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep='')
-
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
                   ifelse(data[[config$variables$jackknifeZone]] == x, 
@@ -87,8 +84,7 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA 
-      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
-  
+ 
       # Replicate percentiles
       R.per <- lapply(pvnames, function(k) sapply(1:config$parameters$BRRreps, function(i) 
                    wtd.quantile(data[[k]], probs=per/100, weights=data[[paste0(config$variables$weightBRR, i)]], na.rm = TRUE)))
@@ -126,12 +122,12 @@ intsvy.per.pv <- function(pvlabel, by, per, data, export=FALSE, name= "output", 
   
   # If by not supplied, calculate for complete sample    
   if (missing(by)) { 
-    output <- pv.per.input(pvlabel=pvlabel, per=per, data=data, config=config)
+    output <- pv.per.input(pvnames=pvnames, per=per, data=data, config=config)
   } else {
     for (i in by) {
       data[[c(i)]] <- as.factor(data[[c(i)]])
     }
-    output <- ddply(data, by, function(x) pv.per.input(pvlabel=pvlabel, per=per, data=x, config=config))
+    output <- ddply(data, by, function(x) pv.per.input(pvnames=pvnames, per=per, data=x, config=config))
   }
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
