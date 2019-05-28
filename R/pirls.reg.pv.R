@@ -1,7 +1,7 @@
 pirls.reg.pv <-
   function(x, pvlabel="ASRREA", by, data, std=FALSE, export=FALSE, name= "output", folder=getwd()) {
     
-    intsvy.reg.pv(x=x, pvlabel=pvlabel, by=by, data=data, std=std, export=export, 
+    intsvy.reg.pv(x=x, pvnames = paste(pvlabel, "0", 1:5, sep=""), by=by, data=data, std=std, export=export, 
                   name= name, folder=folder, config=pirls_conf) 
 
 }
@@ -9,7 +9,7 @@ pirls.reg.pv <-
 pirls2016.reg.pv <-
   function(x, pvlabel="ASRREA", by, data, std=FALSE, export=FALSE, name= "output", folder=getwd()) {
     
-    intsvy.reg.pv(x=x, pvlabel=pvlabel, by=by, data=data, std=std, export=export, 
+    intsvy.reg.pv(x=x, pvnames = paste(pvlabel, "0", 1:5, sep=""), by=by, data=data, std=std, export=export, 
                   name= name, folder=folder, config=pirls2016_conf) 
     
   }
