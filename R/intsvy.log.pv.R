@@ -1,7 +1,7 @@
 intsvy.log.pv <- 
-  function(pvlabel, x, cutoff, by, data, export=FALSE, name= "output", folder=getwd(), config) {
+  function(pvnames, x, cutoff, by, data, export=FALSE, name= "output", folder=getwd(), config) {
 
-  log.pv.input <- function(pvlabel, x, cutoff, data, config) {
+  log.pv.input <- function(pvnames, x, cutoff, data, config) {
     if (any(sapply(data[x], function(i) all(duplicated(i))))) {
       return(data.frame("Coef."=NA, "Std. Error"=NA, "t value"=NA, "OR"=NA, "CI95low"=NA, 
                         "CI95up"=NA, check.names=F))
@@ -13,8 +13,6 @@ intsvy.log.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
       
-      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
-
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))
       names(di) <- paste("DI", 1:config$parameters$PVreps, sep="")
@@ -69,7 +67,6 @@ intsvy.log.pv <-
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvnames <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep="")
       
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))
@@ -194,7 +191,7 @@ intsvy.log.pv <-
   
   # If by no supplied, calculate for the complete sample    
   if (missing(by)) { 
-    output <- log.pv.input(pvlabel=pvlabel, x=x, cutoff=cutoff, data=data, config=config) 
+    output <- log.pv.input(pvnames=pvnames, x=x, cutoff=cutoff, data=data, config=config) 
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i) 
       log.pv.input(pvlabel=pvlabel, cutoff=cutoff, x=x, data=i, config=config))
