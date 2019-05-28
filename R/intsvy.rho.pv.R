@@ -1,6 +1,6 @@
 intsvy.rho.pv <- 
-function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getwd(), config) {
-  rho.pv.input <- function(variable, pvlabels, data, config) {
+function(variable, pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config) {
+  rho.pv.input <- function(variable, pvnames, data, config) {
     # BRR / JK
     if (config$parameters$weights == "BRR") {
       stop("Not implemented yet")
@@ -9,9 +9,7 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
       # jack knife
       # in PIRLS / TIMSS
       
-      if (length(pvlabels)==2 & missing(variable)) {
-        # PV names
-        pvnames <- lapply(pvlabels, function(x) paste(x, "0", 1:config$parameters$PVreps, sep=""))
+      if (length(pvnames)==2 & missing(variable)) {
         # Complete dataset (listwise deletion)
         data <- na.omit(data[c(unlist(pvnames), config$variables$weight, config$variables$jackknifeRep, config$variables$jackknifeZone)])
         # Replicate weighted correlations for PV1 (sampling error)
@@ -30,13 +28,11 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
         rhomat <- round(do.call(cbind, lapply(1:ncol(rhotot), function(x) t(rbind(rhotot[,x], rhose[, x])))), 5)
         # Format and print
         colnames(rhomat) <- unlist(lapply(1:2, function(i) 
-          c(paste(pvlabels, "Rho", sep=" ")[i], paste(pvlabels, "s.e.", sep=" ")[i])))
+          c(paste(pvnames, "Rho", sep=" ")[i], paste(pvnames, "s.e.", sep=" ")[i])))
         return(round(rhomat, 3))
       } else {
         
         # Correlation of no PV with PV
-        # PV names
-        pvnames <- paste(pvlabels, "0", 1:config$parameters$PVreps, sep="")
         # Complete dataset (listwise deletion)
         data <- na.omit(data[c(variable, pvnames, config$variables$weight, config$variables$jackknifeRep, config$variables$jackknifeZone)])
         # Replicate weighted correlations for PV1 (sampling error)
@@ -54,7 +50,7 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
         rhomat <- round(do.call(cbind, lapply(1:ncol(rhotot), function(x) t(rbind(rhotot[,x], rhose[, x])))), 5)
         # Format and print
         colnames(rhomat) <- unlist(lapply(1:2, function(i) 
-          c(paste(c(variable, pvlabels), "Rho", sep=" ")[i], paste(c(variable, pvlabels), "SE", sep=" ")[i])))
+          c(paste(c(variable, pvnames), "Rho", sep=" ")[i], paste(c(variable, pvnames), "SE", sep=" ")[i])))
         return(round(rhomat, 3))
       }
       
@@ -66,12 +62,12 @@ function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getw
   
   # If by no supplied, calculate for the complete sample    
   if (missing(by)) { 
-    output <- rho.pv.input(variable=variable, pvlabels=pvlabels,  data=data, config=config)
+    output <- rho.pv.input(variable=variable, pvnames=pvnames,  data=data, config=config)
   } else {
-    if (length(pvlabels)==2 & missing(variable)) {
-      output <- lapply(split(data, factor(data[[by]])), function(x) rho.pv.input(pvlabels=pvlabels,  data=x, config=config))
+    if (length(pvnames)==2 & missing(variable)) {
+      output <- lapply(split(data, factor(data[[by]])), function(x) rho.pv.input(pvnames=pvnames,  data=x, config=config))
     } else {
-      output <- lapply(split(data, factor(data[[by]])), function(x) rho.pv.input(variable=variable, pvlabels=pvlabels, data=x, config=config))
+      output <- lapply(split(data, factor(data[[by]])), function(x) rho.pv.input(variable=variable, pvnames=pvnames, data=x, config=config))
     }
   }
   
