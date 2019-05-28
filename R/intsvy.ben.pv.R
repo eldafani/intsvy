@@ -1,20 +1,19 @@
-intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output", folder=getwd(), config) {
+intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output", folder=getwd(), config) {
 
     if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
     }
-  pv.ben.input <- function(pvlabel, data, cutoff, config) {
+  pv.ben.input <- function(pvnames, data, cutoff, config) {
     
     #  JK
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-      pvname <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep='')
 
       # data is empty
-      if (sum(is.na((data[[pvname[1]]])))==length(data[[pvname[1]]])) {
+      if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
         result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
-        names(result)[1] <- pvname[1] 
+        names(result)[1] <- pvnames[1] 
         return(result)
       }
       
@@ -26,10 +25,10 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       
       if (isTRUE(config$parameters$varpv1)) {
       tabpv1 <- sapply(1:length(cutoff), function(z) sapply(1:ncol(R.wt), function(x) 
-        100*weighted.mean(data[[pvname[1]]]>=cutoff[z], w = R.wt[,x])))
+        100*weighted.mean(data[[pvnames[1]]]>=cutoff[z], w = R.wt[,x])))
             
          # Total weighted %s PV1-5 
-      tabpv <- sapply(1:length(cutoff), function(z) sapply(pvname, function(x) 
+      tabpv <- sapply(1:length(cutoff), function(z) sapply(pvnames, function(x) 
         100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
       
       # Sampling error within (PV1), between PV error, and total (se)
@@ -56,10 +55,10 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
         
         tabpv1 <-  lapply(1:config$parameters$PVreps, function(m) sapply(1:length(cutoff), function(z) 
           sapply(1:ncol(R.wt), function(x)
-          100*weighted.mean(data[[pvname[m]]]>=cutoff[z], w = R.wt[,x]))))
+          100*weighted.mean(data[[pvnames[m]]]>=cutoff[z], w = R.wt[,x]))))
 
         # Total weighted %s PV1-5 
-        tabpv <- sapply(1:length(cutoff), function(z) sapply(pvname, function(x) 
+        tabpv <- sapply(1:length(cutoff), function(z) sapply(pvnames, function(x) 
           100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
         
         # Sampling error within (PV1), between PV error, and total (se)
@@ -85,8 +84,7 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
-      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
-      
+     
       # data is empty
       if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
         result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
@@ -136,7 +134,6 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
     if (config$parameters$weights == "mixed_piaac") {
       # mixed design, different for different countries
       # PIAAC
-      pvnames <- paste("PV", pvlabel, 1:config$parameters$PVreps, sep="")
 
       # data is empty
       if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
@@ -201,12 +198,12 @@ intsvy.ben.pv <- function(pvlabel, by, cutoff, data, export=FALSE, name= "output
   
   # If by not supplied, calculate for complete sample    
   if (missing(by)) { 
-    output <- pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, data=data, config=config)
+    output <- pv.ben.input(pvnames=pvnames, cutoff=cutoff, data=data, config=config)
   } else {
     for (i in by) {
       data[[c(i)]] <- as.factor(data[[c(i)]])
     }
-    output <- ddply(data, by, function(x) pv.ben.input(pvlabel=pvlabel, cutoff=cutoff, data=x, config=config))
+    output <- ddply(data, by, function(x) pv.ben.input(pvnames=pvnames, cutoff=cutoff, data=x, config=config))
   }
   if (export)  {
     write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
