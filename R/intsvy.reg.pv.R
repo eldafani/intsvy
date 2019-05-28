@@ -1,10 +1,9 @@
 intsvy.reg.pv <-
-  function(x, pvlabel, by, data, std=FALSE, export=FALSE, name= "output", folder=getwd(), config) {
+  function(x, pvnames, by, data, std=FALSE, export=FALSE, name= "output", folder=getwd(), config) {
 
   # Remove missing data in IVs
   data <- data[complete.cases(data[, x]), ]
-    
-  reg.pv.input <- function(x, pvlabel, data, std, config) {
+    reg.pv.input <- function(x, pvnames, data, std, config) {
     if (any(sapply(data[x], function(i) all(duplicated(i))))) {
     results <- list("replicates"=NA, "residuals"= NA, "var.w"=NA, "var.b"=NA, "reg"=NA)
     return(results)
@@ -16,9 +15,7 @@ intsvy.reg.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
 
-      # PV labels
-      pvnames <- paste("PV", 1:config$parameters$PVreps, pvlabel, sep="")
-      # List of formulas for each PV
+     # List of formulas for each PV
       regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
 
       # Standardise IV and DV variables
@@ -71,7 +68,6 @@ intsvy.reg.pv <-
       # jack knife
       # in PIRLS / TIMSS
 
-      pvnames <- paste(pvlabel, "0", 1:config$parameters$PVreps, sep="")
       # List of formulas for each PV
       regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
 
@@ -165,7 +161,7 @@ intsvy.reg.pv <-
       # PIAAC
 
       # PV labels
-      pvnames <- paste("PV", pvlabel, 1:config$parameters$PVreps, sep="")
+     
       # List of formulas for each PV
       regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
 
@@ -216,10 +212,10 @@ intsvy.reg.pv <-
 
   # If by no supplied, calculate for the complete sample
   if (missing(by)) {
-    output <- reg.pv.input(x=x, pvlabel=pvlabel, data=data, std=std, config=config)
+    output <- reg.pv.input(x=x, pvnames=pvnames, data=data, std=std, config=config)
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i)
-      reg.pv.input(x=x, pvlabel=pvlabel, data=i, std=std, config=config))
+      reg.pv.input(x=x, pvnames=pvnames, data=i, std=std, config=config))
   }
 
   if (export)  {
