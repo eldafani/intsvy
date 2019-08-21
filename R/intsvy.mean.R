@@ -27,7 +27,7 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
       sdse <- (0.05*sum((sdrp-sdtot)^2))^(1/2)
       
       result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse, "SD" = sdtot, "s.e" = sdse)
-      return(round(result, 2))
+      return(result)
       
     } 
     if (config$parameters$weights == "JK") {
@@ -69,7 +69,7 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
         # Standard error (sampling eror) 
         meanse <- (sum((meanrp-meantot)^2)/2)^(1/2)
         result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
-        return(round(result, 2))
+        return(result)
         
     }
     }
@@ -91,7 +91,7 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
       
       meanse <- (cc*sum((meanrp-meantot)^2))^(1/2)
       result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
-      return(round(result, 2))
+      return(result)
 
     } 
   }
