@@ -48,7 +48,13 @@ intsvy.reg.pv <-
       stat.tot <- apply(coe.tot, 1, mean)
 
       # Sampling error (variance within)
-      var.w <- apply(0.05*sapply(lapply(1:config$parameters$PVreps, function(pv)
+      if(length(config$parameters$BRRreps == 1) & is.numeric(config$parameters$BRRreps)){
+          cc<- 1/(config$parameters$BRRreps*(1-0.5)^2)	
+      } else {
+          cc<- 1/20
+          warning("default value for BRR reps (80) used, set this in your config")	
+      }
+      var.w <- apply(cc*sapply(lapply(1:config$parameters$PVreps, function(pv)
                     (coe.rep[[pv]]-coe.tot[,pv])^2), function(e) apply(e, 1, sum)), 1, mean)
 
       # Imputation error (variance between)
