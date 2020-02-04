@@ -3,7 +3,7 @@
 \alias{pisa2015.per.pv}
 \title{PISA percentiles}
 \description{Calculates percentiles for plausible values.
-Use the pisa2015.per.pv() for data from PISA 2015 study.
+Use the pisa2015.per.pv() for PISA 2015 or above.
 }
 \usage{
   pisa.per.pv(pvlabel="READ", by, per, data, export=FALSE, name= "output", 
