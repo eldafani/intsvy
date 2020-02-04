@@ -6,7 +6,7 @@ Calculates mean of variable
 }
 \description{
 Calculates the mean of an observed variable (NOT one with plausible values) and its standard error.
-Use the pisa2015.mean() for data from PISA 2015 study.
+Use the pisa2015.mean() for PISA 2015 or above.
 }
 \usage{
 pisa.mean(variable, by, data, export = FALSE, 
