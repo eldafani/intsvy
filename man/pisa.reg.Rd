@@ -5,7 +5,7 @@
 \description{
 pisa.reg performs linear regression analysis (OLS) for an observed depedent variable 
 (NOT for plausible values)
-Use the pisa2015.reg() for data from PISA 2015 study.
+Use the pisa2015.reg() for PISA 2015 or above.
 }
 \usage{
 pisa.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd())
