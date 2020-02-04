@@ -6,7 +6,7 @@ Calculates mean achievement score
 }
 \description{
 pisa.mean.pv uses five plausible values to calculate the mean achievement score and its standard error
-Use the pisa2015.mean.pv() for data from PISA 2015 study.
+Use the pisa2015.mean.pv() for PISA 2015 or above.
 }
 \usage{
 pisa.mean.pv(pvlabel, by, data, export = FALSE, name = "output", 
