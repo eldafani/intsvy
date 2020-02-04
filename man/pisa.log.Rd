@@ -4,7 +4,7 @@
 \title{Logistic regression analysis}
 \description{
 pisa.log performs logistic regression analysis (OLS) for an observed depedent variable (NOT for plausible values)
-Use the pisa2015.log() for data from PISA 2015 study.
+Use the pisa2015.log() for PISA 2015 or above.
 }
 \usage{
 pisa.log(y, x, by, data, export=FALSE, name= "output", folder=getwd())
