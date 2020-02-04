@@ -6,7 +6,7 @@ Frequency table
 }
 \description{
 pisa.table produces a frequency table for a categorical variable printing percentages and standard errors.
-Use the pisa2015.table() for data from PISA 2015 study.
+Use the pisa2015.table() for PISA 2015 or above.
 }
 \usage{
 pisa.table(variable, by, data, export = FALSE, name = "output", folder = getwd())
