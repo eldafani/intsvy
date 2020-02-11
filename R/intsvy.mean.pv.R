@@ -36,7 +36,12 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       MEAN.m <- mean(PV.mean)
       SD.m <- mean(PV.sd)
       
-      cc = 1/20
+      if(length(config$parameters$BRRreps == 1) & is.numeric(config$parameters$BRRreps)){
+          cc<- 1/(config$parameters$BRRreps*(1-0.5)^2)	
+      } else {
+          cc<- 1/20
+          warning("default value for BRR reps (80) used, set this in your config")	
+      }
       if (config$parameters$weights == "mixed_piaac") {
         cntName <- as.character(unique(data[,config$variables$countryID]))[1]
         cc <- piaacReplicationScheme[cntName,"c"]
