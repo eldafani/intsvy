@@ -85,6 +85,10 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
      
+      pvnames <- paste0("^PV[0-9]+", pvnames)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
       # data is empty
       if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
         result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
@@ -109,7 +113,7 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output
       tabpvrp <- lapply(1:length(pvnames), function(x) 
                     sapply(1:config$parameters$BRRreps, function(i) 
                         100*apply(level.data[[x]], 2, weighted.mean, 
-                            w = data[[paste(config$variables$weightBRR, i , sep="")]], na.rm= TRUE)))
+                            w = data[[weights[i]]], na.rm= TRUE)))
       
       # Total percentages for pvs
       tabpvt <- sapply(1:length(pvnames), function(x) 
