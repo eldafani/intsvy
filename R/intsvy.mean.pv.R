@@ -12,7 +12,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
       pvnames <- paste0("^PV[0-9]+", pvnames)
-      pvnames <- grep(pvnames, names(pisa), value = TRUE)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
       
       
