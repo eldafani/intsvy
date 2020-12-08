@@ -11,7 +11,9 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
-      
+      pvnames <- paste0("^PV[0-9]+", pvnames)
+      pvnames <- grep(pvnames, names(pisa), value = TRUE)
+       
       # Replicate weighted sds and means of 5 PVs (sampling error)
       R.mean <- sapply(pvnames, function(k) 
         sapply(1:config$parameters$BRRreps, function(i) 
