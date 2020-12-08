@@ -66,6 +66,9 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
+      
+      pvnames <- paste0("^", pvnames,  "[0-9]+")
+      pvnames <- grep(pvnames, names(data), value = TRUE)
 
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
