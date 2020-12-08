@@ -99,7 +99,9 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       v.sdw <- sum((R.sd1 - R.sd[1])^2);  v.sdb <- (1+1/length(pvnames))*var(R.sd)
       mean.se <-  (v.meanw+v.meanb)^(1/2); sd.se <- (v.sdw+v.sdb)^(1/2)
       
-      } else {
+      } 
+      
+      if (isFALSE(config$parameters$varpv1)) {
       
       R.wt2 <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
           ifelse(data[[config$variables$jackknifeZone]] == x, 
