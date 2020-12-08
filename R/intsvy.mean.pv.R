@@ -135,9 +135,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       result <- data.frame("Freq"= length(data[[config$variables$weight]]), "Mean"= mean(R.mean), "s.e."= mean.se, 
                            "SD"=mean(R.sd), "s.e"=sd.se)
       
-    }
-
-    return(round(result, 2))
+      return(round(result, 2))
     
   }
   
