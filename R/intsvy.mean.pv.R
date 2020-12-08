@@ -13,18 +13,20 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # in PISA / PIAAC
       pvnames <- paste0("^PV[0-9]+", pvnames)
       pvnames <- grep(pvnames, names(pisa), value = TRUE)
-       
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
+      
       # Replicate weighted sds and means of 5 PVs (sampling error)
       R.mean <- sapply(pvnames, function(k) 
         sapply(1:config$parameters$BRRreps, function(i) 
           weighted.mean(data[[k]], 
-                        data[[paste0(config$variables$weightBRR, i)]], na.rm = TRUE)))
+                        data[[weights[i]]], na.rm = TRUE)))
       
       R.sd <- sapply(pvnames, function(x) 
         sapply(1:config$parameters$BRRreps, function(i)
-          (sum(data[[paste0(config$variables$weightBRR, i)]]*
+          (sum(data[[weights[i]]]*
                  (data[[x]]-R.mean[i, x])^2, na.rm = TRUE)/
-             sum(data[[paste0(config$variables$weightBRR, i)]], na.rm = TRUE))^(1/2)))
+             sum(data[[weights[i]]], na.rm = TRUE))^(1/2)))
       
       # Grand mean of 5 PVs (imputation variance)
       PV.mean <- sapply(pvnames, function(x) 
