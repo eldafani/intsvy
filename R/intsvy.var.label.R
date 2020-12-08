@@ -1,6 +1,5 @@
 intsvy.var.label <-
-function(folder=getwd(), name="Variable labels", output=getwd(),
-         config) {
+function(folder=getwd(), name="Variable labels", output=getwd(), config) {
   if (missing(config)) {
     stop("You should set the configuration object.")
   }
