@@ -15,6 +15,10 @@ intsvy.reg.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
 
+      pvnames <- paste0("^PV[0-9]+", pvnames)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
      # List of formulas for each PV
       regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
 
@@ -25,14 +29,13 @@ intsvy.reg.pv <-
 
       # Replicate weighted coefficients for sampling error (5 PVs)
       reg.rep <- lapply(regform, function(pv) lapply(1:config$parameters$BRRreps, function(rep)
-        summary(lm(formula=as.formula(pv), data=data, weights=data[[paste0(config$variables$weightBRR, rep)]]))))
-
+        summary(lm(formula=as.formula(pv), data=data, weights=data[[weights[rep]]]))))
 
       # Combining coefficients and R-squared replicates
-      coe.rep <- lapply(1:config$parameters$PVreps, function(pv) sapply(1:config$parameters$BRRreps, function(rep)
+      coe.rep <- lapply(1:length(pvnames), function(pv) sapply(1:config$parameters$BRRreps, function(rep)
         c(reg.rep[[pv]][[rep]]$coefficients[,1], "R-squared"= reg.rep[[pv]][[rep]]$r.squared)))
 
-      resid <- lapply(1:config$parameters$PVreps, function(pv)
+      resid <- lapply(1:length(pvnames), function(pv)
                     sapply(1:config$parameters$BRRreps,
                           function(rep) reg.rep[[pv]][[rep]]$residuals))
 
@@ -40,7 +43,7 @@ intsvy.reg.pv <-
       reg.pv <- lapply(regform, function(pv)
                     summary(lm(formula=as.formula(pv), data=data, weights=data[[config$variables$weightFinal]])))
 
-      coe.tot <- sapply(1:config$parameters$PVreps, function(pv)
+      coe.tot <- sapply(1:length(pvnames), function(pv)
                     c(reg.pv[[pv]]$coefficients[, 1], "R-squared" = reg.pv[[pv]]$r.squared))
 
 
@@ -48,14 +51,14 @@ intsvy.reg.pv <-
       stat.tot <- apply(coe.tot, 1, mean)
 
       # Sampling error (variance within)
-      var.w <- apply(0.05*sapply(lapply(1:config$parameters$PVreps, function(pv)
+      var.w <- apply(0.05*sapply(lapply(1:length(pvnames), function(pv)
                     (coe.rep[[pv]]-coe.tot[,pv])^2), function(e) apply(e, 1, sum)), 1, mean)
 
       # Imputation error (variance between)
-      var.b <- (1/(config$parameters$PVreps-1))*apply(sapply(1:config$parameters$PVreps, function(pv)
+      var.b <- (1/(config$parameters$PVreps-1))*apply(sapply(1:length(pvnames), function(pv)
                     (coe.tot[, pv] - stat.tot)^2), 1, sum)
 
-      stat.se <- (var.w +(1+1/config$parameters$PVreps)*var.b)^(1/2)
+      stat.se <- (var.w +(1+1/length(pvnames))*var.b)^(1/2)
       stat.t <- stat.tot/stat.se
 
       # Reg Table

@@ -7,14 +7,16 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
       
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
       meanrp <- sapply(1:config$parameters$BRRreps, function(i) 
                       weighted.mean(as.numeric(data[[variable]]), 
-                               data[[paste(config$variables$weightBRR, i , sep="")]], na.rm = TRUE))
+                               data[[weights[i]]], na.rm = TRUE))
       
       # Replicate weights for SDs (sampling error)
       sdrp <- sapply(1:config$parameters$BRRreps, function(i)  
-                      (sum(data[[paste0(config$variables$weightBRR, i)]]*(data[[variable]]-meanrp[i])^2, na.rm = TRUE)/
-                               sum(data[[paste0(config$variables$weightBRR, i)]], na.rm = TRUE))^(1/2))
+                      (sum(data[[weights[i]]]*(data[[variable]]-meanrp[i])^2, na.rm = TRUE)/
+                               sum(data[[weights[i]]], na.rm = TRUE))^(1/2))
       
       # Total weighted mean                                                                      
       meantot <- weighted.mean(as.numeric(data[[variable]]), data[[config$variables$weightFinal]], na.rm = TRUE)

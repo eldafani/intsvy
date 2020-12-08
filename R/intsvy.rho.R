@@ -7,9 +7,11 @@ function(variables, by, data, export=FALSE, name= "output", folder=getwd(), conf
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
       
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
       data <- na.omit(data[c(variables, config$variables$weightFinal, grep(config$variables$weightBRR, names(data), value=TRUE))]) 
       # Fifth element is correlation matrix
-      rhorp <-  lapply(1:config$parameters$BRRreps, function(i) cov.wt(data[variables], wt= data[[paste(config$variables$weightBRR, i , sep="")]], cor = TRUE)[[5]])
+      rhorp <-  lapply(1:config$parameters$BRRreps, function(i) cov.wt(data[variables], wt= data[[weights[i]]], cor = TRUE)[[5]])
       rhotot <- cov.wt(data[variables], wt=data[[config$variables$weightFinal]], cor=TRUE)[[5]]
       
       # SE formula

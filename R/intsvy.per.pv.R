@@ -84,10 +84,15 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA 
- 
+      
+      pvnames <- paste0("^PV[0-9]+", pvnames)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
+      
       # Replicate percentiles
       R.per <- lapply(pvnames, function(k) sapply(1:config$parameters$BRRreps, function(i) 
-                   wtd.quantile(data[[k]], probs=per/100, weights=data[[paste0(config$variables$weightBRR, i)]], na.rm = TRUE)))
+                   wtd.quantile(data[[k]], probs=per/100, weights=data[[weights[i]]], na.rm = TRUE)))
       names(R.per) <- pvnames
       
       # Grand mean of 5 PVs (imputation variance)

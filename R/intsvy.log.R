@@ -16,17 +16,19 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       # Replicate weighted %s (sampling error)
       # in PISA
       
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
       # Replicate weighted coefficients, normalised weights
       coef.rp <- suppressWarnings(lapply(1:config$parameters$BRRreps, 
-                        function(i) summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
-                                    weights=nrow(data)*data[[paste0(config$variables$weightBRR, i)]]/sum(data[[paste0(config$variables$weightBRR, i)]]),
+                 function(i) summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
+                 weights=nrow(data)*data[[weights[i]]]/sum(data[[weights[i]]]),
                                                       data=data))))
 
       # Retrieving coefficients
       rp.coef <- sapply(1:config$parameters$BRRreps, function(i) coef.rp[[i]]$coefficients[,1])
       # Total weighted regressions 
       reg.pv <- suppressWarnings(summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
-                            weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data)))
+                weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data)))
       
       # Total weighted coefficients
       tot.coef <- reg.pv$coefficients[, 1]

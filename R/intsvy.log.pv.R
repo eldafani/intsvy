@@ -13,9 +13,13 @@ intsvy.log.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
       
+      pvnames <- paste0("^PV[0-9]+", pvnames)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))
-      names(di) <- paste("DI", 1:config$parameters$PVreps, sep="")
+      names(di) <- paste("DI", 1:length(pvnames), sep="")
       data <- cbind(data, di)
       
       # List of formulas for each PV
@@ -23,7 +27,7 @@ intsvy.log.pv <-
       # Replicate weighted coefficients for sampling error (5 PVs), normalised weights
       coef.rp <- suppressWarnings(lapply(regform, function(k) lapply(1:config$parameters$BRRreps, function(i) 
         summary(glm(formula=as.formula(k), family=quasibinomial("logit"), 
-                    weights=nrow(data)*data[[paste0(config$variables$weightBRR, i)]]/sum(data[[paste0(config$variables$weightBRR, i)]]),
+                    weights=nrow(data)*data[[weights[i]]]/sum(data[[weights[i]]]),
                     data=data)))))
 
       # Retrieving coefficients

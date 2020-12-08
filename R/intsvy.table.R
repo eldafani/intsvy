@@ -65,9 +65,12 @@ intsvy.table <- function(variable, by, data, config) {
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
+        
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+        
       tabrp <- as.matrix(sapply(1:config$parameters$BRRreps, function(i) 
         percent(as.factor(as.numeric(data[[variable]])), total=FALSE, 
-                weights=  data[[paste(config$variables$weightBRR, i , sep="")]], na.rm=TRUE)))     
+                weights=  data[[weights[i]]], na.rm=TRUE)))     
       
       # Total weighted %                                                                      
       tabtot <- percent(as.factor(as.numeric(data[[variable]])), weights= data[[config$variables$weightFinal]], na.rm = TRUE, total=FALSE)

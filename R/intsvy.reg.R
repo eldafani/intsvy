@@ -16,9 +16,11 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       # Replicate weighted %s (sampling error)
       # in PISA
       
+      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      
       # Replicate weights coefficients for sampling error
       reg.rp <- lapply(1:config$parameters$BRRreps, function(i) summary(lm(formula=as.formula(regform), data=data, 
-                      weights=data[[paste(config$variables$weightBRR, i , sep="")]])))
+                      weights=data[[weights[i]]])))
       # Combining coefficients and R-squared replicates
       coef.rp <- sapply(1:config$parameters$BRRreps, function(i) 
                       c(reg.rp[[i]]$coefficients[,1], "R-squared" = reg.rp[[i]]$r.squared))
