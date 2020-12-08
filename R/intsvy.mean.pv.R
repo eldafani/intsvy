@@ -39,7 +39,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # Mean of means (the one is reported)
       MEAN.m <- mean(PV.mean)
       SD.m <- mean(PV.sd)
-      
+    
       cc = 1/20
       if (config$parameters$weights == "mixed_piaac") {
         cntName <- as.character(unique(data[,config$variables$countryID]))[1]
@@ -49,6 +49,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
           warning(paste("In PIAAC study different replications schemes were applied in different countries. \n In the selected set of countries more than one scheme was used. \n Further estimation is performed with coefficient c =", cc))
         }
       }
+    }
       
       # Sampling variance; imputation variance; and SEs
       var.mean.w <- mean(sapply(seq_along(pvnames), function(i) cc*sum((R.mean[,i]-PV.mean[i])^2)))
