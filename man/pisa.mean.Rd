@@ -1,6 +1,5 @@
 \name{pisa.mean}
 \alias{pisa.mean}
-\alias{pisa2015.mean}
 \title{
 Calculates mean of variable
 }

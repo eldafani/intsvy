@@ -1,6 +1,5 @@
 \name{pisa.rho}
 \alias{pisa.rho}
-\alias{pisa2015.rho}
 \title{
 Correlation matrix
 }

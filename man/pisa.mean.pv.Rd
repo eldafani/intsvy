@@ -1,6 +1,5 @@
 \name{pisa.mean.pv}
 \alias{pisa.mean.pv}
-\alias{pisa2015.mean.pv}
 \title{
 Calculates mean achievement score
 }

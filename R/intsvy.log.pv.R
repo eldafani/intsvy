@@ -72,6 +72,9 @@ intsvy.log.pv <-
       # jack knife
       # in PIRLS / TIMSS
       
+      pvnames <- paste0("^", pvnames,  "[0-9]+")
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))
       names(di) <- paste("DI", 1:5, sep="")
@@ -142,12 +145,12 @@ intsvy.log.pv <-
         
         # Replicate weighted coefficients for sampling error (PV1 only), normalised weights
         
-        coef.rp1 <- suppressWarnings(lapply(1:config$parameters$PVreps, function(m)
+        coef.rp1 <- suppressWarnings(lapply(1:length(pvnames), function(m)
           lapply(1:ncol(rp.wt), function(rp)  summary(glm(formula=as.formula(regform[[m]]), 
                       family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data)))))
         
         # Retrieving coefficients
-        rp.coef <- lapply(1:config$parameters$PVreps, function(m) sapply(1:ncol(rp.wt), 
+        rp.coef <- lapply(1:lenght(pvnames), function(m) sapply(1:ncol(rp.wt), 
         function(rp) coef.rp1[[m]][[rp]]$coefficients[,1]))
         
         # Total weighted coefficient for each PV for imputation (between) error
@@ -161,7 +164,7 @@ intsvy.log.pv <-
         mean.coef <- apply(pv.coef, 1, mean)
         
         # Sampling error (variance within)
-        var.w <- apply(sapply(1:config$parameters$PVreps, function(m) 
+        var.w <- apply(sapply(1:length(pvnames), function(m) 
         apply((rp.coef[[m]] - pv.coef[,1])^2, 1, sum)), 1, mean)
         
         

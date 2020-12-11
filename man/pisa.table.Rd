@@ -1,6 +1,5 @@
 \name{pisa.table}
 \alias{pisa.table}
-\alias{pisa2015.table}
 \title{
 Frequency table
 }

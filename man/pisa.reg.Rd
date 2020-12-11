@@ -1,6 +1,5 @@
 \name{pisa.reg}
 \alias{pisa.reg}
-\alias{pisa2015.reg}
 \title{Regression analysis}
 \description{
 pisa.reg performs linear regression analysis (OLS) for an observed depedent variable 

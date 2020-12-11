@@ -1,6 +1,5 @@
 \name{pisa.reg.pv}
 \alias{pisa.reg.pv}
-\alias{pisa2015.reg.pv}
 \title{Regression analysis with plausible values}
 \description{
 pisa.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.

@@ -1,6 +1,5 @@
 \name{timss.mean.pv}
 \alias{timss.mean.pv}
-\alias{timss2015.mean.pv}
 \title{
 Calculates mean achievement score
 }

@@ -1,6 +1,5 @@
 \name{pisa.ben.pv}
 \alias{pisa.ben.pv}
-\alias{pisa2015.ben.pv}
 \title{PISA proficiency levels}
 \description{Calculates percentage of students at each proficiency level defined by PISA. Or at proficiency levels provided by the useR.
 Use the pisa2015.ben.pv() for PISA 2015 or above.

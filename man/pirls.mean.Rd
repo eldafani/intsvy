@@ -1,6 +1,5 @@
 \name{pirls.mean}
 \alias{pirls.mean}
-\alias{pirls2016.mean}
 \title{
 Calculates mean of variable
 }

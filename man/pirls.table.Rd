@@ -1,6 +1,5 @@
 \name{pirls.table}
 \alias{pirls.table}
-\alias{pirls2016.table}
 \title{
 Frequency table
 }

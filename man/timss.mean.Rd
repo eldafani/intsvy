@@ -1,6 +1,5 @@
 \name{timss.mean}
 \alias{timss.mean}
-\alias{timss2015.mean}
 \title{
 Calculates mean of variable
 }

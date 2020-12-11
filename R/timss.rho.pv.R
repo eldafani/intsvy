@@ -1,7 +1,7 @@
 timss.rho.pv <-
-function(variable, pvlabels, by, data, export=FALSE, name= "output", folder=getwd()) {
+function(variable, pvlabel, by, data, export=FALSE, name= "output", folder=getwd()) {
 
-  intsvy.rho.pv(variable=variable,pvnames = paste(pvlabel, "0", 1:5, sep=""), 
+  intsvy.rho.pv(variable=variable, pvnames = pvlabel, 
                 by=by, data=data, export=export, 
                 name= name, folder=folder, config = pirls_conf)
 }

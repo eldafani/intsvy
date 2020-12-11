@@ -128,7 +128,6 @@ pirls_conf <- list(variables = list(pvlabelpref = "ASRREA0",
                  parameters = list(cutoffs = c(400, 475, 550, 625),
                                    percentiles = c(5, 10, 25, 75, 90, 95),
                                    weights = "JK",
-                                   PVreps = 5,
                                    varpv1=FALSE), # change to TRUE for PIRLS < 2016 (use only 1 PV for sampling error)
                  input = list(type = "IEA",
                               prefixes = c("asg", "ash", "ast", "acg", "atg"),

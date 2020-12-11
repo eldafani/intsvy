@@ -1,6 +1,5 @@
 \name{pirls.log}
 \alias{pirls.log}
-\alias{pirls2016.log}
 \title{Logistic regression analysis}
 \description{pirls.log performs logistic regression analysis for an observed depedent variable 
 (NOT for plausible values)

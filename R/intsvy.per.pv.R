@@ -13,6 +13,10 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
+      
+      pvnames <- paste0("^", pvnames,  "[0-9]+")
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
                   ifelse(data[[config$variables$jackknifeZone]] == x, 
@@ -52,7 +56,7 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
         R.wt <- cbind(R.wt, R.wt2)
         
         # Percentile estimates of PV1 (for sampling error)
-        R.per <- lapply(1:config$parameters$PVreps, function(m) sapply(1:ncol(R.wt), function(i) 
+        R.per <- lapply(1:length(pvnames), function(m) sapply(1:ncol(R.wt), function(i) 
           wtd.quantile(data[[pvnames[[m]]]], probs=per/100, weights=R.wt[,i], na.rm = TRUE)))
           
                
@@ -64,7 +68,7 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
         
         # Sampling variance; imputation variance; and SEs
         
-        var.per.w = apply(sapply(1:config$parameters$PVreps, function(m)  
+        var.per.w = apply(sapply(1:length(pvnames), function(m)  
           apply((R.per[[m]]-PV.per[, pvnames[m]])^2, 1, sum, na.rm=TRUE)/2), 1, mean)
         
         var.per.b <- (1+1/length(pvnames))*apply(PV.per, 1, var, na.rm=TRUE)
@@ -76,8 +80,6 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
         return(result)  
         
       }
-        
-        
     }
     # BRR 
     if (config$parameters$weights == "BRR") {
@@ -117,6 +119,7 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
       return(result)
       
     } 
+    
     if (config$parameters$weights == "mixed_piaac") {
       # mixed design, different for different countries
       # PIAAC

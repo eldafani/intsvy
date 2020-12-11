@@ -1,6 +1,5 @@
 \name{pirls.reg.pv}
 \alias{pirls.reg.pv}
-\alias{pirls2016.reg.pv}
 \title{Regression analysis with plausible values}
 \description{
 pirls.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.

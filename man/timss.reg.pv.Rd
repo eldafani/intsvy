@@ -1,6 +1,5 @@
 \name{timss.reg.pv}
 \alias{timss.reg.pv}
-\alias{timss2015.reg.pv}
 \title{Regression analysis with plausible values}
 \description{
 timss.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.

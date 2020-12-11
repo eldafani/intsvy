@@ -1,6 +1,5 @@
 \name{pisa.per.pv}
 \alias{pisa.per.pv}
-\alias{pisa2015.per.pv}
 \title{PISA percentiles}
 \description{Calculates percentiles for plausible values.
 Use the pisa2015.per.pv() for PISA 2015 or above.

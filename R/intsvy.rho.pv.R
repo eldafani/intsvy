@@ -9,6 +9,9 @@ function(variable, pvnames, by, data, export=FALSE, name= "output", folder=getwd
       # jack knife
       # in PIRLS / TIMSS
       
+      pvnames <- paste0("^", pvnames,  "[0-9]+")
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      
       if (length(pvnames)==2 & missing(variable)) {
         # Complete dataset (listwise deletion)
         data <- na.omit(data[c(unlist(pvnames), config$variables$weight, config$variables$jackknifeRep, config$variables$jackknifeZone)])
@@ -16,11 +19,11 @@ function(variable, pvnames, by, data, export=FALSE, name= "output", folder=getwd
         rhopvrp <- lapply(1:max(data[[config$variables$jackknifeZone]]), function(i) cov.wt(x=data[c(pvnames[[1]][1], pvnames[[2]][1])], cor=T, 
                   wt=ifelse(data[[config$variables$jackknifeZone]] == i, 2*data[[config$variables$weight]]*data[[config$variables$jackknifeRep]], data[[config$variables$weight]]))[[5]])
         # Total weighted correlation for imputation variance
-        rhopvtot <- lapply(1:config$parameters$PVreps, function(i) cov.wt(x=data[c(pvnames[[1]][i],pvnames[[2]][i])], cor=T, 
+        rhopvtot <- lapply(1:length(pvnames), function(i) cov.wt(x=data[c(pvnames[[1]][i],pvnames[[2]][i])], cor=T, 
                  wt= data[[config$variables$weight]])[[5]])
         # Sampling variance, imputation variance, and SEs
         varw <- Reduce("+", lapply(rhopvrp, function(x) (x - rhopvtot[[1]])^2))
-        varb <- (1+1/config$parameters$PVreps)* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
+        varb <- (1+1/length(pvnames))* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
         rhose <- (varw+varb)^(1/2)
         # Mean total weighted correlation
         rhotot <- Reduce("+", rhopvtot)/length(rhopvtot)
@@ -42,7 +45,7 @@ function(variable, pvnames, by, data, export=FALSE, name= "output", folder=getwd
         rhopvtot <- lapply(pvnames, function(i) cov.wt(x=data[c(variable,i)], cor=TRUE, wt= data[[config$variables$weight]])[[5]])
         # Sampling variance, imputation variance, and SEs
         varw <- Reduce("+", lapply(rhopvrp, function(x) (x - rhopvtot[[1]])^2))
-        varb <- (1+1/config$parameters$PVreps)* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
+        varb <- (1+1/length(pvnames))* apply(simplify2array(rhopvtot), c(1, 2), var) # slower, but Reduce(var) fails
         rhose <- (varw+varb)^(1/2)
         # Mean total weighted correlation
         rhotot <- Reduce("+", rhopvtot)/length(rhopvtot)
