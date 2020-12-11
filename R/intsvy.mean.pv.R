@@ -49,7 +49,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
           warning(paste("In PIAAC study different replications schemes were applied in different countries. \n In the selected set of countries more than one scheme was used. \n Further estimation is performed with coefficient c =", cc))
         }
       }
-    }
+    
       
       # Sampling variance; imputation variance; and SEs
       var.mean.w <- mean(sapply(seq_along(pvnames), function(i) cc*sum((R.mean[,i]-PV.mean[i])^2)))
@@ -138,6 +138,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       
       return(round(result, 2))
     
+    }
   }
   
   # If by no supplied, calculate for the complete sample    
