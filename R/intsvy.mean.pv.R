@@ -137,7 +137,6 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
                            "SD"=mean(R.sd), "s.e"=sd.se)
       
       return(round(result, 2))
-    
     }
   }
   
