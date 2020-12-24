@@ -3,11 +3,11 @@
 \title{Calculates percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  intsvy.per.pv(pvlabel, by, per, data, export=FALSE, name= "output", 
+  intsvy.per.pv(pvnames, by, per, data, export=FALSE, name= "output", 
   folder=getwd(), config)
 }
 \arguments{
-  \item{pvlabel}{
+  \item{pvnames}{
   The label corresponding to the achievement variable, for example, "BSMMAT", for overall mathematics performance.
   }
   \item{per}{
@@ -43,13 +43,13 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 \examples{
   \dontrun{
     timss.per.pv(pvlabel="BSMMAT", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timss8)
-    intsvy.per.pv(pvlabel="BSMMAT",  by="IDCNTRYL", data=timss8, config=timss8_conf)
+    intsvy.per.pv(pvnames="BSMMAT",  by="IDCNTRYL", data=timss8, config=timss8_conf)
     
     pirls.per.pv(pvlabel="ASRREA", by="IDCNTRYL", data=pirls)
-    intsvy.per.pv(pvlabel="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
+    intsvy.per.pv(pvnames="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
     config=pirls_conf)
     
     pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="CNT", data=pisa)
-    intsvy.per.pv(pvlabel="MATH", by="CNT", data=pisa, config=pisa_conf)
+    intsvy.per.pv(pvnames="MATH", by="CNT", data=pisa, config=pisa_conf)
   }
 }

@@ -90,34 +90,6 @@ timss8_conf <- list(variables = list(pvlabelpref="BSMMAT",
 )
 
 
-#timss2015_conf <- list(variables = list(pvlabelpref="BSMMAT", 
-#                                          pvlabelsuff = "",
-#                                          weight="TOTWGT",
-#                                          jackknifeZone = "JKZONE",
-#                                          jackknifeRep = "JKREP"),
-#                         parameters = list(cutoffs = c(400, 475, 550, 625),
-#                                           percentiles = c(5, 10, 25, 75, 90, 95),
-#                                           weights = "JK",
-#                                           PVreps = 5,
-#                                           varpv1=FALSE),
-#                         input = list(type = "IEA",
-#                                      prefixes = c("asg", "ash", "acg", "ast", "atg"),
-#                                      student = "asg",
-#                                      student_colnames1 = c("IDCNTRY", "IDSCHOOL", "IDCLASS", "IDSTUD"),
-#                                      student_colnames2 = c("JKREP","JKZONE", "HOUWGT", "SENWGT", "TOTWGT"),
-#                                      student_pattern = "^AS.*0[0-5]$", 
-#                                      home = "ash",
- #                                     home_colnames = c("IDCNTRY", "IDSTUD"),
- #                                     school = "acg",
-#                                      school_colnames = c("IDCNTRY", "IDSCHOOL", "SCHWGT"),
-#                                      teacher = c("ast","atg"),
-#                                      teacher_colnames = c("IDCNTRY", "IDTEALIN"),
-#                                      student_ids = c("IDCNTRY", "IDSTUD"),
-#                                      school_ids = c("IDCNTRY", "IDSCHOOL"),
-#                                      type_part = c(-11, -9),
-#                                      cnt_part = c(-8, -6))
-#)
-
 
 # For PIRLS
 pirls_conf <- list(variables = list(pvlabelpref = "ASRREA0",

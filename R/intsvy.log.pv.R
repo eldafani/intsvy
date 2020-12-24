@@ -150,7 +150,7 @@ intsvy.log.pv <-
                       family=quasibinomial("logit"), weights=rp.wt.n[, rp], data=data)))))
         
         # Retrieving coefficients
-        rp.coef <- lapply(1:lenght(pvnames), function(m) sapply(1:ncol(rp.wt), 
+        rp.coef <- lapply(1:length(pvnames), function(m) sapply(1:ncol(rp.wt), 
         function(rp) coef.rp1[[m]][[rp]]$coefficients[,1]))
         
         # Total weighted coefficient for each PV for imputation (between) error
@@ -201,7 +201,7 @@ intsvy.log.pv <-
     output <- log.pv.input(pvnames=pvnames, x=x, cutoff=cutoff, data=data, config=config) 
   } else {
     output <- lapply(split(data, droplevels(data[by])), function(i) 
-      log.pv.input(pvlabel=pvlabel, cutoff=cutoff, x=x, data=i, config=config))
+      log.pv.input(pvnames=pvnames, cutoff=cutoff, x=x, data=i, config=config))
   }
 
   if (export)  {

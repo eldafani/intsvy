@@ -5,12 +5,12 @@
 intsvy.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-intsvy.log.pv(pvlabel, x, cutoff, by, data, export=FALSE, name= "output", 
+intsvy.log.pv(pvnames, x, cutoff, by, data, export=FALSE, name= "output", 
 folder=getwd(), config)
 }
 
 \arguments{
-  \item{pvlabel}{
+  \item{pvnames}{
 The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
 }
   \item{x}{
@@ -49,8 +49,8 @@ pisa.log.pv, pirls.log.pv, timss.log.pv
 
 \examples{
 \dontrun{
-intsvy.log.pv(pvlabel="MATH", cutoff= 606.99, x="ESCS", by="IDCNTRYL", 
+intsvy.log.pv(pvnames="MATH", cutoff= 606.99, x="ESCS", by="IDCNTRYL", 
 data=pisa, config=pisa_conf)
-intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", 
+intsvy.log.pv(pvnames="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", 
 data=timss8g, config=timss8_conf)
 }}

@@ -6,7 +6,7 @@
 timss.rho.pv calculates the correlation and standard error among two achievement variables each based on 5 plausible values or one achievement variable and an observed variable (i.e., with observed scores rather than plausible values).
 }
 \usage{
-timss.rho.pv(variable, pvlabels, by,  
+timss.rho.pv(variable, pvlabel, by,  
 data, export = FALSE, name = "output", folder = getwd())
 }
 
@@ -14,7 +14,7 @@ data, export = FALSE, name = "output", folder = getwd())
   \item{variable}{
 A data label for the observed variable 
 }
-  \item{pvlabels}{
+  \item{pvlabel}{
 One or two labels describing the achievement variables.
 }
    \item{by}{

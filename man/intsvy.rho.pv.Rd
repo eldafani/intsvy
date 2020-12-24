@@ -6,7 +6,7 @@
 intsvy.rho.pv calculates the correlation and standard error among two achievement variables each based on 5 plausible values or one achievement variable and an observed variable (i.e., with observed scores rather than plausible values).
 }
 \usage{
-intsvy.rho.pv(variable, pvlabel, by, data, export=FALSE, 
+intsvy.rho.pv(variable, pvnames, by, data, export=FALSE, 
 name= "output", folder=getwd(), config)
 }
 
@@ -14,7 +14,7 @@ name= "output", folder=getwd(), config)
   \item{variable}{
 A data label for the observed variable 
 }
-  \item{pvlabel}{
+  \item{pvnames}{
 One or two labels describing the achievement variables.
 }
   \item{by}{
