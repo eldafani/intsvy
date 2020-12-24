@@ -6,7 +6,7 @@
 pisa_conf <- list(variables = list(pvlabelpref = "PV",
                                    pvlabelsuff = "READ",
                                    weightFinal = "W_FSTUWT",
-                                   weightBRR = "W_FSTR"),
+                                   weightBRR = "W_"),
                   parameters = list(cutoffs = c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30),
                                     percentiles = c(5, 10, 25, 75, 90, 95),
                                     BRRreps = 80,
@@ -32,6 +32,21 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
                               type_part = c(-11, -9),
                               cnt_part = c(-8, -6))
 )
+
+
+# For PASEC
+pasec_conf <- list(variables = list(pvlabelpref = "PV",
+                                   pvlabelsuff = "LECT",
+                                   weightFinal = "rwgt0",
+                                   weightBRR = "rwgt"),
+                  parameters = list(cutoffs = c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30),
+                                    percentiles = c(5, 10, 25, 75, 90, 95),
+                                    BRRreps = 45,
+                                    weights = "BRR",
+                                    replication_scheme = 'pasec')
+)
+
+
 
 # For TIMSS
 timss4_conf <- list(variables = list(pvlabelpref="BSMMAT", 
