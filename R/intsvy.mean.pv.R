@@ -62,8 +62,10 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       
       result <- data.frame("Freq"= length(data[[config$variables$weightFinal]]), "Mean"= mean(MEAN.m), "s.e."= mean.se, 
                            "SD"=mean(SD.m), "s.e"=sd.se)
+      return(round(result, 2))
 
-    } 
+    }
+    
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
