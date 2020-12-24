@@ -9,8 +9,6 @@ timss.mean.pv uses five plausible values to calculate the mean achievement score
 \usage{
 timss.mean.pv(pvlabel = "BSMMAT", by, data, 
 export = FALSE, name = "output", folder = getwd())
-timss2015.mean.pv(pvlabel = "BSMMAT", by, data, 
-export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
@@ -42,10 +40,7 @@ timss.mean.pv returns a data frame with the mean values and standard errors.
 pirls.mean.pv, pisa.mean.pv
 }
 \examples{\dontrun{
-# TIMSS G4: Exhibit 1.1 International report TIMSS, p. 40
 timss.mean.pv(pvlabel="ASMMAT", by= "IDCNTRYL", data=timss4g)
-
-# TIMSS G8: Exhibit 2.8 User Guide TIMSS 2011, p. 18
 timss.mean.pv(pvlabel="BSMMAT", by= c("IDCNTRYL", "ITSEX"), data=timss8g)
 }
 }

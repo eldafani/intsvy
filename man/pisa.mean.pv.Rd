@@ -5,12 +5,9 @@ Calculates mean achievement score
 }
 \description{
 pisa.mean.pv uses five plausible values to calculate the mean achievement score and its standard error
-Use the pisa2015.mean.pv() for PISA 2015 or above.
 }
 \usage{
 pisa.mean.pv(pvlabel, by, data, export = FALSE, name = "output", 
-     folder = getwd())
-pisa2015.mean.pv(pvlabel, by, data, export = FALSE, name = "output", 
      folder = getwd())
 }
 
@@ -44,19 +41,9 @@ timss.mean.pv, pirls.mean.pv, piaac.mean.pv
 }
 \examples{
 \dontrun{
-# Table I.2.3a, p. 305 International Report 2012 
 pisa.mean.pv(pvlabel = "MATH", by = "IDCNTRYL", data = pisa)
 pisa.mean.pv(pvlabel = "MATH", by = c("IDCNTRYL", "ST04Q01"), data = pisa)
-
-# Table III.2.1a, p. 232, International Report 2012
-pisa.mean.pv(pvlabel="MATH", by=c("IDCNTRYL", "ST08Q01"), data=pisa)
-
-# Figure I.2.16 p. 56 International Report 2009
 pisa.mean.pv(pvlabel = "READ", by = "IDCNTRYL", data = pisa)
-
-# PISA 2015
-pisa2015.mean.pv(pvlabel = "READ", by = "CNT", data = stud2015)
-
 }
 }
 

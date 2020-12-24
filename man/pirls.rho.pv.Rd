@@ -42,7 +42,6 @@ timss.rho.pv, pirls.rho, timss.rho
 }
 \examples{
 \dontrun{
-# Exhibit A.15 p.309 in International report 2006
 pirls.rho.pv(pvlabels=c("ASRLIT", "ASRINF"), by="IDCNTRYL", data=pirls)
 }
 }

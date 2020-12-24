@@ -3,12 +3,9 @@
 \title{Logistic regression analysis with plausible values}
 \description{
 pisa.log.pv performs logistic regression with plausible values and replicate weights.
-Use the pisa2015.log.pv() for PISA 2015 or above.
 }
 \usage{
 pisa.log.pv(pvlabel="READ", x, by, cutoff,  
-      data, export=FALSE, name= "output", folder=getwd())
-pisa2015.log.pv(pvlabel="READ", x, by, cutoff,  
       data, export=FALSE, name= "output", folder=getwd())
 }
 

@@ -43,7 +43,6 @@ timss.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-# PIRLS: Exhibit 2.14 User Guide PIRLS 2011, p. 24
 pirls.ben.pv(pvlabel="ASRREA", by="IDCNTRYL",  data=pirls)
 }
 }

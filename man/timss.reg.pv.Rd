@@ -7,8 +7,6 @@ timss.reg.pv performs linear regression analysis (OLS) with plausible values and
 \usage{
 timss.reg.pv(x, pvlabel = "BSMMAT", by, 
 data, std=FALSE, export = FALSE, name = "output", folder = getwd())
-timss2015.reg.pv(x, pvlabel = "BSMMAT", by, 
-data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
@@ -47,7 +45,6 @@ pirls.reg.pv, pisa.reg.pv
 }
 \examples{
 \dontrun{
-# TIMSS G8: Exhibit 2.11, User Guide TIMSS 2011, p.21
 timss8g$SEX[timss8g$ITSEX=="BOY"]=1
 timss8g$SEX[timss8g$ITSEX=="GIRL"]=0
 timss.reg.pv(pvlabel="BSMMAT", by=c("IDCNTRYL"), x="SEX", data=timss8g)

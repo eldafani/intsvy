@@ -2,11 +2,9 @@
 \alias{pisa.ben.pv}
 \title{PISA proficiency levels}
 \description{Calculates percentage of students at each proficiency level defined by PISA. Or at proficiency levels provided by the useR.
-Use the pisa2015.ben.pv() for PISA 2015 or above.
 }
 \usage{
 pisa.ben.pv(pvlabel, by, cutoff, data, export=FALSE, name= "output", folder=getwd())
-pisa2015.ben.pv(pvlabel, by, cutoff, data, export=FALSE, name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
@@ -43,7 +41,6 @@ timss.ben.pv, pirls.ben.pv
 }
 \examples{
 \dontrun{
-# Table I.2.1a, p. 298 International Report 2012 Volume I
 pisa.ben.pv(pvlabel="MATH", by="IDCNTRYL", data=pisa)
 }
 }

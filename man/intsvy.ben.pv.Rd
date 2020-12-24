@@ -44,8 +44,8 @@ timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-pisa.ben.pv(pvlabel="MATH", by="CNT", data=student2012)
-intsvy.ben.pv(pvlabel="MATH", by="CNT", data=student2012, config=pisa_conf)
+pisa.ben.pv(pvlabel="MATH", by="CNT", data=pisa)
+intsvy.ben.pv(pvlabel="MATH", by="CNT", data=pisa, config=pisa_conf)
 
 piaac.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac)
 intsvy.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac, config=piaac_conf)

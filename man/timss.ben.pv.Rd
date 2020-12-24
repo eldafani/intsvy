@@ -46,9 +46,7 @@ pirls.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-# TIMSS G8: Exhibit 2.14 User Guide TIMSS 2011, p. 24
 timss.ben.pv(pvlabel="BSMMAT", by="IDCNTRYL", cutoff = c(400, 475, 550, 625), data=timss8g)
-# TIMSS G4: Exhibit 2.2 International Report TIMSS 2011, p. 90
 timss.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4g)
 }
 }

@@ -39,7 +39,6 @@
 }
 \examples{
   \dontrun{
-    # Appendix F.1, p. 286, PIRLS 2011 International Results in Reading
     pirls.per.pv(pvlabel="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls)
   }
 }

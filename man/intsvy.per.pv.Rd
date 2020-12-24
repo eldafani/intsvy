@@ -49,7 +49,7 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
     intsvy.per.pv(pvlabel="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
     config=pirls_conf)
     
-    pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="CNT", data=student2012)
-    intsvy.per.pv(pvlabel="MATH", by="CNT", data=student2012, config=pisa_conf)
+    pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="CNT", data=pisa)
+    intsvy.per.pv(pvlabel="MATH", by="CNT", data=pisa, config=pisa_conf)
   }
 }

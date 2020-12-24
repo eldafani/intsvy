@@ -4,11 +4,9 @@
 \description{
 pisa.reg performs linear regression analysis (OLS) for an observed depedent variable 
 (NOT for plausible values)
-Use the pisa2015.reg() for PISA 2015 or above.
 }
 \usage{
 pisa.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd())
-pisa2015.reg(y, x, by, data, export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
@@ -49,8 +47,5 @@ pirls.reg, timss.reg, piaac.reg
 }
 \examples{
 \dontrun{
-# Table III.2.3d, p. 252 International Report 2012
 pisa.reg(y="BELONG", x="ST04Q01", by="IDCNTRYL", data=pisa)
-# PISA 2015
-pisa2015.reg(y="AGE", x="OECD", by="ST004D01T", data=stud2015)
 }}

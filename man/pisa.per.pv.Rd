@@ -2,12 +2,9 @@
 \alias{pisa.per.pv}
 \title{PISA percentiles}
 \description{Calculates percentiles for plausible values.
-Use the pisa2015.per.pv() for PISA 2015 or above.
 }
 \usage{
   pisa.per.pv(pvlabel="READ", by, per, data, export=FALSE, name= "output", 
-  folder=getwd())
-  pisa2015.per.pv(pvlabel="READ", by, per, data, export=FALSE, name= "output", 
   folder=getwd())
   }
 \arguments{
@@ -46,9 +43,6 @@ Use the pisa2015.per.pv() for PISA 2015 or above.
 }
 \examples{
   \dontrun{
-    # Table I.2.3d, p. 309 International Report 2012 Volume I
-    pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="IDCNTRYL", data=pisa)
-    # PISA 2015
-    pisa2015.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="CNT", data=stud2015)
+pisa.per.pv(pvlabel="MATH", per=c(10, 25, 75, 90), by="IDCNTRYL", data=pisa)
   }
 }

@@ -3,12 +3,9 @@
 \title{Regression analysis with plausible values}
 \description{
 pisa.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
-Use the pisa2015.reg.pv() for PISA 2015 or above.
 }
 \usage{
 pisa.reg.pv(x, pvlabel = "READ", by, data, 
-export = FALSE, name = "output", folder = getwd(), std=FALSE)
-pisa2015.reg.pv(x, pvlabel = "READ", by, data, 
 export = FALSE, name = "output", folder = getwd(), std=FALSE)
 }
 
@@ -48,7 +45,6 @@ timss.reg.pv, pirls.reg.pv, piaac.reg.pv
 }
 \examples{
 \dontrun{
-# Table I.2.3a, p. 305, International Report 2012
 pisa.reg.pv(pvlabel="MATH", x="ST04Q01", by = "IDCNTRYL", data=pisa)
 }
 }
