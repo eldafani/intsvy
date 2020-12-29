@@ -14,7 +14,6 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- paste0("^", pvnames,  "[0-9]+")
       pvnames <- grep(pvnames, names(data), value = TRUE)
       
       # Replicate weights

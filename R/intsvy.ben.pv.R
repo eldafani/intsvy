@@ -10,7 +10,6 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output
       # jack knife
       # in PIRLS / TIMSS
 
-      pvnames <- paste0("^", pvnames,  "[0-9]+")
       pvnames <- grep(pvnames, names(data), value = TRUE)
       
       # data is empty

@@ -9,7 +9,6 @@ function(variable, pvnames, by, data, export=FALSE, name= "output", folder=getwd
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- paste0("^", pvnames,  "[0-9]+")
       pvnames <- grep(pvnames, names(data), value = TRUE)
       
       if (length(pvnames)==2 & missing(variable)) {

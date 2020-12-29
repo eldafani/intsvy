@@ -73,7 +73,6 @@ intsvy.log.pv <-
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- paste0("^", pvnames,  "[0-9]+")
       pvnames <- grep(pvnames, names(data), value = TRUE)
       
       # Dependent binary variable

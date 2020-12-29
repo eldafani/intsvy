@@ -72,7 +72,6 @@ intsvy.reg.pv <-
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- paste0("^", pvnames,  "[0-9]+")
       pvnames <- grep(pvnames, names(data), value = TRUE)
 
       # List of formulas for each PV
