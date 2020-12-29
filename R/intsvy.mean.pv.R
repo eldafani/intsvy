@@ -71,7 +71,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- paste0("^", pvnames,  "[0-9]+")
+      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
       pvnames <- grep(pvnames, names(data), value = TRUE)
 
       # Replicate weights

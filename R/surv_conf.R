@@ -37,12 +37,12 @@ piaac_conf <- list(variables = list(pvlabelpref = "PV",
 # For PASEC
 pasec_conf <- list(variables = list(pvlabelpref = "PV",
                                    pvlabelsuff = "LECT",
-                                   weightFinal = "rwgt0",
-                                   weightBRR = "rwgt"),
+                                   weight = "rwgt0",
+                                   jackknifeZone = "JKZONE",
+                                   jackknifeRep = "JKREP"),
                   parameters = list(cutoffs = c(126, 399.1, 469.5, 540, 610.4),
                                     percentiles = c(5, 10, 25, 75, 90, 95),
-                                    BRRreps = 45,
-                                    weights = "BRR",
+                                    weights = "JK",
                                     replication_scheme = 'pasec')
 )
 
