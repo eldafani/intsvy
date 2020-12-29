@@ -43,7 +43,8 @@ pasec_conf <- list(variables = list(pvlabelpref = "PV",
                   parameters = list(cutoffs = c(126, 399.1, 469.5, 540, 610.4),
                                     percentiles = c(5, 10, 25, 75, 90, 95),
                                     weights = "JK",
-                                    replication_scheme = 'pasec')
+                                    replication_scheme = 'pasec',
+                                    varpv1=FALSE)
 )
 
 
@@ -58,7 +59,7 @@ timss4_conf <- list(variables = list(pvlabelpref="BSMMAT",
                                      percentiles = c(5, 10, 25, 75, 90, 95),
                                      weights = "JK",
                                      PVreps = 5,
-                                     varpv1=TRUE),
+                                     varpv1=FALSE),
                    input = list(type = "IEA",
                                 prefixes = c("asg", "ash", "acg", "ast", "atg"),
                                 student = "asg",
