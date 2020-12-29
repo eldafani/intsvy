@@ -129,7 +129,8 @@ pisa.select.merge <-
     }
     
     if (!missing(student) & missing(parent) & !missing(school)) {
-      pisa.all <- merge(student.data, school.data, all.x=TRUE, by=intersect(names(student.data), names(school.data)))
+      pisa.all <- merge(student.data, school.data, all.x=TRUE, 
+      by=grep("CNT|SCH.*ID", intersect(names(student.data), names(school.data)), value = TRUE))
       pisa.all <- pisa.all[grep("*.y", names(pisa.all), invert=TRUE)]
       names(pisa.all) <- gsub("*.x", "", names(pisa.all))
     }
