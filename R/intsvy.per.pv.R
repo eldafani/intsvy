@@ -87,9 +87,10 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
       # Replicate weighted %s (sampling error)
       # in PISA 
       
-      pvnames <- paste0("^PV[0-9]+", pvnames)
+      pvnames <- paste0(pvnames, ".*PV[0-9]|PV[0-9].*", pvnames)
       pvnames <- grep(pvnames, names(data), value = TRUE)
-      weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
+      weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
+                      names(data), value = TRUE)
       
       
       # Replicate percentiles
