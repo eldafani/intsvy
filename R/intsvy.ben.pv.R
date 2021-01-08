@@ -167,12 +167,15 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
       
       
       # Sampling error, between PV error, and total (se)
-      varw <- apply(sapply(1:length(pvnames), 
-                    function(x) 0.05*apply(sapply(1:config$parameters$BRRreps, 
-                    function(i) (tabpvrp[[x]][i, ] - tabpvt[x , ])^2), 1, sum)), 1, mean)
+      varw <- apply(sapply(1:length(cutoff), 
+                      function(cut) 0.05*apply(sapply(1:length(pvnames),
+                      function(pv) sapply(1:config$parameters$BRRreps, function(w) 
+                       (tabpvrp[[pv]][w, cut] - tabpvt[pv , cut])^2)), 2, sum)), 2, mean)
       
-      varb <- (1/(length(pvnames)-1))*apply(sapply(1:length(pvnames), 
-              function(x) (tabpvt[x, ]-tabtot)^2), 1, sum)
+      varb <- (1/(length(pvnames)-1))*apply(sapply(1:length(cutoff), 
+              function(cut) sapply(1:length(pvnames), function(pv) 
+              (tabpvt[pv, cut]-tabtot[cut])^2)), 2, sum)
+      
       tabse <-(varw+(1+1/length(pvnames))*varb)^(1/2)
       
       # Result
