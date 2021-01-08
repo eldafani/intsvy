@@ -4,7 +4,7 @@
 \description{Calculates percentage of population at each proficiency level defined by PIAAC. Or at proficiency levels provided by the user.
 }
 \usage{
-piaac.ben.pv(pvlabel, by, data, cutoff, export=FALSE, 
+piaac.ben.pv(pvlabel, by, data, cutoff, atlevel, export=FALSE, 
     name= "output", folder=getwd())
 }
 \arguments{
@@ -18,6 +18,9 @@ The label for the grouping variable, usually the countries (i.e., by="CNTRYID"),
 The cut-off points for the assessment benchmarks (e.g., cutoff= c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30)). }
   \item{data}{
 An R object, normally a data frame, containing the data from PIAAC.
+}
+ \item{atlevel}{
+A logical value. If TRUE, percentages at each level are calculated. Otherwise (FALSE), percentages at or above levels are reported.
 }
   \item{export}{
 A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 

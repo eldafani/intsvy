@@ -1,4 +1,5 @@
-intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output", folder=getwd(), config) {
+intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE, 
+                          export=FALSE, name= "output", folder=getwd(), config) {
 
     if (missing(cutoff)) {
     cutoff = config$parameters$cutoffs
@@ -9,7 +10,11 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output
     if (config$parameters$weights == "JK") {
       # jack knife
       # in PIRLS / TIMSS
-
+      
+      if (isTRUE(atlevel)) {
+        stop("Not implemented yet")
+      }
+        
       pvnames <- grep(pvnames, names(data), value = TRUE)
       
       # data is empty
@@ -100,6 +105,8 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output
         return(result)
       }
 
+      if (isTRUE(atlevel)) {
+        
       # First level indicator (1/0) for 5 PVs
       level1 <- lapply(pvnames, function(x) ifelse(data[[x]] <= cutoff[1], 1, 0))
       
@@ -138,7 +145,47 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, export=FALSE, name= "output
                ", ", cutoff[2:length(cutoff)], "]"), paste0("> ", cutoff[length(cutoff)])),
                "Percentage"=round(tabtot, 2), "Std. err."= round(tabse,2), check.names=F)
       return(result)
-    } 
+      } 
+      
+    if (isFALSE(atlevel)) {
+      
+      # variation across pvs and weights
+      tabpvrp <-  lapply(1:length(pvnames), function(m) sapply(1:length(cutoff), function(z) 
+        sapply(1:config$parameters$BRRreps, function(i)
+          100*weighted.mean(data[[pvnames[m]]]>=cutoff[z], 
+                            w = data[[weights[i]]], na.rm=TRUE))))      
+      
+      
+      # PV variation across total weight
+      tabpvt <- sapply(1:length(cutoff), function(z) sapply(pvnames, function(x) 
+        100*weighted.mean(data[[x]]>=cutoff[z], 
+                          w=data[[config$variables$weightFinal]], na.rm=TRUE)))
+      
+      
+      # Mean of means (the one is reported)
+      tabtot <- apply(tabpvt, 2, mean)
+      
+      
+      # Sampling error, between PV error, and total (se)
+      varw <- apply(sapply(1:length(pvnames), 
+                    function(x) 0.05*apply(sapply(1:config$parameters$BRRreps, 
+                    function(i) (tabpvrp[[x]][i, ] - tabpvt[x , ])^2), 1, sum)), 1, mean)
+      
+      varb <- (1/(length(pvnames)-1))*apply(sapply(1:length(pvnames), 
+              function(x) (tabpvt[x, ]-tabtot)^2), 1, sum)
+      tabse <-(varw+(1+1/length(pvnames))*varb)^(1/2)
+      
+      # Result
+      
+      result <- data.frame("Benchmark"=paste(rep("At or above", length(cutoff)), cutoff), 
+                           "Percentage"=round(tabtot,2), 
+                           "Std. err."= round(tabse,2), check.names=F)
+      
+      return(result)
+      
+      }
+    }
+      
     if (config$parameters$weights == "mixed_piaac") {
       # mixed design, different for different countries
       # PIAAC

@@ -7,7 +7,7 @@ TIMSS international benchmarks
 timss.ben.pv calculates the percentage of students performing at or above the cut-off points (scores) given by the useR. The default are the benchmarks established by PIRLS/TIMSS
 }
 \usage{
-timss.ben.pv(pvlabel, by,  cutoff, data,
+timss.ben.pv(pvlabel, by,  cutoff, data, atlevel=FALSE,
 export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
@@ -22,6 +22,9 @@ The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL")
 }
   \item{data}{
 An R object, normally a data frame, containing the data from TIMSS.
+}
+ \item{atlevel}{
+A logical value. If TRUE, percentages at each level are calculated. Otherwise (FALSE), percentages at or above levels are reported.
 }
   \item{export}{
 A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 
@@ -50,5 +53,3 @@ timss.ben.pv(pvlabel="BSMMAT", by="IDCNTRYL", cutoff = c(400, 475, 550, 625), da
 timss.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4g)
 }
 }
-
-
