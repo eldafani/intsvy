@@ -91,7 +91,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
     suppressWarnings(suppressMessages(junk0 <- lapply(files.select[[config$input$student]], function(y) 
       read.spss(y, to.data.frame=TRUE, use.value.labels=FALSE))))
     
-    student.data <- do.call('rbind', lapply(junk0, function(x) x[, unique(c(config$input$student_colnames1,
+    student.data <- do.call(dplyr::bind_rows, lapply(junk0, function(x) x[, unique(c(config$input$student_colnames1,
       grep(config$input$student_pattern, names(x), value=TRUE), student, config$input$student_colnames2))]))
   }
   
@@ -101,7 +101,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
       stop('cannot locate home background data files')
     }
     
-    suppressWarnings(suppressMessages(home.data <- do.call("rbind",                          # Merge [[2]] home
+    suppressWarnings(suppressMessages(home.data <- do.call(dplyr::bind_rows,                          # Merge [[2]] home
               lapply(files.select[[config$input$home]], function(y) 
                 read.spss(y, to.data.frame=TRUE, use.value.labels=FALSE)[, unique(c(           # Each dataset
                   config$input$home_colnames, home))]))))                                     # Selected
@@ -113,7 +113,7 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
       stop('cannot locate school data files')
     }
 
-    suppressWarnings(suppressMessages(school.data <- do.call("rbind",                      # Merge [[2]] school
+    suppressWarnings(suppressMessages(school.data <- do.call(dplyr::bind_rows,                      # Merge [[2]] school
            lapply(files.select[[config$input$school]], function(y) 
              read.spss(y, to.data.frame=TRUE, use.value.labels = FALSE)[unique(c(config$input$school_colnames, school))]))))    # Selected
 }

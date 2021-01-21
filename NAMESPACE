@@ -3,7 +3,7 @@ importFrom("stats", "complete.cases")
 importFrom("memisc", "percent", "spss.system.file", "description", "measurement")
 importFrom("reshape", "melt")
 importFrom("foreign", "read.spss")
-importFrom("plyr", "ddply")
+importFrom("plyr", "ddply", "ddplyr")
 importFrom("Hmisc", "wtd.quantile")
 importFrom("stats", "as.formula", "cov.wt", "glm", "lm", "na.omit",
              "quasibinomial", "reorder", "sd", "var", "weighted.mean")
