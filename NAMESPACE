@@ -1,9 +1,10 @@
 import(ggplot2)
 importFrom("stats", "complete.cases")
 importFrom("memisc", "percent", "spss.system.file", "description", "measurement")
+importFrom("ddplyr", "bind_rows")
 importFrom("reshape", "melt")
 importFrom("foreign", "read.spss")
-importFrom("plyr", "ddply", "ddplyr")
+importFrom("plyr", "ddply")
 importFrom("Hmisc", "wtd.quantile")
 importFrom("stats", "as.formula", "cov.wt", "glm", "lm", "na.omit",
              "quasibinomial", "reorder", "sd", "var", "weighted.mean")
