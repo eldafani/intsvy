@@ -65,7 +65,8 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
 
   # Remove "bridge" data, always first position in list
   
-  files.select <- lapply(files.select, function(x) lapply(x, function(y) ifelse(is.list(y), y[[length(y)]], x)))
+  files.select <- lapply(files.select, function(x) lapply(x, function(y) 
+    ifelse(is.list(y), as.character(y[[length(y)]]), x)))
 
   # Filter directories which have length 0
   files.select <- lapply(files.select, function(x) Filter(function(var) length(var) != 0, x))
