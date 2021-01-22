@@ -64,12 +64,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
   # no blanks, no home instrument, otherwise delete, see 4g function
 
   # Remove "bridge" data, always first position in list
-  
-  
   files.select <-   lapply(files.select, function(x) lapply(x, 
-                    function(y) ifelse(is.list(y), y[length(y)], y)))
+                    function(y) ifelse(length(y)>1, y[length(y)], y)))
 
-
+  
   # Filter directories which have length 0
   files.select <- lapply(files.select, function(x) Filter(function(var) length(var) != 0, x))
   
