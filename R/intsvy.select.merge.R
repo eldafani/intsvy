@@ -59,14 +59,17 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
   }
   
   # Selected files for selected countries (1st/last time countries argument used)
-  files.select <- lapply(files.all, function(y) sapply(countries, function(x) y[toupper(substr(y, 
-  nchar(y)+config$input$cnt_part[1], nchar(y)+config$input$cnt_part[2]))==x])) 
+  files.select <- lapply(files.all, function(y) lapply(countries, function(x) 
+  y[toupper(substr(y, nchar(y)+config$input$cnt_part[1], nchar(y)+config$input$cnt_part[2]))==x]))
+  
   # no blanks, no home instrument, otherwise delete, see 4g function
 
   # Remove "bridge" data, always first position in list
   files.select <-   lapply(files.select, function(x) lapply(x, 
                     function(y) ifelse(length(y)>1, y[length(y)], y)))
 
+  files.select <- lapply(files.select, unlist)
+  
   
   # Filter directories which have length 0 and NA
   files.select <- lapply(files.select, function(x) Filter(function(var) length(var) != 0, x))
