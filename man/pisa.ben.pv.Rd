@@ -4,7 +4,8 @@
 \description{Calculates percentage of students at each proficiency level defined by PISA. Or at proficiency levels provided by the useR.
 }
 \usage{
-pisa.ben.pv(pvlabel, by, cutoff, data, atlevel=FALSE, export=FALSE, name= "output", folder=getwd())
+pisa.ben.pv(pvlabel, by, cutoff, data, atlevel=FALSE, 
+export=FALSE, name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{

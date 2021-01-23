@@ -9,7 +9,7 @@ Description:
   Provides tools for importing, merging, and analysing data from 
   international assessment studies (TIMSS, PIRLS, PISA, ICILS, and PIAAC).
 License: GPL-2
-URL: http://danielcaro.net/r-intsvy/, https://github.com/eldafani/intsvy
+URL: http://daniel-caro.com/r-intsvy/, https://github.com/eldafani/intsvy
 BugReports: https://github.com/eldafani/intsvy/issues
 Imports: dplyr, foreign, ggplot2, Hmisc, memisc, plyr, reshape, stats, utils 
 LazyData: yes
