@@ -1,12 +1,11 @@
 import(ggplot2)
-importFrom("stats", "complete.cases")
 importFrom("memisc", "percent", "spss.system.file", "description", "measurement")
 importFrom("dplyr", "bind_rows")
 importFrom("reshape", "melt")
 importFrom("foreign", "read.spss")
 importFrom("plyr", "ddply")
 importFrom("Hmisc", "wtd.quantile")
-importFrom("stats", "as.formula", "cov.wt", "glm", "lm", "na.omit",
+importFrom("stats", "complete.cases", "as.formula", "cov.wt", "glm", "lm", "na.omit",
              "quasibinomial", "reorder", "sd", "var", "weighted.mean")
 importFrom("utils", "capture.output", "write.csv")
   

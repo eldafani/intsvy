@@ -2,7 +2,7 @@ Package: intsvy
 Version: 2.5
 Type: Package
 Title: International Assessment Data Manager
-Date: 2020-12-24
+Date: 2021-01-23
 Author: Daniel Caro <dcarov@gmail.com>, Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 Maintainer: Daniel Caro <dcarov@gmail.com>
 Description: 
@@ -11,7 +11,7 @@ Description:
 License: GPL-2
 URL: http://danielcaro.net/r-intsvy/, https://github.com/eldafani/intsvy
 BugReports: https://github.com/eldafani/intsvy/issues
-Imports: foreign, ggplot2, Hmisc, memisc, plyr, reshape, stats, utils 
+Imports: dplyr, foreign, ggplot2, Hmisc, memisc, plyr, reshape, stats, utils 
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN
