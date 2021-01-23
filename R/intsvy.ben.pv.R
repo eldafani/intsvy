@@ -93,7 +93,7 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
      
-      pvnames <- paste0(pvnames, ".*PV[0-9]|PV[0-9].*", pvnames)
+      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
       pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
