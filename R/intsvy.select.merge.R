@@ -68,9 +68,10 @@ function(folder=getwd(), countries, student=c(), home, school, teacher, config) 
                     function(y) ifelse(length(y)>1, y[length(y)], y)))
 
   
-  # Filter directories which have length 0
+  # Filter directories which have length 0 and NA
   files.select <- lapply(files.select, function(x) Filter(function(var) length(var) != 0, x))
-  
+  files.select <- lapply(files.select, function(x) x[!is.na(x)])
+
   # Remove cases for no home instruments
   # only if home is specified
   if (!missing(home)) {
