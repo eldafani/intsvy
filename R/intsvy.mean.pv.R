@@ -11,10 +11,13 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
-      pvnames <- paste0(pvnames, ".*PV[0-9]|PV[0-9].*", pvnames)
+      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
       pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(pvnames[1], weights[1], config$variables$weightFinal)]), ]    
       
       
       # Replicate weighted sds and means of 5 PVs (sampling error)

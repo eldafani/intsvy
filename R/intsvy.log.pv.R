@@ -13,10 +13,13 @@ intsvy.log.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
       
-      pvnames <- paste0(pvnames, ".*PV[0-9]|PV[0-9].*", pvnames)
+      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
       pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(pvnames[1], weights[1], config$variables$weightFinal)]), ]    
       
       # Dependent binary variable
       di <- as.data.frame(sapply(pvnames, function(pv) ifelse(data[[pv]] > cutoff, 1, 0)))

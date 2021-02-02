@@ -98,6 +98,9 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(pvnames[1], weights[1], config$variables$weightFinal)]), ]    
+      
       # data is empty
       if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
         result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
