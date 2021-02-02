@@ -22,7 +22,7 @@ llece_conf <- list(variables = list(pvlabelpref = "vp",
                                    weightBRR = "w_fstr_"),
                   parameters = list(cutoffs = c(676, 729, 813),
                                     percentiles = c(5, 10, 25, 75, 90, 95),
-                                    BRRreps = 80,
+                                    BRRreps = 100,
                                     weights = "BRR",
                                     replication_scheme = 'pisa')
 )
