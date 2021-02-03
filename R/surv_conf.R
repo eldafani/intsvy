@@ -63,6 +63,19 @@ pasec_conf <- list(variables = list(pvlabelpref = "PV",
 )
 
 
+# For SEA-PLM
+
+sea_conf <- list(variables = list(pvlabelpref = "PV",
+                                    pvlabelsuff = "PV",
+                                    weight = "WT2019",
+                                    weightJK = "rwgt"),
+                   parameters = list(cutoffs = c(274, 289, 304, 317),
+                                     percentiles = c(5, 10, 25, 75, 90, 95),
+                                     weights = "JK with weights",
+                                     replication_scheme = 'sea-plm')
+)
+
+
 
 # For TIMSS
 timss4_conf <- list(variables = list(pvlabelpref="BSMMAT", 

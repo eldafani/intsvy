@@ -6,6 +6,56 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
     }
   pv.ben.input <- function(pvnames, data, cutoff, config) {
     
+    #  JK with weight variables
+    if (config$parameters$weights == "JK with weights") {
+     if (isTRUE(atlevel)) {
+        stop("Not implemented yet")
+      }
+      
+      pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
+                      names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(pvnames[1], weights[1], config$variables$weight)]), ]    
+      
+
+      # data is empty
+      if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
+        result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
+        names(result)[1] <- pvnames[1] 
+        return(result)
+      }
+      
+      # Replicate weighted percentages PVs (sampling error)
+      
+      tabpvr <-  lapply(1:length(pvnames), function(m) sapply(1:length(cutoff), function(z) 
+          sapply(1:length(weights), function(x)
+            100*weighted.mean(data[[pvnames[m]]]>=cutoff[z], w = data[[weights[x]]]))))
+        
+      # Total weighted %s PV1-5 
+      tabpv <- sapply(1:length(cutoff), function(z) sapply(pvnames, function(x) 
+          100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
+        
+      # Sampling error within (PV1), between PV error, and total (se)
+      tabpvw <- apply(do.call(rbind, lapply(1:length(pvnames), function(m) 
+          sapply(1:length(cutoff), function(y) 
+            sum(sapply(1:length(weights), function(x) (tabpvr[[m]][x,y]-tabpv[m,y])^2))))), 2, mean)
+        
+      tabpvb <- (1+1/5)*apply(tabpv, 2, var)
+      tabse <- round((tabpvw+tabpvb)^(1/2), 2)
+        
+      # Total %
+      tabtot <- round(apply(tabpv, 2, mean), 2)
+        
+      # Result
+      result <- data.frame("Benchmark"=paste(rep("At or above", length(cutoff)), cutoff), 
+                             "Percentage"=tabtot, "Std. err."= tabse, check.names=F)
+      return(result)
+        
+      }
+    
     #  JK
     if (config$parameters$weights == "JK") {
       # jack knife
