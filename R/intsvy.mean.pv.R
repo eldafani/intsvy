@@ -6,6 +6,53 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
     if (nrow(data) <= 1)  
       return(data.frame("Freq"= length(data[[config$variables$weightFinal]]), "Mean"= NA, "s.e."= NA, "SD"=NA, "s.e"=NA))
 
+    #  JK with weight variables
+    if (config$parameters$weights == "JK with weights") {
+     
+      pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
+      pvnames <- grep(pvnames, names(data), value = TRUE)
+      weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
+                      names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(pvnames[1], weights[1], config$variables$weight)]), ]    
+      
+      
+      # data is empty
+      if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
+        result <- data.frame(NA, "Freq"=0, "Percentage"=NA, "Std.err."= NA)  
+        names(result)[1] <- pvnames[1] 
+        return(result)
+      }
+      
+      # Estimates of PV1s (for sampling error)
+      R.mean1 <- sapply(pvnames, function(k) sapply(1:length(weights), function(x) 
+        weighted.mean(data[[k]], data[[weights[x]]], na.rm = TRUE)))                                                                  
+      
+      R.sd1 <- sapply(pvnames, function(k) sapply(1:length(weights), function (x) 
+        (sum(data[[weights[x]]]*(data[[k]]-R.mean1[x])^2, na.rm = TRUE)/sum(data[[weights[x]]], na.rm = TRUE))^(1/2)))
+      
+      # Grand mean of PVs (for imputation variance)
+      R.mean <- sapply(pvnames, function(x) 
+        weighted.mean(data[[x]], data[[config$variables$weight]], na.rm = TRUE))
+      
+      R.sd <- sapply(1:length(pvnames), function(x) 
+        (sum(data[[config$variables$weight]]*(data[[pvnames[x]]]-R.mean[x])^2, na.rm=TRUE)/sum(data[[config$variables$weight]], na.rm = TRUE))^(1/2))
+      
+      # Sampling variance; imputation variance; SEs
+      v.meanw <- mean(sapply(1:length(pvnames), function(m) sum((R.mean1[,m]-R.mean[m])^2)))
+      v.meanb <- (1+1/length(pvnames))*var(R.mean)
+      v.sdw <- mean(sapply(1:length(pvnames), function(m) sum((R.sd1[,m] - R.sd[m])^2)))
+      v.sdb <- (1+1/length(pvnames))*var(R.sd)
+      mean.se <-  (v.meanw+v.meanb)^(1/2); sd.se <- (v.sdw+v.sdb)^(1/2)
+  
+    result <- data.frame("Freq"= length(data[[config$variables$weight]]), 
+                         "Mean"= mean(R.mean), "s.e."= mean.se, 
+                         "SD"=mean(R.sd), "s.e"=sd.se)
+    
+    return(round(result, 2))
+    }
+    
     # BRR / JK
     if (config$parameters$weights %in% c("BRR","mixed_piaac")) {
       # balanced repeated replication
@@ -20,19 +67,19 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       data <- data[complete.cases(data[, c(pvnames[1], weights[1], config$variables$weightFinal)]), ]    
       
       
-      # Replicate weighted sds and means of 5 PVs (sampling error)
+      # Replicate weighted sds and means of PVs (sampling error)
       R.mean <- sapply(pvnames, function(k) 
-        sapply(1:config$parameters$BRRreps, function(i) 
+        sapply(1:length(weights), function(i) 
           weighted.mean(data[[k]], 
                         data[[weights[i]]], na.rm = TRUE)))
       
       R.sd <- sapply(pvnames, function(x) 
-        sapply(1:config$parameters$BRRreps, function(i)
+        sapply(1:length(weights), function(i)
           (sum(data[[weights[i]]]*
                  (data[[x]]-R.mean[i, x])^2, na.rm = TRUE)/
              sum(data[[weights[i]]], na.rm = TRUE))^(1/2)))
       
-      # Grand mean of 5 PVs (imputation variance)
+      # Grand mean of PVs (imputation variance)
       PV.mean <- sapply(pvnames, function(x) 
         weighted.mean(data[[x]], data[[config$variables$weightFinal]], na.rm = TRUE))
       
@@ -44,7 +91,8 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       MEAN.m <- mean(PV.mean)
       SD.m <- mean(PV.sd)
     
-      cc = 1/20
+      cc = 1/(length(weights)*(1-0.5)^2)
+      
       if (config$parameters$weights == "mixed_piaac") {
         cntName <- as.character(unique(data[,config$variables$countryID]))[1]
         cc <- piaacReplicationScheme[cntName,"c"]
@@ -93,7 +141,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       R.sd1 <- sapply(1:ncol(R.wt), function (x) 
         (sum(R.wt[, x]*(data[[pvnames[[1]]]]-R.mean1[x])^2, na.rm = TRUE)/sum(R.wt[, x], na.rm = TRUE))^(1/2))
       
-      # Grand mean of 5 PVs (for imputation variance)
+      # Grand mean of PVs (for imputation variance)
       R.mean <- sapply(pvnames, function(x) 
         weighted.mean(data[[x]], data[[config$variables$weight]], na.rm = TRUE))
       
@@ -116,14 +164,14 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       R.wt <- cbind(R.wt, R.wt2)
         
         
-      # Estimates of PV1-5 (for sampling error)
+      # Estimates of PVs (for sampling error)
       R.mean1 <- sapply(pvnames, function(k) sapply(1:ncol(R.wt), function(x) 
         weighted.mean(data[[k]], R.wt[, x], na.rm = TRUE)))                                                                  
       
       R.sd1 <- sapply(pvnames, function(k) sapply(1:ncol(R.wt), function (x) 
         (sum(R.wt[, x]*(data[[k]]-R.mean1[x])^2, na.rm = TRUE)/sum(R.wt[, x], na.rm = TRUE))^(1/2)))
       
-      # Grand mean of 5 PVs (for imputation variance)
+      # Grand mean of PVs (for imputation variance)
       R.mean <- sapply(pvnames, function(x) 
         weighted.mean(data[[x]], data[[config$variables$weight]], na.rm = TRUE))
       

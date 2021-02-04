@@ -1,6 +1,29 @@
 intsvy.mean <- 
 function(variable, by, data, export=FALSE, name= "output", folder=getwd(), config) {
   mean.input <- function(variable, data, config) {
+    
+    #  JK with weight variables
+    if (config$parameters$weights == "JK with weights") {
+      
+      weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
+                      names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(variable, weights[1], config$variables$weight)]), ]    
+     
+      
+      meanrp <- sapply(1:length(weights), function(x) 
+        weighted.mean(data[[variable]], data[[weights[x]]], na.rm = TRUE))                                                                  
+      
+      
+      # Total weighted mean                                                                      
+      meantot <- weighted.mean(as.numeric(data[[variable]]), data[[config$variables$weight]], na.rm = TRUE)
+      # Standard error (sampling eror) 
+      meanse <- (sum((meanrp-meantot)^2))^(1/2)
+      result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse)
+      return(result)
+    }
+    
     # BRR / JK
     if (config$parameters$weights == "BRR") {
       # balanced repeated replication
@@ -25,8 +48,10 @@ function(variable, by, data, export=FALSE, name= "output", folder=getwd(), confi
       sdtot <-  (sum(data[[config$variables$weightFinal]]*(data[[variable]]-meantot)^2, na.rm=TRUE)/sum(data[[config$variables$weightFinal]], na.rm = TRUE))^(1/2)
       
       # Standard error (sampling eror) 
-      meanse <- (0.05*sum((meanrp-meantot)^2))^(1/2)
-      sdse <- (0.05*sum((sdrp-sdtot)^2))^(1/2)
+      cc = 1/(length(weights)*(1-0.5)^2)
+      
+      meanse <- (cc*sum((meanrp-meantot)^2))^(1/2)
+      sdse <- (cc*sum((sdrp-sdtot)^2))^(1/2)
       
       result <- data.frame("Freq"=sum(!is.na(data[[variable]])), "Mean"= meantot, "s.e."= meanse, "SD" = sdtot, "s.e" = sdse)
       return(result)

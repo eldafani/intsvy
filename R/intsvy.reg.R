@@ -9,6 +9,42 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       results <- list("replicates"=NA, "residuals"= NA, "reg"=NA)
       return(results)
     }
+    
+    #  JK with weight variables
+    if (config$parameters$weights == "JK with weights") {
+      
+      weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
+                      names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(y,x, weights[1], config$variables$weight)]), ]    
+      
+      reg.rp <- lapply(1:length(weights), function(i) 
+        summary(lm(formula= as.formula(regform), 
+        data=data, weights=data[[weights[i]]])))
+      
+      # Combine coefficients and R-squared
+      coef.rp <- sapply(1:length(weights), function(i) 
+        c(reg.rp[[i]]$coefficients[,1], "R-squared" = reg.rp[[i]]$r.squared))
+      
+      resid <- sapply(1:length(weights), function(rep) reg.rp[[rep]]$residuals)
+      
+      
+      # Total weighted coefficients
+      reg.tot <- summary(lm(formula=as.formula(regform), data=data, weights=data[[config$variables$weight]]))
+      coef.tot <- c(reg.tot$coefficients[ ,1] , "R-squared" = reg.tot$r.squared)
+      
+      # Sampling error
+      coef.se <- (apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
+      # T-value
+      coef.t <- coef.tot/coef.se
+      # Reg Table
+      reg.tab <- data.frame("Estimate"=coef.tot, "Std. Error"=coef.se, "t value"=coef.t, check.names=FALSE)
+      
+      results <- list("replicates"=t(coef.rp), "residuals"= resid, "reg"=reg.tab)
+      return(results)
+      
+    }
 
     # BRR / JK
     if (config$parameters$weights == "BRR") {
@@ -33,7 +69,9 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       coef.tot <- c(reg.tot$coefficients[,1], "R-squared" = reg.tot$r.squared)
       
       # Sampling error
-      coef.se <- (0.05*apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
+      cc = 1/(length(weights)*(1-0.5)^2)
+      
+      coef.se <- (cc*apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
       # T-value
       coef.t <- coef.tot/coef.se
       # Reg Table

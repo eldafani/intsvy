@@ -10,6 +10,50 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       return(results)
     }
 
+    #  JK with weight variables
+    if (config$parameters$weights == "JK with weights") {
+      
+      weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
+                      names(data), value = TRUE)
+      
+      # remove missings in pvalues and weights
+      data <- data[complete.cases(data[, c(y, x, weights[1], config$variables$weight)]), ]    
+     
+      # Replicate weights coefficients for sampling error
+      reg.rp <- suppressWarnings(lapply(1:length(weights), function(rp) 
+        summary(glm(formula=as.formula(regform), 
+                    family=quasibinomial("logit"), weights=data[[weights[rp]]], data=data))))
+      
+      # Combine coefficients 
+      coef.rp <- do.call("cbind", lapply(1:length(weights), function(rp) 
+        reg.rp[[rp]]$coefficients[,1]))
+      
+      # Total weighted coefficient for each PV for imputation (between) error
+      reg.tot <- suppressWarnings(summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
+                 weights=nrow(data)*data[[config$variables$weight]]/sum(data[[config$variables$weight]]), 
+                 data=data)))
+      
+      # Total weighted coefficients
+      coef.tot <- reg.tot$coefficients[, 1]
+      # Sampling error 
+      coef.se <- mean(apply((coef.rp-coef.tot)^2, 1, sum))^(1/2)
+      t.stat <- coef.tot/coef.se
+      # Odds ratios and confidence intervals
+      OR <- exp(coef.tot)
+      # OR confidence intervals 
+      CI95low <- exp(coef.tot - 1.96*coef.se)
+      CI95up <- exp(coef.tot + 1.96*coef.se)
+      
+      # Table with estimates
+      log.tab <- data.frame("Coef."=coef.tot, "Std. Error"=coef.se, "t value"=t.stat, 
+                            as.data.frame(cbind(OR, CI95low, CI95up)), check.names=F)
+      
+      results <- list("replicates"=coef.rp, "reg"=log.tab)
+      return(results)
+      
+    }
+    
+    
     # BRR / JK
     if (config$parameters$weights == "BRR") {
       # balanced repeated replication
@@ -19,13 +63,13 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       weights <- grep("^W_.*[0-9]+$", names(data), value = TRUE)
       
       # Replicate weighted coefficients, normalised weights
-      coef.rp <- suppressWarnings(lapply(1:config$parameters$BRRreps, 
+      coef.rp <- suppressWarnings(lapply(1:length(weights), 
                  function(i) summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
                  weights=nrow(data)*data[[weights[i]]]/sum(data[[weights[i]]]),
                                                       data=data))))
 
       # Retrieving coefficients
-      rp.coef <- sapply(1:config$parameters$BRRreps, function(i) coef.rp[[i]]$coefficients[,1])
+      rp.coef <- sapply(1:length(weights), function(i) coef.rp[[i]]$coefficients[,1])
       # Total weighted regressions 
       reg.pv <- suppressWarnings(summary(glm(formula=as.formula(regform), family=quasibinomial("logit"), 
                 weights=nrow(data)*data[[config$variables$weightFinal]]/sum(data[[config$variables$weightFinal]]), data=data)))
@@ -33,7 +77,10 @@ function(y, x, by, data, export=FALSE, name= "output", folder=getwd(), config) {
       # Total weighted coefficients
       tot.coef <- reg.pv$coefficients[, 1]
       # Sampling error 
-      coef.se <- (0.05*apply((rp.coef-tot.coef)^2, 1, sum))^(1/2)
+      
+      cc = 1/(length(weights)*(1-0.5)^2)
+      
+      coef.se <- (cc*apply((rp.coef-tot.coef)^2, 1, sum))^(1/2)
       t.stat <- tot.coef/coef.se
       
       # Odds ratios and confidence intervals
