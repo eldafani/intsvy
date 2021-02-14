@@ -28,6 +28,9 @@ intsvy.reg.pv <-
           return(result)
         }
         
+        # List of formulas for each PV
+        regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))
+        
          # Replicate weighted coefficients for sampling error
         reg.rep <- lapply(1:length(pvnames), function(m) lapply(1:length(weights), function(i) 
           summary(lm(formula=as.formula(regform[[m]]), data=data, weights=data[[weights[i]]]))))
