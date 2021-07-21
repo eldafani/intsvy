@@ -211,7 +211,7 @@ intsvy.reg.pv <-
         stat.tot <- apply(coe.tot, 1, mean)
         
         # Sampling error (variance within)
-        var.w <- mean(sapply(1:length(pvnames), function(m) apply((coe.rep[[m]]-coe.tot[,m])^2, 1, sum)/2))
+        var.w <- apply(sapply(1:length(pvnames), function(m) apply((coe.rep[[m]]-coe.tot[,m])^2, 1, sum)/2), 1, mean)
         
         # Imputation error (variance between)
         var.b <- (1+1/length(pvnames))*apply(coe.tot, 1, var)
