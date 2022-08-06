@@ -8,6 +8,7 @@
 \alias{timss8_conf}
 \alias{pasec_conf}
 \alias{llece_conf}
+\alias{sea_conf}
 \title{Config files for intsvy studies}
 \format{A list with three components - input, variables and parameters.}
 \usage{
