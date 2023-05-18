@@ -116,7 +116,7 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
 
         # Total weighted %s PVs
         tabpv <- sapply(1:length(cutoff), function(z) sapply(pvnames, function(x) 
-          100*weighted.mean(data[[x]]>=cutoff[z], w=data[[config$variables$weight]], na.rm=TRUE)))
+        100*weighted.mean(as.numeric(data[[x]]>=cutoff[z]), w=data[[config$variables$weight]], na.rm=TRUE)))
         
         # Sampling error within (PV1), between PV error, and total (se)
           tabpvw <- apply(do.call(rbind, lapply(1:length(pvnames), function(m) 
