@@ -289,7 +289,7 @@ intsvy.reg.pv <-
   }
 
   if (export)  {
-    write.csv(output, file=file.path(folder, paste(name, ".csv", sep="")))
+    write.csv(do.call(rbind, lapply(output, function(x) x$reg)), file=file.path(folder, paste(name, ".csv", sep="")))
   }
   class(output) <- "intsvy.reg"
   return(output)
