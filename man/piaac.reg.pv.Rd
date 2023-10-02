@@ -5,7 +5,7 @@
 piaac.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
-piaac.reg.pv(x, pvlabel = "LIT", by, data, 
+piaac.reg.pv(x, pvlabel, by, data, 
 export = FALSE, name = "output", std=FALSE, folder = getwd())
 }
 
@@ -14,7 +14,7 @@ export = FALSE, name = "output", std=FALSE, folder = getwd())
 Data labels of independent variables.
 }
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "LIT", for overall literacy performance, "NUM" for numeracy, "PSL" for problem solving.
+The names of columns corresponding to the achievement plausible scores.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="CNTRYID"), but could be any other categorical variable. 	
@@ -47,7 +47,7 @@ pisa.reg.pv, timss.reg.pv, pirls.reg.pv
 \examples{
 \dontrun{
 # install pbiecek/PIAAC package from github to have access to piaac data
-piaac.reg.pv(pvlabel="LIT", x="GENDER_R", by = "CNTRYID", data=piaac)
+piaac.reg.pv(pvlabel=paste0(“PVLIT”, 1:10), x="GENDER_R", by = "CNTRYID", data=piaac)
 }
 }
 

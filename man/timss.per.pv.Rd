@@ -3,12 +3,12 @@
 \title{TIMSS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  timss.per.pv(pvlabel="BSMMAT", by, per, data, export=FALSE, name= "output", 
+  timss.per.pv(pvlabel, by, per, data, export=FALSE, name= "output", 
   folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
-   The label corresponding to the achievement variable, for example, "BSMMAT", for overall mathematics performance.
+The names of columns corresponding to the achievement plausible scores.
   }
    \item{per}{
   User-defined percentiles (e.g., per = c(5, 10, 25, 75, 90, 95)).
@@ -39,6 +39,6 @@
 }
 \examples{
   \dontrun{
-timss.per.pv(pvlabel="BSMMAT", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timssg8)
+timss.per.pv(pvlabel=paste0(“BSMMAT0”, 1:5), per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timssg8)
   }
 }

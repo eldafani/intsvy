@@ -3,12 +3,12 @@
 \title{PIRLS percentiles}
 \description{Calculates percentiles for plausible values}
 \usage{
-  pirls.per.pv(pvlabel="ASRREA", by, per, data, export=FALSE, 
+  pirls.per.pv(pvlabel, by, per, data, export=FALSE, 
   name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
-    The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
+The names of columns corresponding to the achievement plausible scores.
   }
    \item{per}{
   User-defined percentiles (e.g., per = c(5, 10, 25, 75, 90, 95)).
@@ -39,6 +39,6 @@
 }
 \examples{
   \dontrun{
-    pirls.per.pv(pvlabel="ASRREA", per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls)
+    pirls.per.pv(pvlabel=paste0(“ASRREA0”, 1:5), per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls)
   }
 }

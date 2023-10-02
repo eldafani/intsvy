@@ -9,8 +9,8 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
     #  JK with weight variables
     if (config$parameters$weights == "JK with weights") {
      
-      pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       
@@ -58,8 +58,9 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # balanced repeated replication
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
-      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
+      
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       

@@ -12,8 +12,8 @@ intsvy.reg.pv <-
       #  JK with weight variables
       if (config$parameters$weights == "JK with weights") {
        
-        pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
-        pvnames <- grep(pvnames, names(data), value = TRUE)
+        #pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
+        #pvnames <- grep(pvnames, names(data), value = TRUE)
         weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
                         names(data), value = TRUE)
         
@@ -74,8 +74,8 @@ intsvy.reg.pv <-
       # Replicate weighted %s (sampling error)
       # in PISA
 
-      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       
@@ -136,7 +136,7 @@ intsvy.reg.pv <-
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
 
       # List of formulas for each PV
       regform <- lapply(pvnames, function(i) paste(i, "~", paste(x, collapse="+")))

@@ -1,5 +1,5 @@
 pirls.mean.pv <-
-  function(pvlabel="ASRREA", by, data, export=FALSE, name= "output", folder=getwd()) {
+  function(pvlabel, by, data, export=FALSE, name= "output", folder=getwd()) {
     
     intsvy.mean.pv(pvnames = pvlabel, 
                    by=by, data=data, export=export,

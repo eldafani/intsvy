@@ -9,7 +9,7 @@ function(variable, pvnames, by, data, export=FALSE, name= "output", folder=getwd
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       
       if (length(pvnames)==2 & missing(variable)) {
         # Complete dataset (listwise deletion)

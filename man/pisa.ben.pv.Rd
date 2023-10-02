@@ -9,8 +9,7 @@ export=FALSE, name= "output", folder=getwd())
 }
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "READ", for overall reading performance.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{cutoff}{
 The cut-off points for the assessment benchmarks (e.g., cutoff= c(357.77, 420.07, 482.38, 544.68, 606.99, 669.30)). }
   \item{by}{
@@ -45,6 +44,6 @@ timss.ben.pv, pirls.ben.pv
 }
 \examples{
 \dontrun{
-pisa.ben.pv(pvlabel="MATH", by="IDCNTRYL", atlevel=TRUE, data=pisa)
+pisa.ben.pv(pvlabel= paste0("PV",1:10,"MATH"), by="IDCNTRYL", atlevel=TRUE, data=pisa)
 }
 }

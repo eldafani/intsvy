@@ -12,8 +12,8 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
         stop("Not implemented yet")
       }
       
-      pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       
@@ -65,7 +65,7 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
         stop("Not implemented yet")
       }
         
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       
       # data is empty
       if (sum(is.na((data[[pvnames[1]]])))==length(data[[pvnames[1]]])) {
@@ -143,8 +143,8 @@ intsvy.ben.pv <- function(pvnames, by, cutoff, data, atlevel = FALSE,
       # Replicate weighted %s (sampling error)
       # in PISA / PIAAC
      
-      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       

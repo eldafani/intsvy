@@ -11,8 +11,7 @@ export = FALSE, name = "output", folder = getwd())
 
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{cutoff}{
 The cut-off points for the assessment benchmarks (e.g., cutoff = c(400, 475, 550, 625). 
 }
@@ -47,7 +46,7 @@ timss.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-pirls.ben.pv(pvlabel="ASRREA", by="IDCNTRYL",  data=pirls)
+pirls.ben.pv(pvlabel= paste0(“ASRREA0”, 1:5), by="IDCNTRYL",  data=pirls)
 }
 }
 

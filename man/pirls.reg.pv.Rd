@@ -5,7 +5,7 @@
 pirls.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
-pirls.reg.pv(x, pvlabel = "ASRREA", by, 
+pirls.reg.pv(x, pvlabel, by, 
 data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
@@ -13,8 +13,7 @@ data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 Data labels of independent variables (e.g., x = c("ASDHEHLA", "ITSEX") ).
 }
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }
@@ -47,6 +46,6 @@ timss.reg.pv, pisa.reg.pv
 \dontrun{
 pirls$SEX[pirls$ITSEX=="BOY"]=1
 pirls$SEX[pirls$ITSEX=="GIRL"]=0
-pirls.reg.pv(pvlabel="ASRREA", by="IDCNTRYL", x="SEX", data=pirls)
+pirls.reg.pv(pvlabel=paste0(“ASRREA0”, 1:5), by="IDCNTRYL", x="SEX", data=pirls)
 }
 }

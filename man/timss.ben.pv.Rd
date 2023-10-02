@@ -12,8 +12,7 @@ export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{cutoff}{
 The cut-off points for the assessment benchmarks (e.g., cutoff = c(400, 475, 550, 625)).
 }
@@ -49,7 +48,7 @@ pirls.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-timss.ben.pv(pvlabel="BSMMAT", by="IDCNTRYL", cutoff = c(400, 475, 550, 625), data=timss8g)
-timss.ben.pv(pvlabel="ASMMAT", by="IDCNTRYL", data=timss4g)
+timss.ben.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", cutoff = c(400, 475, 550, 625), data=timss8g)
+timss.ben.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", data=timss4g)
 }
 }

@@ -12,7 +12,7 @@ piaac.mean.pv(pvlabel, by, data, export = FALSE, name = "output", folder = getwd
 
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "LIT", for overall literacy performance, "NUM" for numeracy, "PSL" for problem solving.
+The names of columns corresponding to the achievement plausible scores.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="CNTRYID"), but could be any other categorical variable. 	
@@ -41,8 +41,8 @@ pisa.mean.pv, timss.mean.pv, pirls.mean.pv
 \examples{
 \dontrun{
 # install pbiecek/PIAAC package from github to have access to piaac data
-piaac.mean.pv(pvlabel = "LIT", by = "CNTRYID", data = piaac)
-piaac.mean.pv(pvlabel = "NUM", by=c("CNTRYID", "GENDER_R"), data=piaac)
+piaac.mean.pv(pvlabel = paste0("PVLIT", 1:10), by = "CNTRYID", data = piaac)
+piaac.mean.pv(pvlabel = paste0("PVNUM", 1:10), by=c("CNTRYID", "GENDER_R"), data=piaac)
 }
 }
 

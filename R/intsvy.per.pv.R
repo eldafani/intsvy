@@ -12,8 +12,8 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
     #  JK with weight variables
     if (config$parameters$weights == "JK with weights") {
       
-      pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0("^", config$variables$pvlabelpref, "*[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightJK , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       
@@ -61,7 +61,7 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
@@ -133,8 +133,8 @@ intsvy.per.pv <- function(pvnames, by, per, data, export=FALSE, name= "output", 
       # Replicate weighted %s (sampling error)
       # in PISA 
       
-      pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      #pvnames <- paste0(pvnames, ".*[0-9]|[0-9].*", pvnames)
+      #pvnames <- grep(pvnames, names(data), value = TRUE)
       weights <- grep(paste0("^", config$variables$weightBRR , ".*[0-9]+$"), 
                       names(data), value = TRUE)
       

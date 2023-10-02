@@ -7,19 +7,19 @@ Calculates mean achievement score
 timss.mean.pv uses five plausible values to calculate the mean achievement score and its standard error
 }
 \usage{
-timss.mean.pv(pvlabel = "BSMMAT", by, data, 
+timss.mean.pv(pvlabel, by, data, 
 export = FALSE, name = "output", folder = getwd())
 }
 
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance in Grade 8.
+The names of columns corresponding to the achievement plausible scores, for example, paste0(“BSMMAT0”, 1:5)
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }
   \item{data}{
-An R object, normally a data frame, containing the data from TIMSS.
+An R object, normally a data frame.
 }
   \item{export}{
 A logical value. If TRUE, the output is exported to a file in comma-separated value format (.csv) that can be opened from LibreOffice or Excel. 
@@ -40,8 +40,8 @@ timss.mean.pv returns a data frame with the mean values and standard errors.
 pirls.mean.pv, pisa.mean.pv
 }
 \examples{\dontrun{
-timss.mean.pv(pvlabel="ASMMAT", by= "IDCNTRYL", data=timss4g)
-timss.mean.pv(pvlabel="BSMMAT", by= c("IDCNTRYL", "ITSEX"), data=timss8g)
+timss.mean.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by= "IDCNTRYL", data=timss4g)
+timss.mean.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by= c("IDCNTRYL", "ITSEX"), data=timss8g)
 }
 }
 

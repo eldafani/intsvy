@@ -5,7 +5,7 @@
 pisa.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
-pisa.reg.pv(x, pvlabel = "READ", by, data, 
+pisa.reg.pv(x, pvlabel, by, data, 
 export = FALSE, name = "output", folder = getwd(), std=FALSE)
 }
 
@@ -14,8 +14,7 @@ export = FALSE, name = "output", folder = getwd(), std=FALSE)
 Data labels of independent variables.
 }
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "READ", for overall reading performance.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }
@@ -45,6 +44,6 @@ timss.reg.pv, pirls.reg.pv, piaac.reg.pv
 }
 \examples{
 \dontrun{
-pisa.reg.pv(pvlabel="MATH", x="ST04Q01", by = "IDCNTRYL", data=pisa)
+pisa.reg.pv(pvlabel=paste0("PV",1:10,"MATH"), x="ST04Q01", by = "IDCNTRYL", data=pisa)
 }
 }

@@ -5,14 +5,13 @@
 pirls.log.pv performs logistic regression with plausible values and replicate weights.
 }
 \usage{
-pirls.log.pv(pvlabel="ASRREA", x, cutoff, by, 
+pirls.log.pv(pvlabel, x, cutoff, by, 
            data, export=FALSE, name= "output", folder=getwd())
 }
 
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "ASRREA", for overall reading performance.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{x}{
 Data labels of independent variables.
 }
@@ -46,7 +45,7 @@ pisa.log.pv, timss.log.pv
 
 \examples{
 \dontrun{
-timss.log.pv(pvlabel="BSMMAT", cutoff= 550, x=c("ITSEX", "BSBGSLM"), by="IDCNTRYL", data=timss8g)
-intsvy.log.pv(pvlabel="BSMMAT", cutoff= 550, x="ITSEX", by="IDCNTRYL", 
+timss.log.pv(pvlabel="paste0(“BSMMAT0”, 1:5), cutoff= 550, x=c("ITSEX", "BSBGSLM"), by="IDCNTRYL", data=timss8g)
+intsvy.log.pv(pvlabel=paste0(“BSMMAT0”, 1:5), cutoff= 550, x="ITSEX", by="IDCNTRYL", 
 data=timss8g, config=timss8_conf)
 }}

@@ -15,8 +15,7 @@ name= "output", folder=getwd(), config)
 A data label for the observed variable 
 }
   \item{pvnames}{
-One or two labels describing the achievement variables.
-}
+The names of columns corresponding to the achievement plausible scores.}
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
 }
@@ -46,6 +45,6 @@ timss.rho, pirls.rho.pv, timss.rho.pv
 }
 \examples{
 \dontrun{
-timss.rho.pv(variable="BSDGEDUP", pvlabel="BSMMAT", by="IDCNTRYL", data=timss)
+timss.rho.pv(variable="BSDGEDUP", pvlabel=paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", data=timss)
 }
 }

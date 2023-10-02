@@ -9,7 +9,7 @@ piaac.ben.pv(pvlabel, by, data, cutoff, atlevel, export=FALSE,
 }
 \arguments{
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "LIT", for overall reading performance.
+The names of columns corresponding to the achievement plausible scores.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="CNTRYID"), but could be any other categorical variable. 	
@@ -47,9 +47,9 @@ timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 \dontrun{
 #Table A2.5
 #Percentage of adults scoring at each proficiency level in numeracy
-piaac.ben.pv(pvlabel="NUM", by="CNTRYID", data=piaac)
+piaac.ben.pv(pvlabel= paste0(“PVNUM”, 1:10), by="CNTRYID", data=piaac)
 #Table A2.1
 #Percentage of adults scoring at each proficiency level in literacy
-piaac.ben.pv(pvlabel="LIT", by="CNTRYID", data=piaac)
+piaac.ben.pv(pvlabel= paste0(“PVLIT”, 1:10), by="CNTRYID", data=piaac)
 }
 }

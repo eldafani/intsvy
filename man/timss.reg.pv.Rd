@@ -5,7 +5,7 @@
 timss.reg.pv performs linear regression analysis (OLS) with plausible values and replicate weights.
 }
 \usage{
-timss.reg.pv(x, pvlabel = "BSMMAT", by, 
+timss.reg.pv(x, pvlabel, by, 
 data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 }
 
@@ -14,7 +14,7 @@ data, std=FALSE, export = FALSE, name = "output", folder = getwd())
 Data labels of independent variables.
 }
   \item{pvlabel}{
-The label corresponding to the achievement variable, for example, "BSMMAT", for overall math performance in Grade 8.
+The names of columns corresponding to the achievement plausible scores.
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
@@ -47,6 +47,6 @@ pirls.reg.pv, pisa.reg.pv
 \dontrun{
 timss8g$SEX[timss8g$ITSEX=="BOY"]=1
 timss8g$SEX[timss8g$ITSEX=="GIRL"]=0
-timss.reg.pv(pvlabel="BSMMAT", by=c("IDCNTRYL"), x="SEX", data=timss8g)
+timss.reg.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by=c("IDCNTRYL"), x="SEX", data=timss8g)
 }
 }
