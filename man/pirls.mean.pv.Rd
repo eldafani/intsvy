@@ -11,7 +11,7 @@ data, export = FALSE, name = "output", folder = getwd())
 }
 \arguments{
   \item{pvlabel}{
-The names of columns corresponding to the achievement plausible scores, for example, paste0(“ASRREA0”, 1:5)
+The names of columns corresponding to the achievement plausible scores, for example, paste0("ASRREA0", 1:5).
 }
   \item{by}{
 The label for the grouping variable, usually the countries (i.e., by="IDCNTRYL"), but could be any other categorical variable. 	
@@ -40,8 +40,8 @@ timss.mean.pv, pisa.mean.pv
 }
 \examples{
 \dontrun{
-pirls.mean.pv(pvlabel= paste0(“ASRREA0”, 1:5), by= "IDCNTRYL", data=pirls)
-pirls.mean.pv(pvlabel= paste0(“ASRREA0”, 1:5), by= c("IDCNTRYL", "ITSEX"), data=pirls)
+pirls.mean.pv(pvlabel= paste0("ASRREA0", 1:5), by= "IDCNTRYL", data=pirls)
+pirls.mean.pv(pvlabel= paste0("ASRREA0", 1:5), by= c("IDCNTRYL", "ITSEX"), data=pirls)
 }
 }
 

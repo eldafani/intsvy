@@ -46,6 +46,6 @@ timss.reg.pv, pisa.reg.pv
 \dontrun{
 pirls$SEX[pirls$ITSEX=="BOY"]=1
 pirls$SEX[pirls$ITSEX=="GIRL"]=0
-pirls.reg.pv(pvlabel=paste0(“ASRREA0”, 1:5), by="IDCNTRYL", x="SEX", data=pirls)
+pirls.reg.pv(pvlabel= paste0("ASRREA0", 1:5), by="IDCNTRYL", x="SEX", data=pirls)
 }
 }

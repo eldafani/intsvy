@@ -50,6 +50,6 @@ pisa.log.pv, pirls.log.pv, timss.log.pv
 \dontrun{
 intsvy.log.pv(pvnames=paste0("PV",1:10,"MATH") , cutoff= 606.99, x="ESCS", by="IDCNTRYL", 
 data=pisa, config=pisa_conf)
-intsvy.log.pv(pvnames=paste0(“BSMMAT0”, 1:5), cutoff= 550, x="ITSEX", by="IDCNTRYL", 
+intsvy.log.pv(pvnames=paste0("BSMMAT0", 1:5), cutoff= 550, x="ITSEX", by="IDCNTRYL", 
 data=timss8g, config=timss8_conf)
 }}

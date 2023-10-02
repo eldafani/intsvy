@@ -49,15 +49,18 @@ timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 \dontrun{
 pisa.ben.pv(pvlabel= paste0("PV",1:10,"MATH") for PISA, by="CNT", 
 data=pisa, atlevel = TRUE)
+
 intsvy.ben.pv(pvnames= paste0("PV",1:10,"MATH") for PISA by="CNT", 
 data=pisa, atlevel= TRUE, config=pisa_conf)
 
-piaac.ben.pv(pvlabel= paste0(“PVLIT”, 1:10), by="CNTRYID", data=piaac)
-intsvy.ben.pv(pvnames= paste0(“PVLIT”, 1:10), by="CNTRYID", data=piaac, 
+piaac.ben.pv(pvlabel= paste0("PVLIT", 1:10), by="CNTRYID", data=piaac)
+
+intsvy.ben.pv(pvnames= paste0("PVLIT", 1:10), by="CNTRYID", data=piaac, 
 config=piaac_conf)
 
-timss.ben.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", data=timss4)
-intsvy.ben.pv(pvnames= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", data=timss4, 
+timss.ben.pv(pvlabel= paste0("BSMMAT0", 1:5), by="IDCNTRYL", data=timss4)
+
+intsvy.ben.pv(pvnames= paste0("BSMMAT0", 1:5), by="IDCNTRYL", data=timss4, 
 config=timss4_conf)
 }
 }

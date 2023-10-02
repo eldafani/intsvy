@@ -47,7 +47,7 @@ pisa.reg.pv, timss.reg.pv, pirls.reg.pv
 \examples{
 \dontrun{
 # install pbiecek/PIAAC package from github to have access to piaac data
-piaac.reg.pv(pvlabel=paste0(“PVLIT”, 1:10), x="GENDER_R", by = "CNTRYID", data=piaac)
+piaac.reg.pv(pvlabel=paste0("PVLIT", 1:10), x="GENDER_R", by = "CNTRYID", data=piaac)
 }
 }
 

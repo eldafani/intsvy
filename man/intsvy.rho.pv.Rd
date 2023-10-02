@@ -45,6 +45,6 @@ timss.rho, pirls.rho.pv, timss.rho.pv
 }
 \examples{
 \dontrun{
-timss.rho.pv(variable="BSDGEDUP", pvlabel=paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", data=timss)
+timss.rho.pv(variable="BSDGEDUP", pvlabel=paste0("BSMMAT0", 1:5), by="IDCNTRYL", data=timss)
 }
 }

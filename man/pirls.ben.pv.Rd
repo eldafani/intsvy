@@ -46,7 +46,7 @@ timss.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-pirls.ben.pv(pvlabel= paste0(“ASRREA0”, 1:5), by="IDCNTRYL",  data=pirls)
+pirls.ben.pv(pvlabel= paste0("ASRREA0", 1:5), by="IDCNTRYL",  data=pirls)
 }
 }
 

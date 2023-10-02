@@ -43,7 +43,7 @@ timss.mean.pv, pirls.mean.pv, piaac.mean.pv
 \dontrun{
 pisa.mean.pv(pvlabel = paste0("PV",1:10,"MATH"), by = "IDCNTRYL", data = pisa)
 pisa.mean.pv(pvlabel = paste0("PV",1:10,"MATH"), by = c("IDCNTRYL", "ST04Q01"), data = pisa)
-pisa.mean.pv(pvlabel = "paste0("PV",1:10,"MATH")", by = "IDCNTRYL", data = pisa)
+pisa.mean.pv(pvlabel = "paste0("PV",1:10,"MATH"), by = "IDCNTRYL", data = pisa)
 }
 }
 

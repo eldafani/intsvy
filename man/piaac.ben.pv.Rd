@@ -47,9 +47,9 @@ timss.ben.pv, pirls.ben.pv, pisa.ben.pv
 \dontrun{
 #Table A2.5
 #Percentage of adults scoring at each proficiency level in numeracy
-piaac.ben.pv(pvlabel= paste0(“PVNUM”, 1:10), by="CNTRYID", data=piaac)
+piaac.ben.pv(pvlabel= paste0("PVNUM", 1:10), by="CNTRYID", data=piaac)
 #Table A2.1
 #Percentage of adults scoring at each proficiency level in literacy
-piaac.ben.pv(pvlabel= paste0(“PVLIT”, 1:10), by="CNTRYID", data=piaac)
+piaac.ben.pv(pvlabel= paste0("PVLIT", 1:10), by="CNTRYID", data=piaac)
 }
 }
