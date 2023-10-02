@@ -39,6 +39,7 @@ The names of columns corresponding to the achievement plausible scores.
 }
 \examples{
   \dontrun{
-timss.per.pv(pvlabel=paste0(“BSMMAT0”, 1:5), per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timssg8)
+timss.per.pv(pvlabel=paste0(“BSMMAT0”, 1:5), 
+per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timssg8)
   }
 }

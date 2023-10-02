@@ -42,14 +42,22 @@ Object with configuration of a given study. Should contain the slot `prefixes` w
 }
 \examples{
   \dontrun{
-    timss.per.pv(pvlabel= paste0(“BSMMAT0”, 1:5), per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timss8)
-    intsvy.per.pv(pvnames= paste0(“BSMMAT0”, 1:5),  by="IDCNTRYL", data=timss8, config=timss8_conf)
+    timss.per.pv(pvlabel= paste0(“BSMMAT0”, 1:5), 
+    per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=timss8)
+    
+    intsvy.per.pv(pvnames= paste0(“BSMMAT0”, 1:5),  by="IDCNTRYL", 
+    data=timss8, config=timss8_conf)
     
     pirls.per.pv(pvlabel= paste0(“ASRREA0”, 1:5), by="IDCNTRYL", data=pirls)
-    intsvy.per.pv(pvnames= paste0(“ASRREA0”, 1:5), per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
+    
+    intsvy.per.pv(pvnames= paste0(“ASRREA0”, 1:5), 
+    per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls, 
     config=pirls_conf)
     
-    pisa.per.pv(pvlabel= paste0("PV",1:10,"MATH"), per=c(10, 25, 75, 90), by="CNT", data=pisa)
-    intsvy.per.pv(pvnames= paste0("PV",1:10,"MATH"), by="CNT", data=pisa, config=pisa_conf)
+    pisa.per.pv(pvlabel= paste0("PV",1:10,"MATH"), 
+    per=c(10, 25, 75, 90), by="CNT", data=pisa)
+    
+    intsvy.per.pv(pvnames= paste0("PV",1:10,"MATH"), 
+    by="CNT", data=pisa, config=pisa_conf)
   }
 }

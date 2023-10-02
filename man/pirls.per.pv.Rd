@@ -39,6 +39,7 @@ The names of columns corresponding to the achievement plausible scores.
 }
 \examples{
   \dontrun{
-    pirls.per.pv(pvlabel=paste0(“ASRREA0”, 1:5), per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls)
+    pirls.per.pv(pvlabel=paste0(“ASRREA0”, 1:5), 
+    per = c(5, 10, 25, 50, 75, 90, 95), by="IDCNTRYL", data=pirls)
   }
 }

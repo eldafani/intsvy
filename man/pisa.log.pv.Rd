@@ -44,7 +44,10 @@ timss.log.pv, pirls.log.pv
 }
 \examples{
 \dontrun{
-timss.log.pv(pvlabel=paste0(“BSMMAT0”, 1:5), cutoff= 550, x=c("ITSEX", "BSBGSLM"), by="IDCNTRYL", data=timss8g)
-intsvy.log.pv(pvlabel=paste0(“BSMMAT0”, 1:5), cutoff= 550, x="ITSEX", by="IDCNTRYL", 
-data=timss8g, config=timss8_conf)
+timss.log.pv(pvlabel=paste0(“BSMMAT0”, 1:5), cutoff= 550, 
+x=c("ITSEX", "BSBGSLM"), by="IDCNTRYL", data=timss8g)
+
+intsvy.log.pv(pvlabel=paste0(“BSMMAT0”, 1:5), cutoff= 550, x="ITSEX", 
+by="IDCNTRYL", data=timss8g, config=timss8_conf)
+
 }}

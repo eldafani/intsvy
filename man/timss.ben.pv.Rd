@@ -48,7 +48,9 @@ pirls.ben.pv, pisa.ben.pv
 }
 \examples{
 \dontrun{
-timss.ben.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", cutoff = c(400, 475, 550, 625), data=timss8g)
+timss.ben.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", 
+cutoff = c(400, 475, 550, 625), data=timss8g)
+
 timss.ben.pv(pvlabel= paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", data=timss4g)
 }
 }

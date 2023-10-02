@@ -50,9 +50,16 @@ piaac.reg.pv, pirls.reg.pv, pisa.reg.pv, timss.reg.pv
 }
 \examples{
 \dontrun{
-intsvy.reg.pv(pvnames=paste0("PV",1:10,"MATH") , x="ST04Q01", by = "IDCNTRYL",data=pisa, config=pisa_conf)
-intsvy.reg.pv(pvnames=paste0(“PVLIT”, 1:10), x="GENDER_R", by = "CNTRYID", data=piaac, config=piaac_conf)
-intsvy.reg.pv(pvnames=paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", x="ITSEX", data=timss8g, config=timss8_conf)
-intsvy.reg.pv(pvnames=paste0(“ASRREA0”, 1:5), by="IDCNTRYL", x="ITSEX", data=pirls, config=pirls_conf)
+intsvy.reg.pv(pvnames=paste0("PV",1:10,"MATH") , x="ST04Q01", 
+by = "IDCNTRYL",data=pisa, config=pisa_conf)
+
+intsvy.reg.pv(pvnames=paste0(“PVLIT”, 1:10), x="GENDER_R", by = "CNTRYID", 
+data=piaac, config=piaac_conf)
+
+intsvy.reg.pv(pvnames=paste0(“BSMMAT0”, 1:5), by="IDCNTRYL", x="ITSEX", 
+data=timss8g, config=timss8_conf)
+
+intsvy.reg.pv(pvnames=paste0(“ASRREA0”, 1:5), by="IDCNTRYL", x="ITSEX", 
+data=pirls, config=pirls_conf)
 }
 }
