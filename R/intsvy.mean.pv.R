@@ -123,7 +123,7 @@ function(pvnames, by, data, export=FALSE, name= "output", folder=getwd(), config
       # jack knife
       # in PIRLS / TIMSS
       
-      pvnames <- grep(pvnames, names(data), value = TRUE)
+      # pvnames <- grep(pvnames, names(data), value = TRUE)
 
       # Replicate weights
       R.wt <- sapply(1:max(data[[config$variables$jackknifeZone]]), function(x) 
