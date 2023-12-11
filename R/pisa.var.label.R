@@ -26,10 +26,14 @@ function(folder=getwd(), student.file, parent.file=c(), school.file=c(), name="V
   files.all <- files.all[lapply(files.all, length)>0]
   
   # Retrieve var labels
-  suppressWarnings(var.label <- lapply(files.all, function(x) description(spss.system.file(x[[1]], to.lower=FALSE))))  
   
+  suppressWarnings({
+    file.label <- lapply(files.all, function(x) spss.system.file(x[[1]], to.lower=FALSE))
+    var.label <- lapply(file.label, function(x) description(x))
+    country <- table(file.label[["Student"]]$CNT)
+  })  
+
   # Read student file and participating countries 
-  country <- table(read.spss(files.all[["Student"]], use.value.labels = FALSE, to.data.frame=TRUE)[, "CNT"])
   var.label[[length(files.all)+1]] <- names(country)
   names(var.label)[length(var.label)] <-"Country abbreviations"
   
