@@ -8,8 +8,8 @@
 \tabular{ll}{
 Package: \tab intsvy\cr
 Type: \tab Package\cr
-Version: \tab 2.8\cr
-Date: \tab 2023-09-19\cr
+Version: \tab 2.9\cr
+Date: \tab 2024-01-16\cr
 License: \tab GPL-2\cr
 }
 intsvy allows useRs to work with international assessment data (e.g., TIMSS, PIRLS, PISA, ICILS, and PIAAC). Data and merge functions print variable labels and the name of participating countries in international assessments as well as import data directly into R for the variables in student, parent, school, and teacher instruments and countries selected by the useR. Analysis functions, including mean statistics, standard deviations, regression estimates, correlation coefficients, and frequency tables, calculate point estimates and standard errors that take into account the complex sample design (i.e., replicate weights) and rotated test forms (i.e., plausible achievement values). 

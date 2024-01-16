@@ -1,8 +1,8 @@
 Package: intsvy
-Version: 2.8
+Version: 2.9
 Type: Package
 Title: International Assessment Data Manager
-Date: 2023-09-19
+Date: 2024-01-16
 Author: Daniel Caro <dcarov@gmail.com>, Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 Maintainer: Daniel Caro <dcarov@gmail.com>
 Description: 
