@@ -51,7 +51,7 @@ pisa.select.merge <-
     
     # Participating countries (from student file)
     pisa.student <- spss.system.file(files.all[["Student"]], to.lower=FALSE)
-    country <- names(table(pisa.student$CNT))
+    country <- unique(as_haven(pisa.student$CNT)$CNT)
     
     # If countries missing, all countries selected
     if (missing(countries)) {
@@ -69,7 +69,7 @@ pisa.select.merge <-
     
     if (!missing(student) | !missing(parent)) {
       
-      student.data <- pisa.student[as.data.frame(pisa.student["CNT"])[,1] %in% countries,
+      student.data <- pisa.student[as_haven(pisa.student$CNT) %in% countries,
                                    c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), 
                                                         value=TRUE)), unique(student))]
       
@@ -87,7 +87,7 @@ pisa.select.merge <-
       
       pisa.parent <- spss.system.file(files.all[["Parent"]], to.lower=FALSE)
       
-      parent.data <- pisa.parent[as.data.frame(pisa.parent[["CNT"]])[,1] %in% countries, 
+      parent.data <- pisa.parent[as_haven(pisa.parent$CNT) %in% countries, 
                                  c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), unique(parent))]
     
     }
@@ -103,7 +103,7 @@ pisa.select.merge <-
       
       pisa.school <- spss.system.file(files.all[["School"]], to.lower=FALSE)
       
-      school.data <- pisa.school[as.data.frame(pisa.school[["CNT"]])[,1] %in% countries, 
+      school.data <- pisa.school[as_haven(pisa.school$CNT) %in% countries, 
                                  c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), unique(school))]
     }
     
