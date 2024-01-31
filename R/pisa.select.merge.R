@@ -70,6 +70,7 @@ pisa.select.merge <-
     if (!missing(student) | !missing(parent)) {
       
       student.data <- pisa.student[as_haven(pisa.student$CNT)$CNT %in% countries,
+
                                    c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), 
                                                         value=TRUE)), unique(student))]
       
@@ -89,7 +90,7 @@ pisa.select.merge <-
       
       parent.data <- pisa.parent[as_haven(pisa.parent$CNT)$CNT %in% countries, 
                      c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), unique(parent))]
-    
+
     }
     
     
@@ -105,6 +106,7 @@ pisa.select.merge <-
       
       school.data <- pisa.school[as_haven(pisa.school$CNT)$CNT %in% countries, 
                      c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), unique(school))]
+
     }
     
     
