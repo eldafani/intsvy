@@ -11,7 +11,7 @@ Description:
 License: GPL-2
 URL: https://daniel-caro.com/r-intsvy/, https://github.com/eldafani/intsvy
 BugReports: https://github.com/eldafani/intsvy/issues
-Imports: dplyr, foreign, ggplot2, Hmisc, memisc, plyr, reshape, stats, utils 
+Imports: dplyr, foreign, ggplot2, haven, Hmisc, memisc, plyr, reshape, stats, utils 
 LazyData: yes
 NeedsCompilation: no
 Repository: CRAN

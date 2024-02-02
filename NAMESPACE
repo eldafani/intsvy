@@ -3,6 +3,7 @@ importFrom("memisc", "percent", "spss.system.file", "as_haven", "description", "
 importFrom("dplyr", "bind_rows")
 importFrom("reshape", "melt")
 importFrom("foreign", "read.spss")
+importFrom("haven", "read_sav")
 importFrom("plyr", "ddply")
 importFrom("Hmisc", "wtd.quantile")
 importFrom("stats", "complete.cases", "as.formula", "cov.wt", "glm", "lm", "na.omit",

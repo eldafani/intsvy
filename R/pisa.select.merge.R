@@ -68,11 +68,11 @@ pisa.select.merge <-
     # Student data (need for school and parent data too)
     
     if (!missing(student) | !missing(parent)) {
+  
+      student.data <- read_sav(files.all[["Student"]], col_select = c("CNT", 
+      unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), value=TRUE)), unique(student)))
       
-      student.data <- pisa.student[as_haven(pisa.student$CNT)$CNT %in% countries,
-
-                                   c("CNT", unique(grep("^PV|^W_F|ID$|STD$", names(pisa.student), 
-                                                        value=TRUE)), unique(student))]
+      student.data <- student.data[as.character(student.data$CNT) %in% countries, ]
       
     }
     
@@ -85,11 +85,12 @@ pisa.select.merge <-
         stop("cannot locate parental questionnaire data file")
       }
       
-      
       pisa.parent <- spss.system.file(files.all[["Parent"]], to.lower=FALSE)
       
-      parent.data <- pisa.parent[as_haven(pisa.parent$CNT)$CNT %in% countries, 
-                     c("CNT", unique(grep("ID$|STD$", names(pisa.parent), value=T)), unique(parent))]
+      pisa.parent <- read_sav(files.all[["Parent"]], col_select = c("CNT", 
+      unique(grep("ID$|STD$", names(pisa.parent), value=TRUE)), unique(parent)))
+      
+      parent.data <- pisa.parent[as.character(pisa.parent$CNT) %in% countries, ]
 
     }
     
@@ -104,8 +105,10 @@ pisa.select.merge <-
       
       pisa.school <- spss.system.file(files.all[["School"]], to.lower=FALSE)
       
-      school.data <- pisa.school[as_haven(pisa.school$CNT)$CNT %in% countries, 
-                     c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=T)), unique(school))]
+      pisa.school <- read_sav(files.all[["School"]], col_select = 
+      c("CNT", unique(grep("^W_F|ID$", names(pisa.school), value=TRUE)), unique(school)))
+      
+      school.data <- pisa.school[as.character(pisa.school$CNT) %in% countries, ]
 
     }
     
