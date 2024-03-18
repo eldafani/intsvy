@@ -32,7 +32,7 @@ install_github("eldafani/intsvy")
 
 # Examples
 
-+ PISA 2022
-+ PIRLS 2021
-+ TIMSS 2019
-+ SEA-PLM 2019
++ [PISA 2022](pisa22.md)
++ [PIRLS 2021](pirls21.md)
++ [TIMSS 2019](timss2019.md)
++ [SEA-PLM 2019](sea-plm.md)

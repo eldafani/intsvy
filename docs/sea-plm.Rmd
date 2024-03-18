@@ -10,12 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, results='hide'}
 library("tidyverse")
 library("haven")
-library("devtools")
-install_github("eldafani/intsvy")
-library("intsvy") # version from github
 ```
 
 ```{r echo=FALSE}
+library("intsvy")
 options(width=120)
 ```
 
