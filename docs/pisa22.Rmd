@@ -1,0 +1,75 @@
+---
+title: "Examples with PISA 2022"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("intsvy")
+dir <- "/home/eldani/eldani/International LSA/PISA/2022"
+```
+
+```{r, eval=FALSE}
+library("devtools")
+install_github("eldafani/intsvy")
+library("intsvy")
+```
+
+
+## Select data
+Check names of variables in student and school files and names of participating countries for data selection. Datasets are stored in directory, *dir*. 
+
+```{r, eval=FALSE}
+pisa.var.label(folder = dir,
+               student.file="CY08MSP_STU_QQQ.sav",
+               school.file="CY08MSP_SCH_QQQ.sav", output = dir)
+```
+
+
+Select data for three countries, student's SES, sex, and school's location
+```{r}
+
+pisa <- pisa.select.merge(folder = dir,
+                          student.file="CY08MSP_STU_QQQ.sav",
+                          school.file="CY08MSP_SCH_QQQ.sav",
+                          student= c("ESCS", "ST004D01T"),
+                          school = c("SC001Q01TA"), 
+                          countries = c("ARG", "FRA", "PER"))
+```
+
+## Calculate average mathematics score by country
+The average mathematics score and its associated standard error are presented, first for Argentina, second for France and third for Peru.
+
+```{r}
+pisa.mean.pv(pvlabel = paste0("PV", 1:10, "MATH"), by = "CNT", data = pisa)
+```
+
+## Calculate average mathematics score by country and sex
+```{r}
+pisa.mean.pv(pvlabel = paste0("PV", 1:10, "MATH"), by = c("CNT", "ST004D01T"), data = pisa)
+```
+
+## Calculate proficiency levels by country
+
+### Cutoff scores for mathematics performance
+
+```{r}
+mathcut <- c(357.77, 420.07, 482.38, 544.68, 606.99, 669.3)
+```
+
+### Produce table with results
+```{r}
+pisa.ben.pv(pvlabel= paste0("PV", 1:10, "MATH"), cutoff= mathcut, by="CNT", data=pisa)
+```
+
+## Estimate regression of reading on sex by country
+```{r}
+pisa.reg.pv(pvlabel= paste0("PV", 1:10, "READ"), x="ST004D01T", by = "CNT", data=pisa)
+```
+
+## Estimate regression of mathematics on SES by country
+```{r}
+pisa.reg.pv(pvlabel= paste0("PV", 1:10, "MATH"), x="ESCS", by = "CNT", data=pisa)
+```
+
+

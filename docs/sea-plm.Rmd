@@ -1,0 +1,85 @@
+---
+title: "Examples with SEA-PLM 2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, results='hide'}
+library("tidyverse")
+library("haven")
+library("devtools")
+install_github("eldafani/intsvy")
+library("intsvy") # version from github
+```
+
+```{r echo=FALSE}
+options(width=120)
+```
+
+## Read data
+```{r}
+dir <- "/home/eldani/eldani/International LSA/SEA-PLM/Data/SEA-PLM_Regional_Students-sav"
+student <- read_spss(file.path(dir, "SEA-PLM_Regional_Students.sav"))
+dir <- "/home/eldani/eldani/International LSA/SEA-PLM/Data/SEA-PLM_Regional_Schools-sav"
+school <- read_spss(file.path(dir, "SEA-PLM_Regional_Schools.sav"))
+```
+
+## Merge data
+```{r}
+sea <- left_join(student, school, by = c("CNT", "SchID"))
+```
+
+## Create grouping variables
+```{r}
+sea$Sex <- factor(sea$Gender, 1:2, labels = c("Female", "Male"))
+
+sea$Language <- factor(sea$S_LANG, 0:1, labels = c("No", "Yes"))
+
+sea$Location <- factor(sea$SC09Q01, 1:5, labels = c("Rural", rep("Urban", 4)))
+```
+
+
+## Proficiency reading levels by CNT
+```{r}
+intsvy.ben.pv(pvnames= paste0("PV", 1:5, "_R"), cutoff = c(304, 317),
+              by= c("CNT"), data=sea, config = sea_conf)
+              
+```
+
+## Proficiency reading levels by CNT and sex
+```{r}
+intsvy.ben.pv(pvnames= paste0("PV", 1:5, "_R"), cutoff =   c(304, 317), 
+              by= c("CNT", "Sex"), data=sea, config = sea_conf)
+```
+
+## Mean reading achievement by groups
+```{r}
+intsvy.mean.pv(pvnames=paste0("PV", 1:5, "_R"), by= c("CNT"), data=sea, config = sea_conf)
+
+intsvy.mean.pv(pvnames=paste0("PV", 1:5, "_R"), by= c("CNT", "Location"), data=sea, config = sea_conf)
+
+intsvy.mean.pv(pvnames=paste0("PV", 1:5, "_R"), by= c("CNT", "Sex"), 
+               data=sea[!is.na(sea$Sex), ], config = sea_conf)
+
+intsvy.mean.pv(pvnames= paste0("PV", 1:5, "_R"), by= c("CNT", "Language"), data=sea, config = sea_conf)
+```
+
+## Mean writing and math achievement by CNT
+```{r}
+intsvy.mean.pv(pvnames=paste0("PV", 1:5, "_W"), by= c("CNT"), data=sea, config = sea_conf)
+intsvy.mean.pv(pvnames=paste0("PV", 1:5, "_M"), by= c("CNT"), data=sea, config = sea_conf)
+```
+
+## Regression of reading achievement on SES
+```{r}
+intsvy.reg.pv(pvnames= paste0("PV", 1:5, "_R"), x= "SES", by= c("CNT"), data=sea, config = sea_conf)
+```
+
+## Regression of math achievement on SES and sex
+```{r}
+intsvy.reg.pv(pvnames= paste0("PV", 1:5, "_M"), x= c("SES", "Sex"), by= c("CNT"), data=sea, config = sea_conf)
+```
+
