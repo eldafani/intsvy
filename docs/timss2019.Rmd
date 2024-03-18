@@ -1,0 +1,61 @@
+---
+title: "Examples with TIMSS 2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r eval = FALSE}
+library("devtools")
+install_github("eldafani/intsvy")
+library("intsvy")
+```
+
+```{r echo=FALSE}
+options(width=120)
+```
+
+```{r echo=FALSE}
+library("intsvy")
+dir <- "/home/eldani/eldani/International LSA/TIMSS/TIMSS 19/Grade 4"
+```
+
+## Grade 4
+### Read data
+The object dir specifies the directory path where the TIMSS 2019 data is located (eg. “/home/data”).
+Variable selection can be done with aid of timssg4.var.label(dir)
+
+```{r}
+timss <- timssg4.select.merge(folder= dir,
+         student= c("ITSEX", "ASBG05A", "ASBG05B", "ASBG05C", "ASBG05D",
+                    "ASBG03"), 
+         home= c("ASBH14", "ASBH10", "ASDHEDUP", "ASDHOCCP", "ASBH17A", "ASBH17B"),
+         school= c("ACBG05B"), 
+         countries = c("ARE", "CHL", "CAN", "HUN"))
+```
+
+### Calculate mean math performance by education system
+```{r}
+timss.mean.pv(pvlabel=paste0("ASMMAT0", 1:5), by= "IDCNTRYL", data=timss)
+```
+
+### Calculate mean math performance by education system and student's sex
+```{r}
+timss.mean.pv(pvlabel= paste0("ASMMAT0", 1:5), by= c("IDCNTRYL", "ITSEX"), data=timss)
+```
+
+### International benchmarks by education system
+```{r}
+intsvy.ben.pv(pvnames= paste0("ASMMAT0", 1:5), cutoff =   c(400, 475, 550, 625), 
+              by= c("IDCNTRYL", "ITSEX"), data=timss, config = timss4_conf)
+```
+
+
+### International benchmarks by education system and student's sex
+```{r}
+intsvy.ben.pv(pvnames= paste0("ASMMAT0", 1:5), cutoff =   c(400, 475, 550, 625), 
+              by= c("IDCNTRYL", "ITSEX"), data=timss, config = timss4_conf)
+```
+

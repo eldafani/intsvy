@@ -1,0 +1,55 @@
+---
+title: "Examples with PIRLS 2021"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval=FALSE}
+library("devtools")
+install_github("eldafani/intsvy")
+library("intsvy")
+```
+
+```{r, echo = FALSE}
+library("intsvy")
+dir <- "/home/eldani/eldani/International LSA/PIRLS/PIRLS 2021/3_International Database/1_SPSS Data/"
+```
+
+## Read data for selected variables and countries
+The object *dir* specifies the directory path where the PIRLS 2021 data is located (eg. "/home/data").
+Variable selection can be done with aid of *pirls.var.label(dir)*.
+
+```{r}
+pirls <- pirls.select.merge(folder= dir,
+                            student= c("ITSEX", "ASBG03"),
+                            home= c("ASBHSES", "ASDHSES"), 
+                            school= c("ACBG05B"))
+```
+
+## Calculate average reading score by country
+```{r}
+pirls.mean.pv(pvlabel = paste0("ASRREA0", 1:5), by = "IDCNTRYL", data = pirls)
+```
+
+## Calculate average reading score by country and sex
+```{r}
+pirls.mean.pv(pvlabel = paste0("ASRREA0", 1:5), by = c("IDCNTRYL", "ITSEX"), 
+              data = pirls[!is.na(pirls$ITSEX), ])
+```
+
+### Calculate MPL by country
+
+```{r}
+pirls.ben.pv(pvlabel= paste0("ASRREA0", 1:5), cutoff = 400, by="IDCNTRYL", data=pirls)
+```
+
+## Estimate regression of reading on sex by country
+```{r}
+pirls.reg.pv(pvlabel= paste0("ASRREA0", 1:5), x="ITSEX", by = "IDCNTRYL", data=pirls[!is.na(pirls$ITSEX), ])
+```
+
+
+

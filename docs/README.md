@@ -1,0 +1,27 @@
+
+# intsvy
+
+**intsvy** provides tools for analyzing data from international
+assessments
+
+# Installation
+
+## CRAN
+
+``` r
+install.packages("intsvy")
+```
+
+## GitHub
+
+``` r
+library("devtools")
+install_github("eldafani/intsvy")
+```
+
+# Examples
+
+- PISA 2022
+- PIRLS 2021
+- TIMSS 2019
+- SEA-PLM 2019
